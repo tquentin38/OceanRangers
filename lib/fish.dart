@@ -8,21 +8,21 @@ import 'package:flutter/scheduler.dart';
 class FishBackgroundWidget extends StatefulWidget {
   final double baseTop;
   final double secondDelay;
-  FishBackgroundWidget(this.baseTop, this.secondDelay);
+  const FishBackgroundWidget(this.baseTop, this.secondDelay, {super.key});
   @override
-  State createState() => _FishBackgroundState(baseTop, secondDelay);
+  State createState() => _FishBackgroundState();
 }
 
 class _FishBackgroundState extends State<FishBackgroundWidget> {
   double topFish = 100;
   Timer? timer;
-  int angle_count = 0;
+  int angleCount = 0;
   double valueAvance = 0;
   double rightFish = -150;
 
-  final double baseTop;
-  final double secondDelay;
-  _FishBackgroundState(this.baseTop, this.secondDelay);
+  late double baseTop = widget.baseTop;
+  late double secondDelay = widget.secondDelay;
+  _FishBackgroundState();
   double timeSinceStart = 0;
   bool started = false;
 
@@ -33,17 +33,17 @@ class _FishBackgroundState extends State<FishBackgroundWidget> {
         started = true;
       }
     } else {
-      angle_count += 1;
+      angleCount += 1;
       valueAvance += 0.1;
-      if (angle_count > 360) {
-        angle_count = 0;
+      if (angleCount > 360) {
+        angleCount = 0;
       }
       if (valueAvance > 100) {
         valueAvance = 0;
       }
 
       setState(() {
-        topFish = baseTop + sin(angle_count * pi / 180) * 100;
+        topFish = baseTop + sin(angleCount * pi / 180) * 100;
 
         rightFish = (100 - valueAvance) /
                 100 *

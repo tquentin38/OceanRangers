@@ -66,11 +66,11 @@ class _BoatDialogState extends State<BoatDialog> {
               height: 200,
               child: Container(
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(190, 190, 190, 1),
+                    color: const Color.fromRGBO(190, 190, 190, 1),
                     border: Border.all(
                         width: 10,
                         style: BorderStyle.solid,
-                        color: Color.fromARGB(255, 8, 60, 156)),
+                        color: const Color.fromARGB(255, 8, 60, 156)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

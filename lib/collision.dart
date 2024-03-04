@@ -15,8 +15,5 @@ class ColisionDetector {
     // initialization logic
   }
 
-  double PlayerX = 0;
-  double PlayerY = 0;
-
   void updatePlayer() {}
 }

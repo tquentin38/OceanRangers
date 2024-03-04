@@ -1,7 +1,7 @@
-import 'package:challenge2024/boat/boat_dialog.dart';
-import 'package:challenge2024/boat/boat_hud.dart';
-import 'package:challenge2024/core/quests/quests_manager.dart';
-import 'package:challenge2024/core/stats/stats.dart';
+import 'package:ocean_rangers/boat/boat_dialog.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
+import 'package:ocean_rangers/core/quests/quests_manager.dart';
+import 'package:ocean_rangers/core/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

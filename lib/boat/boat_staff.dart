@@ -1,7 +1,5 @@
-import 'dart:async';
-
-import 'package:challenge2024/boat/boat_dialog.dart';
-import 'package:challenge2024/boat/boat_hud.dart';
+import 'package:ocean_rangers/boat/boat_dialog.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,8 +15,8 @@ class BoatStaff extends StatefulWidget {
 class _BoatStaffState extends State<BoatStaff> {
   bool seenIntro = GameFile().seenIntro;
   bool showBoatDialog = false;
-  TextStyle titleSize = TextStyle(fontSize: 25);
-  TextStyle normalSize = TextStyle(fontSize: 15);
+  TextStyle titleSize = const TextStyle(fontSize: 25);
+  TextStyle normalSize = const TextStyle(fontSize: 15);
   bool isHover = false;
   String hoverValue = "Error: no hover !";
   BoatDialog? boatDialog;

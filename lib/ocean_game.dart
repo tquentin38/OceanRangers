@@ -1,11 +1,11 @@
-import 'package:challenge2024/actors/ocean_player.dart';
-import 'package:challenge2024/core/building/building_caracteristic.dart';
-import 'package:challenge2024/core/game_file.dart';
-import 'package:challenge2024/core/ressources/ressource.dart';
-import 'package:challenge2024/core/robot/robot_caracterisitc.dart';
-import 'package:challenge2024/core/stats/stats.dart';
-import 'package:challenge2024/managers/world_manager.dart';
-import 'package:challenge2024/overlays/hud.dart';
+import 'package:ocean_rangers/actors/ocean_player.dart';
+import 'package:ocean_rangers/core/building/building_caracteristic.dart';
+import 'package:ocean_rangers/core/game_file.dart';
+import 'package:ocean_rangers/core/ressources/ressource.dart';
+import 'package:ocean_rangers/core/robot/robot_caracterisitc.dart';
+import 'package:ocean_rangers/core/stats/stats.dart';
+import 'package:ocean_rangers/managers/world_manager.dart';
+import 'package:ocean_rangers/overlays/hud.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
@@ -78,7 +78,7 @@ class OceanGame extends FlameGame
       'bateau_l.png',
       'bateau.png',
       'sac_plastique_s.png',
-      'ancre.jpg',
+      'ancre.png',
       'robot.png',
       //new fishs
       'fish_1.png',
@@ -113,7 +113,6 @@ class OceanGame extends FlameGame
 
   @override
   void onGameResize(Vector2 size) {
-    // TODO: implement onGameResize
     if (isInit) _worldManager.onGameResize(size);
     super.onGameResize(size);
   }
@@ -176,6 +175,13 @@ class OceanGame extends FlameGame
     isInit = true;
     hasPlayedDeadSound = false;
     loadAudio();
+
+    if (!GameFile().seenIntroOcean) {
+      onPause = true;
+      isOnBoat = false;
+      overlays.add('Infos');
+      GameFile().setIntroOceanPassed();
+    }
   }
 
   void loadAudio() async {
@@ -206,7 +212,7 @@ class OceanGame extends FlameGame
               100)
           .round();
       if (nb != 0) {
-        if (ressourceMessage.length == 0) {
+        if (ressourceMessage.isEmpty) {
           ressourceMessage += "${ressourcesTypes.name}:$nb ";
         } else {
           ressourceMessage += ", ${ressourcesTypes.name}:$nb ";

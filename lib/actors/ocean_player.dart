@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:challenge2024/actors/water_enemy.dart';
-import 'package:challenge2024/core/building/building_caracteristic.dart';
-import 'package:challenge2024/main.dart';
-import 'package:challenge2024/managers/world_manager.dart';
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/actors/water_enemy.dart';
+import 'package:ocean_rangers/core/building/building_caracteristic.dart';
+import 'package:ocean_rangers/main.dart';
+import 'package:ocean_rangers/managers/world_manager.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -16,11 +16,11 @@ import '../core/robot/robot_caracterisitc.dart';
 import '../objects/ground_block.dart';
 import '../objects/platform_block.dart';
 import '../objects/trash.dart';
-import '../text/testBox.dart';
+import '../text/text_box.dart';
 
 class OceanPlayer extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks, HasGameReference<OceanGame> {
-  int horizontalDirection = 0;
+  double horizontalDirection = 0;
   final Vector2 velocity = Vector2.zero();
   double moveSpeed = 150;
   final Vector2 fromAbove = Vector2(0, -1);
@@ -117,6 +117,11 @@ class OceanPlayer extends SpriteAnimationComponent
       game.isOnBoat = false;
       game.overlays.add('GoBack');
     }
+    if (keysPressed.contains(LogicalKeyboardKey.keyI)) {
+      game.onPause = true;
+      game.isOnBoat = false;
+      game.overlays.add('Infos');
+    }
     return true;
   }
 
@@ -134,10 +139,30 @@ class OceanPlayer extends SpriteAnimationComponent
         goUp = true;
       }
 
-      if (MouseInfos().position.x > screenSize.x / 2) {
-        horizontalDirection = 1;
-      } else if (MouseInfos().position.x < screenSize.x / 2) {
-        horizontalDirection = -1;
+      if (MouseInfos().position.x > screenSize.x / 2 + screenSize.x * 0.03) {
+        if (MouseInfos().position.x > screenSize.x / 2 + screenSize.x / 4) {
+          horizontalDirection = 1;
+        } else {
+          horizontalDirection = 1 *
+              (1 -
+                  ((screenSize.x / 2 +
+                          screenSize.x / 4 -
+                          MouseInfos().position.x) /
+                      (screenSize.x / 4)));
+          debugPrint(
+              "$horizontalDirection (${screenSize.x / 2 + screenSize.x / 4 - MouseInfos().position.x}/${screenSize.x / 4})");
+        }
+      } else if (MouseInfos().position.x <
+          screenSize.x / 2 - screenSize.x * 0.03) {
+        if (MouseInfos().position.x < screenSize.x / 4) {
+          horizontalDirection = -1;
+        } else {
+          horizontalDirection = -1 *
+              ((screenSize.x / 2 - MouseInfos().position.x) /
+                  (screenSize.x / 4));
+          //debugPrint(
+          //    "$horizontalDirection (${screenSize.x / 2 - MouseInfos().position.x}/${screenSize.x / 4})");
+        }
       }
     } else if (wasTap) {
       wasTap = true;
@@ -165,7 +190,7 @@ class OceanPlayer extends SpriteAnimationComponent
     return randVect;
   }
 
-  int lastHorizontalDirection = 1;
+  double lastHorizontalDirection = 1;
   void generateParticules() {
     // Composition.
     //
@@ -185,7 +210,7 @@ class OceanPlayer extends SpriteAnimationComponent
     if (horizontalDirection != 0) {
       lastHorizontalDirection = horizontalDirection;
     }
-    if (lastHorizontalDirection == 1) {
+    if (lastHorizontalDirection > 0) {
       posPart.add(Vector2(-50, 0));
     } else {
       posPart.add(Vector2(50, 0));
@@ -198,7 +223,7 @@ class OceanPlayer extends SpriteAnimationComponent
             acceleration: newRandomVector(),
             position: posPart,
             child: CircleParticle(
-              paint: Paint()..color = Color.fromARGB(255, 68, 0, 255),
+              paint: Paint()..color = const Color.fromARGB(255, 68, 0, 255),
               radius: 5,
             ),
           ),

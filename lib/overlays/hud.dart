@@ -1,5 +1,5 @@
-import 'package:challenge2024/managers/world_manager.dart';
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/managers/world_manager.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
@@ -92,7 +92,6 @@ class Hud extends PositionComponent with HasGameReference<OceanGame> {
 
   @override
   void onGameResize(Vector2 size) {
-    // TODO: implement onGameResize
     _scoreTextComponent.position = Vector2(size.x - 60, 60);
     _starComponent.position = Vector2(game.size.x - 115, 60);
     _deepTextComponent.position = Vector2(game.size.x - 75, 20);

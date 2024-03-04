@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -124,6 +124,9 @@ enum TrashType implements Comparable<TrashType> {
   conserves(
       identifier: 0,
       name: "Conserve",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 0.75,
       sizeInInventory: 1,
       pointNumber: 2,
@@ -132,6 +135,9 @@ enum TrashType implements Comparable<TrashType> {
   bouteille(
       identifier: 1,
       name: "Bouteille",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 0.4,
       sizeInInventory: 1,
       pointNumber: 3,
@@ -140,6 +146,9 @@ enum TrashType implements Comparable<TrashType> {
   couvert(
       identifier: 1,
       name: "Couvert",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 0.6,
       sizeInInventory: 1,
       pointNumber: 1,
@@ -148,6 +157,9 @@ enum TrashType implements Comparable<TrashType> {
   canette(
       identifier: 2,
       name: "Canette",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 0.4,
       sizeInInventory: 1,
       pointNumber: 2,
@@ -156,6 +168,9 @@ enum TrashType implements Comparable<TrashType> {
   goblet(
       identifier: 3,
       name: "Goblet",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 0.5,
       sizeInInventory: 1,
       pointNumber: 2,
@@ -164,6 +179,9 @@ enum TrashType implements Comparable<TrashType> {
   gourde(
       identifier: 4,
       name: "Gourde",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 0.75,
       sizeInInventory: 1,
       pointNumber: 4,
@@ -172,6 +190,9 @@ enum TrashType implements Comparable<TrashType> {
   plasticBag(
       identifier: 5,
       name: "Plastic bag",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 1,
       sizeInInventory: 2,
       pointNumber: 6,
@@ -180,6 +201,9 @@ enum TrashType implements Comparable<TrashType> {
   robot(
       identifier: 6,
       name: "Robot",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 1,
       sizeInInventory: 2,
       pointNumber: 6,
@@ -188,16 +212,22 @@ enum TrashType implements Comparable<TrashType> {
   ancre(
       identifier: 7,
       name: "Ancre",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
       size: 3,
       sizeInInventory: 2,
       pointNumber: 6,
-      imageFile: "ancre.jpg",
+      imageFile: "ancre.png",
       grant: [RessourceHolder(RessourcesTypes.platic, 6)]),
   ;
 
   const TrashType({
     required this.identifier,
     required this.name,
+    required this.deepMin,
+    required this.deepPeak,
+    required this.deepMax,
     required this.size,
     required this.sizeInInventory,
     required this.pointNumber,
@@ -207,6 +237,9 @@ enum TrashType implements Comparable<TrashType> {
 
   final int identifier;
   final String name;
+  final int deepMin;
+  final int deepPeak;
+  final int deepMax;
   final double size;
   final int sizeInInventory;
   final int pointNumber;

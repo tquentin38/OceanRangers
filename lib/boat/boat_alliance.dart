@@ -1,6 +1,6 @@
-import 'package:challenge2024/boat/boat_dialog.dart';
-import 'package:challenge2024/boat/boat_hud.dart';
-import 'package:challenge2024/core/stats/stats.dart';
+import 'package:ocean_rangers/boat/boat_dialog.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
+import 'package:ocean_rangers/core/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -315,11 +315,13 @@ class _AlliancePageState extends State<AlliancePage> {
                                             ),
                                             onPressed: () async {
                                               if (await joinAlliance(al.id)) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      "You joined ${al.name} !"),
-                                                ));
+                                                if (mounted) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        "You joined ${al.name} !"),
+                                                  ));
+                                                }
 
                                                 alliances =
                                                     await getAllianceWeb();

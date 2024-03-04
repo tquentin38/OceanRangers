@@ -1,9 +1,7 @@
-import 'dart:async';
-
-import 'package:challenge2024/boat/boat_dialog.dart';
-import 'package:challenge2024/boat/boat_hud.dart';
-import 'package:challenge2024/core/building/building_caracteristic.dart';
-import 'package:challenge2024/core/robot/robot_caracterisitc.dart';
+import 'package:ocean_rangers/boat/boat_dialog.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
+import 'package:ocean_rangers/core/building/building_caracteristic.dart';
+import 'package:ocean_rangers/core/robot/robot_caracterisitc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -97,49 +95,57 @@ class _BoatBatimentPageState extends State<BoatBatimentPage> {
                         child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(), color: Colors.grey),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    bc.getName(),
-                                    style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        decoration: TextDecoration.none),
-                                  ),
-                                  Text(
-                                      "${bc.getLevel()}/${bc.getLevelMax()} améliorations",
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      bc.getName(),
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          decoration: TextDecoration.none)),
-                                  Text(bc.getNeededForUpgrade(),
-                                      style: const TextStyle(
+                                          fontSize: 25,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
-                                          fontSize: 15,
-                                          decoration: TextDecoration.none)),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: bc.isUpgradable()
-                                          ? Colors.green
-                                          : Colors.red,
-                                      elevation: 0,
+                                          decoration: TextDecoration.none),
                                     ),
-                                    onPressed: () {
-                                      bc.upgrade();
-                                      setState(() {});
-                                    },
-                                    child: const Text("Améliorer ",
-                                        style: TextStyle(
+                                    Text(
+                                        "${bc.getLevel()}/${bc.getLevelMax()} upgrade",
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 15,
                                             color: Colors.black,
                                             decoration: TextDecoration.none)),
-                                  ),
-                                ],
+                                    Text(bc.getDescription(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            decoration: TextDecoration.none)),
+                                    Text(bc.getNeededForUpgrade(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            decoration: TextDecoration.none)),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: bc.isUpgradable()
+                                            ? Colors.green
+                                            : Colors.red,
+                                        elevation: 0,
+                                      ),
+                                      onPressed: () {
+                                        bc.upgrade();
+                                        setState(() {});
+                                      },
+                                      child: const Text("Purchase upgrade",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              decoration: TextDecoration.none)),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )),
                       ),

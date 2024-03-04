@@ -1,5 +1,5 @@
-import 'package:challenge2024/core/game_file.dart';
-import 'package:challenge2024/core/stats/stats.dart';
+import 'package:ocean_rangers/core/game_file.dart';
+import 'package:ocean_rangers/core/stats/stats.dart';
 
 class QuestsManager {
   List<QuestHolder> quests = [];

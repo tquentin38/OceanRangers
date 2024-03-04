@@ -1,4 +1,4 @@
-import 'package:challenge2024/core/robot/robot_caracterisitc.dart';
+import 'package:ocean_rangers/core/robot/robot_caracterisitc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Robot {

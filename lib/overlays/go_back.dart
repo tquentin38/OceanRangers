@@ -1,7 +1,7 @@
-import 'package:challenge2024/core/building/building_caracteristic.dart';
-import 'package:challenge2024/core/game_file.dart';
-import 'package:challenge2024/core/robot/robot_caracterisitc.dart';
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/core/building/building_caracteristic.dart';
+import 'package:ocean_rangers/core/game_file.dart';
+import 'package:ocean_rangers/core/robot/robot_caracterisitc.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

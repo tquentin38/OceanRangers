@@ -1,5 +1,5 @@
-import 'package:challenge2024/objects/game_object.dart';
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/objects/game_object.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
@@ -112,19 +112,39 @@ class WaterEnemy extends SpriteAnimationComponent
 }
 
 enum WaterEnemyType implements Comparable<WaterEnemyType> {
-  fish_15(identifier: 0, name: "fish_15", size: 1.2, imageFile: "fish_15.png"),
-  piranha(identifier: 0, name: "piranha", size: 1.1, imageFile: "piranha.png"),
+  fish_15(
+      identifier: 0,
+      name: "fish_15",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
+      size: 1.2,
+      imageFile: "fish_15.png"),
+  piranha(
+      identifier: 0,
+      name: "piranha",
+      deepMin: 0,
+      deepPeak: 75,
+      deepMax: 150,
+      size: 1.1,
+      imageFile: "piranha.png"),
   ;
 
   const WaterEnemyType({
     required this.identifier,
     required this.name,
+    required this.deepMin,
+    required this.deepPeak,
+    required this.deepMax,
     required this.size,
     required this.imageFile,
   });
 
   final int identifier;
   final String name;
+  final int deepMin;
+  final int deepPeak;
+  final int deepMax;
   final double size;
   final String imageFile;
 

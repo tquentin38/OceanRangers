@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:challenge2024/boat/boat_dialog.dart';
-import 'package:challenge2024/boat/boat_hud.dart';
-import 'package:challenge2024/core/people/people_manager.dart';
+import 'package:ocean_rangers/boat/boat_dialog.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
+import 'package:ocean_rangers/core/people/people_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

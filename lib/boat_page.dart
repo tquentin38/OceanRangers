@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:challenge2024/core/building/building_caracteristic.dart';
-import 'package:challenge2024/main.dart';
+import 'package:ocean_rangers/core/building/building_caracteristic.dart';
+import 'package:ocean_rangers/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class BoatPage extends StatefulWidget {
 
 class _BoatPageState extends State<BoatPage> {
   bool seenIntro = GameFile().seenIntro;
-  TextStyle dialogStyle = TextStyle(fontSize: 25);
+  TextStyle dialogStyle = const TextStyle(fontSize: 25);
   @override
   void initState() {
     super.initState();
@@ -90,7 +90,7 @@ class _BoatPageState extends State<BoatPage> {
                     const Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,7 +247,7 @@ class _BoatPageState extends State<BoatPage> {
                           onPressed: () {},
                           child: Text(
                             "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)",
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                     ],
@@ -266,11 +266,11 @@ class _BoatPageState extends State<BoatPage> {
                   height: 200,
                   child: Container(
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(190, 190, 190, 1),
+                        color: const Color.fromRGBO(190, 190, 190, 1),
                         border: Border.all(
                             width: 10,
                             style: BorderStyle.solid,
-                            color: Color.fromARGB(255, 8, 60, 156)),
+                            color: const Color.fromARGB(255, 8, 60, 156)),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

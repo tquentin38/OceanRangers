@@ -1,5 +1,5 @@
-import 'package:challenge2024/boat/boat_hud.dart';
-import 'package:challenge2024/main.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
+import 'package:ocean_rangers/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -309,7 +309,7 @@ class _BoatOverviewState extends State<BoatOverview> {
                       onPressed: () {},
                       child: Text(
                         "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)",
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                 ],
@@ -381,7 +381,7 @@ class _BoatOverviewState extends State<BoatOverview> {
                       onPressed: () {},
                       child: Text(
                         "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)",
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                 ],

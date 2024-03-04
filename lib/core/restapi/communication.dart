@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
-import 'package:challenge2024/core/game_file.dart';
-import 'package:challenge2024/core/stats/stats.dart';
+import 'package:ocean_rangers/core/game_file.dart';
+import 'package:ocean_rangers/core/stats/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +38,7 @@ void syncStatsWithWeb() async {
   GameFile gameFile = GameFile();
   String jsonStats = "";
   for (StatsHolder statsHolder in gameFile.statsManager.statistics) {
-    if (!jsonStats.isEmpty) {
+    if (jsonStats.isNotEmpty) {
       jsonStats += ",";
     }
     jsonStats += "\"${statsHolder.type.identifier}\":\"${statsHolder.value}\"";

@@ -1,4 +1,4 @@
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 

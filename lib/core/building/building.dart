@@ -1,4 +1,4 @@
-import 'package:challenge2024/core/building/building_caracteristic.dart';
+import 'package:ocean_rangers/core/building/building_caracteristic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Building {

@@ -127,7 +127,7 @@ class Chunk {
             debugPrint(
                 "added  WaterEnemy ${preLoadedGameObject.futurPosition}");
             game.add(plateforme);
-            loadedBlocks.add(plateforme as GameObject);
+            loadedBlocks.add(plateforme);
             toRemove.add(preLoadedGameObject);
             break;
           default:
@@ -140,6 +140,18 @@ class Chunk {
       preLoadedGameObjects.remove(removable);
     }
     //debugPrint("preLoadedGameObjects len : ${preLoadedGameObjects.length}");
+  }
+
+  FishType? getFishType(int meter) {
+    return null;
+  }
+
+  TrashType? getTrashType(int meter) {
+    return null;
+  }
+
+  WaterEnemyType? getWaterEnemyType(int meter) {
+    return null;
   }
 
   void preLoadChunck() {

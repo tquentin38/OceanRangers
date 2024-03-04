@@ -1,4 +1,4 @@
-import 'package:challenge2024/boat/boat_hud.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,7 +13,7 @@ class PortOverview extends StatefulWidget {
 
 class _PortOverviewState extends State<PortOverview> {
   bool seenIntro = GameFile().seenIntro;
-  TextStyle dialogStyle = TextStyle(fontSize: 25);
+  TextStyle dialogStyle = const TextStyle(fontSize: 25);
   bool isHover = false;
   String hoverValue = "Error: no hover !";
 

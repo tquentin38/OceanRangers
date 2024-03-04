@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:challenge2024/boat/boat_dialog.dart';
-import 'package:challenge2024/boat/boat_hud.dart';
-import 'package:challenge2024/core/people/people_manager.dart';
-import 'package:challenge2024/core/robot/robot_caracterisitc.dart';
+import 'package:ocean_rangers/boat/boat_dialog.dart';
+import 'package:ocean_rangers/boat/boat_hud.dart';
+import 'package:ocean_rangers/core/people/people_manager.dart';
+import 'package:ocean_rangers/core/robot/robot_caracterisitc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,8 +19,8 @@ class BoatTech extends StatefulWidget {
 class _BoatTechState extends State<BoatTech> {
   bool seenIntro = GameFile().seenIntro;
   bool showBoatDialog = false;
-  TextStyle titleSize = TextStyle(fontSize: 25);
-  TextStyle normalSize = TextStyle(fontSize: 15);
+  TextStyle titleSize = const TextStyle(fontSize: 25);
+  TextStyle normalSize = const TextStyle(fontSize: 15);
   bool isHover = false;
   String hoverValue = "Error: no hover !";
   BoatDialog? boatDialog;

@@ -1,4 +1,4 @@
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
@@ -86,9 +86,9 @@ class MyTextBox extends TextBoxComponent {
             position: position,
             size: Vector2(800, 100));
 
-  final bgPaint = Paint()..color = Color(0xFFFF00FF);
+  final bgPaint = Paint()..color = const Color(0xFFFF00FF);
   final borderPaint = Paint()
-    ..color = Color(0xFF000000)
+    ..color = const Color(0xFF000000)
     ..style = PaintingStyle.fill;
 
   @override

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:challenge2024/main.dart';
+import 'package:ocean_rangers/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -170,7 +170,7 @@ class _BoatHUDState extends State<BoatHUD> {
                       onPressed: () {},
                       child: Text(
                         "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)",
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -278,7 +278,7 @@ class _BoatHUDState extends State<BoatHUD> {
                     Navigator.of(context, rootNavigator: true)
                         .push(MaterialPageRoute<void>(
                       builder: (BuildContext context) => const LicensePage(
-                        applicationName: "ProjectOcean",
+                        applicationName: "Ocean Rangers",
                         applicationVersion: "1.0",
                         applicationLegalese:
                             "© www.freepik.com assets\n©Juliette Chappaz & Thibaut Quentin",

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -162,6 +162,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_1.png",
       srcSizeX: 111,
@@ -172,6 +173,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_2.png",
       srcSizeX: 125,
@@ -182,6 +184,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_3.png",
       srcSizeX: 144,
@@ -192,6 +195,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_4.png",
       srcSizeX: 120,
@@ -202,6 +206,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_5.png",
       srcSizeX: 113,
@@ -212,6 +217,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_6.png",
       srcSizeX: 186,
@@ -222,6 +228,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_7.png",
       srcSizeX: 201,
@@ -232,6 +239,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1.5,
       sizey: 1.5,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_8.png",
       srcSizeX: 83,
@@ -242,6 +250,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_9.png",
       srcSizeX: 1378,
@@ -252,6 +261,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_10.png",
       srcSizeX: 1214,
@@ -262,6 +272,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_11.png",
       srcSizeX: 1097,
@@ -272,6 +283,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_12.png",
       srcSizeX: 808,
@@ -282,6 +294,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_13.png",
       srcSizeX: 1231,
@@ -292,6 +305,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_14.png",
       srcSizeX: 655,
@@ -310,6 +324,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 1,
       sizey: 1,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "fish_16.png",
       srcSizeX: 116,
@@ -320,6 +335,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 3.5,
       sizey: 3.5,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "banc_poisson.png",
       srcSizeX: 468,
@@ -330,6 +346,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 5,
       sizey: 5,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "Blue_Whale.png",
       srcSizeX: 227,
@@ -340,6 +357,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 4,
       sizey: 4,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "dauphin.png",
       srcSizeX: 229,
@@ -350,6 +368,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 3,
       sizey: 3,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "Manta_Ray.png",
       srcSizeX: 162,
@@ -360,6 +379,7 @@ enum FishType implements Comparable<FishType> {
       sizex: 3,
       sizey: 3,
       deepMin: 0,
+      deepPeak: 75,
       deepMax: 150,
       imageFile: "tortue.png",
       srcSizeX: 335,
@@ -372,6 +392,7 @@ enum FishType implements Comparable<FishType> {
     required this.sizex,
     required this.sizey,
     required this.deepMin,
+    required this.deepPeak,
     required this.deepMax,
     required this.imageFile,
     required this.srcSizeX,
@@ -383,6 +404,7 @@ enum FishType implements Comparable<FishType> {
   final double sizex;
   final double sizey;
   final int deepMin;
+  final int deepPeak;
   final int deepMax;
   final String imageFile;
   final double srcSizeX;

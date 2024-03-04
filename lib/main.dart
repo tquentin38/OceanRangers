@@ -1,21 +1,24 @@
 import 'dart:async';
 
-import 'package:challenge2024/boat/boat_alliance.dart';
-import 'package:challenge2024/boat/boat_batiment.dart';
-import 'package:challenge2024/boat/boat_machines.dart';
-import 'package:challenge2024/boat/boat_overview_part.dart';
-import 'package:challenge2024/boat/boat_port.dart';
-import 'package:challenge2024/boat/boat_port_overview.dart';
-import 'package:challenge2024/boat/boat_quest.dart';
-import 'package:challenge2024/boat/boat_robot.dart';
-import 'package:challenge2024/boat/boat_staff.dart';
-import 'package:challenge2024/boat/boat_tech.dart';
-import 'package:challenge2024/boat/boat_wheel_houses.dart';
-import 'package:challenge2024/core/game_file.dart';
-import 'package:challenge2024/ocean_game.dart';
+import 'package:flutter/semantics.dart';
+import 'package:ocean_rangers/boat/boat_alliance.dart';
+import 'package:ocean_rangers/boat/boat_batiment.dart';
+import 'package:ocean_rangers/boat/boat_machines.dart';
+import 'package:ocean_rangers/boat/boat_overview_part.dart';
+import 'package:ocean_rangers/boat/boat_port.dart';
+import 'package:ocean_rangers/boat/boat_port_overview.dart';
+import 'package:ocean_rangers/boat/boat_quest.dart';
+import 'package:ocean_rangers/boat/boat_robot.dart';
+import 'package:ocean_rangers/boat/boat_staff.dart';
+import 'package:ocean_rangers/boat/boat_tech.dart';
+import 'package:ocean_rangers/boat/boat_wheel_houses.dart';
+import 'package:ocean_rangers/core/game_file.dart';
+import 'package:ocean_rangers/intro_page.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_rangers/overlays/infos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'overlays/game_over.dart';
@@ -26,6 +29,8 @@ void main() {
   //init gamefile
   GameFile();
   runApp(const MyApp());
+
+  SemanticsBinding.instance.ensureSemantics();
 }
 
 class MouseInfos {
@@ -82,6 +87,7 @@ class GameOceanWidget extends StatelessWidget {
           overlayBuilderMap: {
             'GameOver': (_, game) => GameOver(game: game),
             'GoBack': (_, game) => GoBack(game: game),
+            'Infos': (_, game) => Infos(game: game),
           },
         ),
       ),
@@ -95,9 +101,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    precacheImage(const AssetImage("assets/images/techguy.png"), context);
+    //precacheImage(const AssetImage("assets/images/techguy.png"), context);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ocean Rangers',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -148,6 +154,10 @@ class MyApp extends StatelessWidget {
         if (settings.name == "/boat/marina") {
           return CupertinoPageRoute(
               builder: (context) => const Port(), settings: settings);
+        }
+        if (settings.name == "/intro") {
+          return CupertinoPageRoute(
+              builder: (context) => const IntroPage(), settings: settings);
         }
         return null;
       },
@@ -225,80 +235,72 @@ class _WelcomePageState extends State<WelcomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        body: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Expanded(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+        body: Stack(children: [
+      SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: const Image(
+            image: AssetImage("assets/images/homescreen.jpg"),
+            fit: BoxFit.fill,
+          )),
+      SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        GradientText(
-                          'Project Aqua',
-                          style: TextStyle(
-                              fontSize: 80, fontWeight: FontWeight.bold),
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(255, 61, 161, 243),
-                            Color.fromARGB(255, 12, 71, 160),
-                          ]),
-                        ),
-                      ],
-                    )),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 0, 79, 224),
-                                elevation: 0,
-                              ),
-                              onPressed: () {
-                                /*Navigator.pushReplacement(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => BoatPage()),
-                                );*/
-                                Navigator.pushReplacementNamed(
-                                    context, "/boat");
-                              },
-                              child: const Padding(
-                                padding: EdgeInsets.only(bottom: 8.0),
-                                child: Text(
-                                  "Start",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 30),
-                                ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 79, 224),
+                              elevation: 0,
+                            ),
+                            onPressed: () {
+                              /*Navigator.pushReplacement(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => BoatPage()),
+                                  );*/
+                              Navigator.pushReplacementNamed(context, "/boat");
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only(bottom: 8.0),
+                              child: Text(
+                                "Start",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 30),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const Text("V0.1.0-beta"),
-              if (GameFile().uuid != null)
-                Text("${GameFile().pseudo} (${GameFile().uuid})"),
-              GestureDetector(
-                  onTap: () async {
-                    debugPrint("RESET ASKED");
-                    final SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    // Remove data for the 'counter' key.
-                    await prefs.remove('UUID');
-                  },
-                  child: const Text("©Juliette Chappaz & Thibaut Quentin")),
-            ])));
+            ),
+            const Text("V0.1.2-beta"),
+            if (GameFile().uuid != null)
+              Text("${GameFile().pseudo} (${GameFile().uuid})"),
+            GestureDetector(
+                onTap: () async {
+                  debugPrint("RESET ASKED");
+                  final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  // Remove data for the 'counter' key.
+                  await prefs.remove('UUID');
+                },
+                child: const Text("©Juliette Chappaz & Thibaut Quentin")),
+          ])),
+    ]));
   }
 }

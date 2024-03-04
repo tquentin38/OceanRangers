@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:challenge2024/managers/chunk.dart';
-import 'package:challenge2024/ocean_game.dart';
+import 'package:ocean_rangers/managers/chunk.dart';
+import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
@@ -160,17 +160,9 @@ class WorldManager {
 
   void update(Vector2 objectSpeed) {
     if (game.onPause) return;
-    //TODO REMOVE THIS
+
     position.x -= objectSpeed.x * 2;
     position.y += objectSpeed.y;
-    //Go to the right
-    if (objectSpeed.x > 0) {}
-    //Go to the left
-    if (objectSpeed.x < 0) {}
-    //Go to the top
-    if (objectSpeed.y < 0) {}
-    //Go to the bottom
-    if (objectSpeed.y > 0) {}
 
     updateChunk(objectSpeed);
 
