@@ -61,6 +61,17 @@ void syncPseudoWeb() async {
   updateWallet();
 }
 
+void syncProfileIdWeb() async {
+  int rdm = Random().nextInt(999999);
+  GameFile gameFile = GameFile();
+  String url =
+      "https://devforever.fr/projectOcean/back/session.php?setProfileId=$rdm&UUID=${gameFile.uuid}&profileId=${gameFile.profileId}";
+  debugPrint("url : $url");
+  final response = await http.get(Uri.parse(url));
+  debugPrint("response : ${response.statusCode}");
+  updateWallet();
+}
+
 class Alliance {
   int id;
   String name;

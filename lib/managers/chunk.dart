@@ -9,6 +9,24 @@ import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
+class FishTypeHolder {
+  final FishType fishType;
+  final double percent;
+  FishTypeHolder({required this.fishType, required this.percent});
+}
+
+class TrashTypeHolder {
+  final TrashType trashType;
+  final double percent;
+  TrashTypeHolder({required this.trashType, required this.percent});
+}
+
+class EnemyTypeHolder {
+  final WaterEnemyType waterEnemyType;
+  final double percent;
+  EnemyTypeHolder({required this.waterEnemyType, required this.percent});
+}
+
 class Chunk {
   Vector2 chunkPosition;
   Vector2 chunkPositionToZero = Vector2(0, 0);
@@ -17,7 +35,7 @@ class Chunk {
   OceanGame game;
   int currentSeed = 0;
   late Random random;
-  List<int> randomSuite = [];
+  List<double> randomSuite = [];
   List<GameObject> loadedBlocks = [];
   List<PreLoadedGameObject> preLoadedGameObjects = [];
 
@@ -35,7 +53,7 @@ class Chunk {
 
   void generateRandom() {
     for (int i = 0; i < 1000; i++) {
-      randomSuite.add(random.nextInt(100));
+      randomSuite.add(random.nextDouble() * 100);
     }
   }
 
@@ -89,46 +107,65 @@ class Chunk {
                 worldManager.getRelativePositionToZeroOfChunck().y;
         switch (preLoadedGameObject.type) {
           case GameObjectType.trash:
-            Trash star = Trash(
-                gridPosition: delta + preLoadedGameObject.futurPosition,
-                preLoadedGameObject: preLoadedGameObject,
-                trashType: TrashType.values[(preLoadedGameObject.randomInt /
-                        100 *
-                        (TrashType.values.length - 1))
-                    .round()]);
-            game.add(star);
-            loadedBlocks.add(star);
-            debugPrint("added  Star ${preLoadedGameObject.futurPosition}");
-            toRemove.add(preLoadedGameObject);
+            TrashType? trashType = getTrashType(
+                chunkPosition.y * 20, preLoadedGameObject.randomDouble);
+            if (trashType == null) {
+              debugPrint(
+                  "trashType == null depth:${chunkPosition.y * 20} ${preLoadedGameObject.futurPosition}");
+            } else {
+              Trash trash = Trash(
+                  gridPosition: delta + preLoadedGameObject.futurPosition,
+                  preLoadedGameObject: preLoadedGameObject,
+                  trashType: TrashType.values[
+                      (preLoadedGameObject.randomDouble /
+                              100 *
+                              (TrashType.values.length - 1))
+                          .round()]);
+              game.add(trash);
+              loadedBlocks.add(trash);
+              //debugPrint("added Trash ${preLoadedGameObject.futurPosition}");
+              toRemove.add(preLoadedGameObject);
+            }
             break;
           case GameObjectType.fish:
-            Fish plateforme = Fish(
-                gridPosition: delta + preLoadedGameObject.futurPosition,
-                preLoadedGameObject: preLoadedGameObject,
-                fishType: FishType.values[(preLoadedGameObject.randomInt /
-                        100 *
-                        (FishType.values.length - 1))
-                    .round()]);
-            debugPrint(
-                "added  PlatformBlock ${preLoadedGameObject.futurPosition}");
-            game.add(plateforme);
-            loadedBlocks.add(plateforme);
-            toRemove.add(preLoadedGameObject);
+            FishType? fishType = getFishType(
+                chunkPosition.y * 20, preLoadedGameObject.randomDouble);
+            if (fishType == null) {
+              debugPrint(
+                  "fishType == null depth:${chunkPosition.y * 20} ${preLoadedGameObject.futurPosition}");
+            } else {
+              Fish plateforme = Fish(
+                  gridPosition: delta + preLoadedGameObject.futurPosition,
+                  preLoadedGameObject: preLoadedGameObject,
+                  fishType: FishType.values[(preLoadedGameObject.randomDouble /
+                          100 *
+                          (FishType.values.length - 1))
+                      .round()]);
+              //debugPrint(
+              //    "added  PlatformBlock ${preLoadedGameObject.futurPosition}");
+              game.add(plateforme);
+              loadedBlocks.add(plateforme);
+              toRemove.add(preLoadedGameObject);
+            }
             break;
           case GameObjectType.enemy:
-            WaterEnemy plateforme = WaterEnemy(
-                gridPosition: delta + preLoadedGameObject.futurPosition,
-                preLoadedGameObject: preLoadedGameObject,
-                waterEnemyType: WaterEnemyType.values[
-                    (preLoadedGameObject.randomInt /
-                            100 *
-                            (WaterEnemyType.values.length - 1))
-                        .round()]);
-            debugPrint(
-                "added  WaterEnemy ${preLoadedGameObject.futurPosition}");
-            game.add(plateforme);
-            loadedBlocks.add(plateforme);
-            toRemove.add(preLoadedGameObject);
+            WaterEnemyType? waterEnemyType = getWaterEnemyType(
+                chunkPosition.y * 20, preLoadedGameObject.randomDouble);
+            if (waterEnemyType == null) {
+              debugPrint(
+                  "waterEnemyType == null depth:${chunkPosition.y * 20} ${preLoadedGameObject.futurPosition}");
+            } else {
+              WaterEnemy plateforme = WaterEnemy(
+                  gridPosition: delta + preLoadedGameObject.futurPosition,
+                  preLoadedGameObject: preLoadedGameObject,
+                  waterEnemyType: waterEnemyType);
+              //debugPrint(
+              //    "added  WaterEnemy ${preLoadedGameObject.futurPosition}");
+              game.add(plateforme);
+              loadedBlocks.add(plateforme);
+              toRemove.add(preLoadedGameObject);
+            }
+
             break;
           default:
             debugPrint("Default object type CALLED !!!!!!");
@@ -142,29 +179,17 @@ class Chunk {
     //debugPrint("preLoadedGameObjects len : ${preLoadedGameObjects.length}");
   }
 
-  FishType? getFishType(int meter) {
-    return null;
-  }
-
-  TrashType? getTrashType(int meter) {
-    return null;
-  }
-
-  WaterEnemyType? getWaterEnemyType(int meter) {
-    return null;
-  }
-
   void preLoadChunck() {
     //generate number for the process
-    int bancRand = randomSuite[0];
+    double bancRand = randomSuite[0];
 
     //generate number of fish banc type 1 - moy 10 in level 0m, 0 in level 100m
 
     preGenerateFish(10 + (bancRand / 100 * 10).round());
 
-    preGenerateTrash(05 + (randomSuite[1] / 100 * 2).round());
+    preGenerateTrash(25 + (randomSuite[1] / 100 * 2).round());
 
-    preGenerateEnemy(5);
+    if (chunkPosition.y * 20 > 50) preGenerateEnemy(5);
     //randomSuite.clear();
   }
 
@@ -204,6 +229,136 @@ class Chunk {
       preLoadedGameObjects.add(PreLoadedGameObject(
           position, GameObjectType.fish, randomSuite[500 + 2 * i]));
     }
+  }
+
+  FishType? getFishType(double depth, double random) {
+    List<FishTypeHolder> list = getFishTypes(depth);
+    double current = 0;
+    //get all percentage
+    for (FishTypeHolder et in list) {
+      current += et.percent;
+    }
+    //applie random
+    double value = current * random / 100;
+    current = 0;
+    //find the random one
+    for (FishTypeHolder et in list) {
+      current += et.percent;
+      if (current > value) {
+        return et.fishType;
+      }
+    }
+    //if nothing return null
+    return null;
+  }
+
+  List<FishTypeHolder> getFishTypes(double meter) {
+    List<FishTypeHolder> list = [];
+    for (FishType ft in FishType.values) {
+      //if we are on the spawn plage
+      if (ft.deepMax >= meter && meter >= ft.deepMin) {
+        if (meter >= ft.deepPeak) {
+          list.add(FishTypeHolder(
+              fishType: ft,
+              percent: 100 *
+                  (1 + (ft.deepPeak - meter) / (ft.deepMax - ft.deepPeak))));
+        } else {
+          list.add(FishTypeHolder(
+              fishType: ft,
+              percent: 100 *
+                  (1 - (ft.deepPeak - meter) / (ft.deepPeak - ft.deepMin))));
+        }
+      }
+    }
+    return list;
+  }
+
+  TrashType? getTrashType(double depth, double random) {
+    List<TrashTypeHolder> list = getTrashTypes(depth);
+    double current = 0;
+    //get all percentage
+    for (TrashTypeHolder et in list) {
+      current += et.percent;
+    }
+    //applie random
+    double value = current * random / 100;
+    current = 0;
+    //find the random one
+    for (TrashTypeHolder et in list) {
+      current += et.percent;
+      if (current > value) {
+        return et.trashType;
+      }
+    }
+    //if nothing return null
+    return null;
+  }
+
+  List<TrashTypeHolder> getTrashTypes(double meter) {
+    List<TrashTypeHolder> list = [];
+    for (TrashType tt in TrashType.values) {
+      //if we are on the spawn plage
+      if (tt.deepMax >= meter && meter >= tt.deepMin) {
+        if (meter >= tt.deepPeak) {
+          list.add(TrashTypeHolder(
+              trashType: tt,
+              percent: 100 *
+                  (1 + (tt.deepPeak - meter) / (tt.deepMax - tt.deepPeak))));
+        } else {
+          list.add(TrashTypeHolder(
+              trashType: tt,
+              percent: 100 *
+                  (1 - (tt.deepPeak - meter) / (tt.deepPeak - tt.deepMin))));
+        }
+      }
+    }
+    return list;
+  }
+
+  WaterEnemyType? getWaterEnemyType(double depth, double random) {
+    List<EnemyTypeHolder> list = getWaterEnemyTypes(depth);
+    double current = 0;
+    //get all percentage
+    for (EnemyTypeHolder et in list) {
+      current += et.percent;
+    }
+    //applie random
+    double value = current * random / 100;
+    current = 0;
+    //find the random one
+    for (EnemyTypeHolder et in list) {
+      current += et.percent;
+      if (current > value) {
+        return et.waterEnemyType;
+      }
+    }
+
+    if (list.isNotEmpty) {
+      return list.first.waterEnemyType;
+    }
+    //if nothing return null
+    return null;
+  }
+
+  List<EnemyTypeHolder> getWaterEnemyTypes(double meter) {
+    List<EnemyTypeHolder> list = [];
+    for (WaterEnemyType tt in WaterEnemyType.values) {
+      //if we are on the spawn plage
+      if (tt.deepMax >= meter && meter >= tt.deepMin) {
+        if (meter >= tt.deepPeak) {
+          list.add(EnemyTypeHolder(
+              waterEnemyType: tt,
+              percent: 100 *
+                  (1 + (tt.deepPeak - meter) / (tt.deepMax - tt.deepPeak))));
+        } else {
+          list.add(EnemyTypeHolder(
+              waterEnemyType: tt,
+              percent: 100 *
+                  (1 - (tt.deepPeak - meter) / (tt.deepPeak - tt.deepMin))));
+        }
+      }
+    }
+    return list;
   }
 
   /*@Deprecated("Now use pregenerate and load on the fly")

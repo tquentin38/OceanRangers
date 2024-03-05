@@ -209,7 +209,7 @@ class _BoatHUDState extends State<BoatHUD> {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                    "Welcome to Ocean Rangers !\nYou goal here is to help us clean the ocean and make reseach on what the \ndeepst layer of the ocean look like. You are our robot pilot, so your job is to pilot our submarine robot.\nIt is in rough condition, but if you find material, we will be able to mae some upgrade to it !",
+                    "Welcome to Ocean Rangers !\nYou goal here is to help us clean the ocean and make reseach on what the \ndeepst layer of the ocean look like. You are our robot pilot, so your job is to pilot our submarine robot.\nIt is in rough condition, but if you find material, we will be able to make some upgrade to it !",
                     textAlign: TextAlign.center),
               ),
               const Row(
@@ -218,7 +218,7 @@ class _BoatHUDState extends State<BoatHUD> {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                        "To naviguate on the boat, you can click on the icons: "),
+                        "To naviguate on the boat, click on these icons: "),
                   ),
                   Icon(
                     Icons.crisis_alert,
@@ -230,7 +230,8 @@ class _BoatHUDState extends State<BoatHUD> {
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text("Also you can discuss with the people on board. "),
+                child: Text(
+                    "Also you can discuss with the people on board. I have heard that they all want to talk with you, \nso don't hesitate to open the conversation! "),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -240,14 +241,14 @@ class _BoatHUDState extends State<BoatHUD> {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "In the ocean, you can collect trash that will be transformed into ressources\nSo more exploring mean more upgrade and more ressources etc...",
+                  "In the ocean, you can collect trash that will be transformed into resources\nSo more exploring means more upgrades and more resources, etc...",
                   textAlign: TextAlign.justify,
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                    "Remember, the deepest you go, the more resources you will get.\n Also, the upgrade will help you, so don't hesitate to use your ressources !",
+                    "Remember, the deepest you go, the more resources you will get.\n Also, the upgrade will help you, so don't hesitate to use your resources!",
                     textAlign: TextAlign.justify),
               ),
               Padding(
@@ -309,6 +310,39 @@ class _BoatHUDState extends State<BoatHUD> {
               Text(
                 "Quick access",
                 style: titleSize,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "/boat/elec/robot");
+                  },
+                  child: const Text(
+                    "Robot Upgrade",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, "/boat/machine/batiment");
+                  },
+                  child: const Text(
+                    "Boat Upgrade",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -430,120 +464,156 @@ class _BoatHUDState extends State<BoatHUD> {
   }
 
   Widget showUserInfos(BuildContext context) {
-    return AlertDialog(
-      content: SizedBox(
-        height: MediaQuery.of(context).size.height / 2,
-        child: Column(
-          children: [
-            Expanded(
-              child: Text(
-                "User profile",
-                style: titleSize,
+    return StatefulBuilder(builder:
+        (BuildContext context, void Function(void Function()) setState) {
+      return AlertDialog(
+        content: SizedBox(
+          height: MediaQuery.of(context).size.height / 1.6,
+          width: MediaQuery.of(context).size.width / 3,
+          child: Column(
+            children: [
+              Expanded(
+                child: Text(
+                  "User profile",
+                  style: titleSize,
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  Text(
-                    "Username : ${GameFile().pseudo}",
-                    style: titleSize,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        elevation: 0,
-                      ),
-                      onPressed: () {
-                        //Navigator.pop(context);
-                        Navigator.pop(context);
-                        showDialog(context: context, builder: showPseudoChange);
-                      },
-                      child: const Text(
-                        "Change",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  /*Text(
-                    "Google wallet card",
-                    style: titleSize,
-                  ),*/
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                        onTap: () async {
-                          //Navigator.pop(context);
-                          //Navigator.pop(context);
-                          //showDialog(context: context, builder: showPseudoChange);
-                          if (GameFile().token != null) {
-                            updateWallet();
-                            final Uri url = Uri.parse(
-                                "https://pay.google.com/gp/v/save/${GameFile().token}");
-                            launchUrl(url);
+              Expanded(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          debugPrint("ON TAP LEFT");
+                          if (GameFile().profileId > 0) {
+                            GameFile().setNewProfilId(GameFile().profileId - 1);
+                          } else {
+                            GameFile().setNewProfilId(5);
                           }
+                          setState(() => {});
                         },
-                        child: const Image(
-                            image: AssetImage("assets/images/add_wallet.png"))),
-                  )
-                  /*Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        elevation: 0,
-                      ),
-                      onPressed: () async {
-                        //Navigator.pop(context);
-                        //Navigator.pop(context);
-                        //showDialog(context: context, builder: showPseudoChange);
-                        if (GameFile().token != null) {
-                          updateWallet();
-                          final Uri url = Uri.parse(
-                              "https://pay.google.com/gp/v/save/${GameFile().token}");
-                          launchUrl(url);
-                        }
-                      },
-                      child: const Text(
-                        "Get my card",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        child: const Icon(
+                          Icons.arrow_left,
+                          size: 50,
+                          color: Color.fromARGB(255, 109, 109, 109),
+                          weight: 150,
+                        ),
                       ),
                     ),
-                  ),*/
-                ],
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 2.5)),
+                          child: Image(
+                            image: AssetImage(
+                                "assets/images/perso${GameFile().profileId}.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          if (GameFile().profileId < 5) {
+                            GameFile().setNewProfilId(GameFile().profileId + 1);
+                          } else {
+                            GameFile().setNewProfilId(0);
+                          }
+                          debugPrint("ON TAP RIGHT");
+                          setState(() => {});
+                        },
+                        child: const Icon(
+                          Icons.arrow_right,
+                          size: 50,
+                          color: Color.fromARGB(255, 109, 109, 109),
+                          weight: 150,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    elevation: 0,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "Close profile",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    Text(
+                      "Username : ${GameFile().pseudo}",
+                      style: titleSize,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          elevation: 0,
+                        ),
+                        onPressed: () {
+                          //Navigator.pop(context);
+                          Navigator.pop(context);
+                          showDialog(
+                              context: context, builder: showPseudoChange);
+                        },
+                        child: const Text(
+                          "Change",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                          onTap: () async {
+                            if (GameFile().token != null) {
+                              updateWallet();
+                              final Uri url = Uri.parse(
+                                  "https://pay.google.com/gp/v/save/${GameFile().token}");
+                              launchUrl(url);
+                            }
+                          },
+                          child: const Image(
+                              image:
+                                  AssetImage("assets/images/add_wallet.png"))),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      elevation: 0,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      "Close profile",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   String newPseudo = "";

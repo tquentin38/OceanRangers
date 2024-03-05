@@ -32,6 +32,7 @@ class GameFile {
   String allianceName = "";
   String allianceJoinedDate = "";
   bool isIntroPassed = false;
+  int profileId = 0;
 
   // using a factory is important
   // because it promises to return _an_ object of this type
@@ -55,6 +56,14 @@ class GameFile {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("nextRobotAvaiable", date.toIso8601String());
+  }
+
+  Future<void> setNewProfilId(int newId) async {
+    profileId = newId;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("profilId", newId);
+    syncProfileIdWeb();
   }
 
   Future<void> loadGameFile() async {

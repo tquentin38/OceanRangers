@@ -12,6 +12,7 @@ import 'package:ocean_rangers/boat/boat_robot.dart';
 import 'package:ocean_rangers/boat/boat_staff.dart';
 import 'package:ocean_rangers/boat/boat_tech.dart';
 import 'package:ocean_rangers/boat/boat_wheel_houses.dart';
+import 'package:ocean_rangers/config_page.dart';
 import 'package:ocean_rangers/core/game_file.dart';
 import 'package:ocean_rangers/intro_page.dart';
 import 'package:ocean_rangers/ocean_game.dart';
@@ -159,6 +160,10 @@ class MyApp extends StatelessWidget {
           return CupertinoPageRoute(
               builder: (context) => const IntroPage(), settings: settings);
         }
+        if (settings.name == "/config") {
+          return CupertinoPageRoute(
+              builder: (context) => const ConfigPage(), settings: settings);
+        }
         return null;
       },
       //home: MyWidget()
@@ -288,7 +293,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),
-            const Text("V0.1.2-beta"),
+            const Text("V0.2.0-beta"),
             if (GameFile().uuid != null)
               Text("${GameFile().pseudo} (${GameFile().uuid})"),
             GestureDetector(

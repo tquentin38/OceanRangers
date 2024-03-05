@@ -64,7 +64,7 @@ class _BoatRobotPageState extends State<BoatRobotPage> {
             children: [
               const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Text("Robots",
+                child: Text("Robot upgrade",
                     style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,

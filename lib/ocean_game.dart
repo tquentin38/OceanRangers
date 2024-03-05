@@ -103,6 +103,7 @@ class OceanGame extends FlameGame
       'Manta_Ray.png',
       'piranha.png',
       'tortue.png',
+      'wood.png',
     ]);
     camera.viewfinder.anchor = Anchor.topLeft;
     //init gamefile

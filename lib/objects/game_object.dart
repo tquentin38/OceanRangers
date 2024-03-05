@@ -16,8 +16,8 @@ abstract class GameObject {
 class PreLoadedGameObject {
   Vector2 futurPosition;
   GameObjectType type;
-  int randomInt;
-  PreLoadedGameObject(this.futurPosition, this.type, this.randomInt);
+  double randomDouble;
+  PreLoadedGameObject(this.futurPosition, this.type, this.randomDouble);
 }
 
 enum GameObjectType implements Comparable<GameObjectType> {
