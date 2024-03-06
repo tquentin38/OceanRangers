@@ -121,7 +121,7 @@ class _WheelHousesState extends State<WheelHouses> {
                 showBoatDialog = false;
               } else {
                 boatDialog = BoatDialog(
-                    dialogs: GameFile()
+                    dialogHolder: GameFile()
                         .peopleManager
                         .getDialog(PeopleDialog.commandante));
                 showBoatDialog = true;
@@ -170,7 +170,7 @@ class _WheelHousesState extends State<WheelHouses> {
                 showBoatDialog = false;
               } else {
                 boatDialog = BoatDialog(
-                    dialogs: GameFile()
+                    dialogHolder: GameFile()
                         .peopleManager
                         .getDialog(PeopleDialog.second));
                 showBoatDialog = true;

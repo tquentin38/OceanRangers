@@ -1,8 +1,5 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_rangers/actors/water_enemy.dart';
-import 'package:ocean_rangers/managers/chunk.dart';
-import 'package:ocean_rangers/managers/world_manager.dart';
 import 'package:ocean_rangers/objects/fish.dart';
 import 'package:ocean_rangers/objects/trash.dart';
 import 'package:ocean_rangers/ocean_game.dart';
@@ -145,21 +142,21 @@ class _ConfigPageState extends State<ConfigPage> {
                 children: [
                   Column(
                     children: [
-                      Text("Fish"),
+                      const Text("Fish"),
                       for (FishTypeHolder fth in getFishTypes(deep))
                         Text(
                             "${fth.fishType.name}: ${fth.percent.toStringAsFixed(3)}"),
                     ],
                   ),
                   Column(children: [
-                    Text("Trash"),
+                    const Text("Trash"),
                     for (TrashTypeHolder fth in getTrashTypes(deep))
                       Text(
                           "${fth.trashType.name}: ${fth.percent.toStringAsFixed(3)}"),
                   ]),
                   Column(
                     children: [
-                      Text("Enemy"),
+                      const Text("Enemy"),
                       for (EnemyTypeHolder fth in getWaterEnemyTypes(deep))
                         Text(
                             "${fth.waterEnemyType.name}: ${fth.percent.toStringAsFixed(3)}"),

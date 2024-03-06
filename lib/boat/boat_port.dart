@@ -112,7 +112,7 @@ class _PortState extends State<Port> {
                 showBoatDialog = false;
               } else {
                 boatDialog = BoatDialog(
-                    dialogs: GameFile()
+                    dialogHolder: GameFile()
                         .peopleManager
                         .getDialog(PeopleDialog.voyager));
                 showBoatDialog = true;

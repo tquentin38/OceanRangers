@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:ocean_rangers/boat/boat_dialog.dart';
+import 'package:ocean_rangers/core/game_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PeopleManager {
@@ -8,6 +10,7 @@ class PeopleManager {
     for (PeopleDialog rt in PeopleDialog.values) {
       peoples.add(People(rt, 0, this));
     }
+    loadSave();
   }
 
   Future<void> loadSave() async {
@@ -15,7 +18,7 @@ class PeopleManager {
     for (People peo in peoples) {
       int? savedValue = prefs.getInt("people_${peo.type.identifier}");
       if (savedValue != null) {
-        peo.heartPoint = savedValue;
+        peo.setHeartPoint(savedValue);
       }
     }
   }
@@ -32,19 +35,21 @@ class PeopleManager {
     }
   }
 
-  List<String> getDialog(PeopleDialog peopleDialog) {
+  DialogHolder getDialog(PeopleDialog peopleDialog) {
     for (People peo in peoples) {
       if (peo.type == peopleDialog) {
-        return peo.getDialog();
+        return DialogHolder(
+            dialogs: peo.getDialog(), hearts: peo.heartPoint, people: peo);
       }
     }
-    return [];
+    return DialogHolder(dialogs: [], hearts: 0, people: null);
   }
 }
 
 class People {
   PeopleDialog type;
   int heartPoint = 0;
+  int lastLevel = 0;
   PeopleManager manager;
 
   People(this.type, this.heartPoint, this.manager);
@@ -53,23 +58,60 @@ class People {
     return type.name;
   }
 
+  void setHeartPoint(int newPoint) {
+    heartPoint = newPoint;
+    for (double levelPoint in type.valueForLevel) {
+      if (heartPoint >= levelPoint) {
+        lastLevel++;
+      }
+    }
+  }
+
   List<String> getDialog() {
     List<String> dialog = [];
+    List<List<String>> list = [];
     for (int v in type.dialogForLevel.keys) {
       if (heartPoint == 0) {
         if (v == 0) {
           dialog = type.dialogForLevel[v]!.first;
         }
       } else {
-        if (v == 1) {
-          List<List<String>> list = type.dialogForLevel[v]!;
-          dialog = list[Random().nextInt(list.length - 1)];
+        /*if (v == 1) {
+           = type.dialogForLevel[v]!;
+         
+        }*/
+        if (v > 1) {
+          if (heartPoint >= type.valueForLevel[v - 1]) {
+            for (List<String> ls in type.dialogForLevel[v]!) {
+              list.add(ls);
+            }
+          }
+        } else {
+          if (v != 0) {
+            for (List<String> ls in type.dialogForLevel[v]!) {
+              list.add(ls);
+            }
+          }
         }
       }
     }
+    if (heartPoint != 0) {
+      dialog = list[Random().nextInt(list.length - 1)];
+    }
 
+    if (GameFile().pseudo != null) {
+      List<String> dialogModif = [];
+      for (String s in dialog) {
+        dialogModif.add(s.replaceAll("::player::", GameFile().pseudo!));
+      }
+      dialog = dialogModif;
+    }
     if (dialog.isNotEmpty) {
       heartPoint++;
+      if (heartPoint >= type.valueForLevel[lastLevel]) {
+        dialog = [type.dialogLevelUp[lastLevel]];
+        lastLevel++;
+      }
       manager.saveData(this);
     }
     return dialog;
@@ -78,10 +120,10 @@ class People {
 
 enum PeopleDialog implements Comparable<PeopleDialog> {
   commandante(identifier: 0, name: "Commander", levelMax: 5, valueForLevel: [
-    100,
-    200,
-    300,
-    400,
+    5,
+    10,
+    20,
+    25,
     500
   ], dialogForLevel: {
     0: [
@@ -106,13 +148,35 @@ enum PeopleDialog implements Comparable<PeopleDialog> {
         "This isn't a mission one can tackle alone. It takes a crew, a community, united for a cause. Your presence here is a beacon of hope, a reminder that change is possible when we band together. Let's steer this ship towards a brighter future, shall we?"
       ]
     ],
-    2: [[]]
-  }),
+    2: [
+      [
+        "You know, ::player::, your enthusiasm is contagious. It's good to have someone on board who's not just here for the job but genuinely cares about the cause. Your dedication is what sets you apart."
+      ],
+      [
+        "I've been observing your commitment to understanding the ins and outs of our operations. It's clear you're not just here to sail the seas but to make a difference. Admirable, truly admirable."
+      ],
+      [
+        "I've seen the spark in your eyes, ::player::. It tells me you're not just a crew member; you're someone who believes in the importance of our mission. Keep that passion alive, and we'll achieve great things together."
+      ],
+      [
+        "Your proactive approach hasn't gone unnoticed. It's refreshing to work with someone who takes the initiative. Let's continue building on this momentum, making waves in both the literal and figurative sense."
+      ],
+      [
+        "We're a team, ::player::, and your efforts are strengthening our unity. It's not just about following orders; it's about investing in the shared vision we have for a healthier ocean. Looking forward to achieving more milestones together."
+      ]
+    ]
+  }, dialogLevelUp: [
+    "I'm starting to see the passion in your eyes. It reminds me of my early days.",
+    "You're proving to be quite the asset to our team. Keep up the good work.",
+    "I trust you more with each passing day. Together, we can make a real difference.",
+    "Your dedication to our cause warms my heart. I'm proud to have you on board.",
+    "You're not just a crew member; you're a vital part of this family. We stand united for the ocean."
+  ]),
   second(identifier: 1, name: "Second", levelMax: 5, valueForLevel: [
-    100,
-    200,
-    300,
-    400,
+    5,
+    10,
+    20,
+    25,
     500
   ], dialogForLevel: {
     0: [
@@ -140,13 +204,35 @@ enum PeopleDialog implements Comparable<PeopleDialog> {
         "I've seen the passion in each of your eyes, the same passion that drives me to uncover the ocean's secrets. Let's channel that energy into our mission, making every exploration count. The ocean is our greatest teacher, and we are its students."
       ],
     ],
-    2: [[]]
-  }),
+    2: [
+      [
+        "I've been impressed by your curiosity, ::player::. You're not just navigating the ocean; you're diving deep into understanding its intricacies. Your eagerness to learn is a valuable asset to our marine exploration team."
+      ],
+      [
+        "Your interest in marine biology is evident, and it's inspiring. You're not just here for the adventure; you're actively engaging with the scientific aspects of our journey. It's a pleasure working with someone who values the knowledge we gain."
+      ],
+      [
+        "I've noticed your dedication to our mission of exploring the ocean's mysteries. It's more than a job for you; it's a quest for understanding. Your contributions are shaping us into a formidable force for marine conservation."
+      ],
+      [
+        "Your commitment to marine life is evident in your actions, ::player::. You're not just a passenger on this ship; you're an active participant in unraveling the wonders of the sea. Let's keep diving deeper into the unknown together."
+      ],
+      [
+        "Your involvement in our scientific pursuits is admirable. I can see you're not just content with surface-level exploration; you want to delve into the details. Exciting times lie ahead as we uncover the secrets hidden beneath the waves."
+      ]
+    ]
+  }, dialogLevelUp: [
+    "Your curiosity about marine life is truly refreshing. Let's discover the ocean's secrets together.",
+    "I appreciate your efforts in learning more about marine biology. You're doing great!",
+    "Your enthusiasm for marine conservation is contagious. I feel inspired by your dedication.",
+    "I consider you a peer in our scientific endeavors. Your insights are invaluable.",
+    "We've formed a bond that goes beyond just colleagues. I'm grateful for your friendship and support."
+  ]),
   techguy(identifier: 2, name: "TechGuy", levelMax: 5, valueForLevel: [
-    100,
-    200,
-    300,
-    400,
+    5,
+    10,
+    20,
+    25,
     500
   ], dialogForLevel: {
     0: [
@@ -174,13 +260,35 @@ enum PeopleDialog implements Comparable<PeopleDialog> {
         "Being part of this crew, working on the Poseidon, it's more than a job; it's a calling. Every repair, every upgrade, it's a step towards a more sustainable future. We're not just exploring the ocean; we're showing how technology can work for us without working against the earth."
       ],
     ],
-    2: [[]]
-  }),
+    2: [
+      [
+        "Hey, ::player::, your interest in the tech side of things hasn't gone unnoticed. You're not just a passenger; you're becoming a key player in keeping our electronics humming. I appreciate the effort."
+      ],
+      [
+        "Your knack for technology is starting to shine through. I've seen you tinkering around, and it's clear you're more than just a user. Keep exploring the tech world; there's a lot we can achieve together."
+      ],
+      [
+        "I've observed your growing familiarity with our tech setup. It's evident you're not afraid to get your hands dirty in the electronic realm. Your proactive approach to tech matters is making a positive impact."
+      ],
+      [
+        "Your tech-savvy mindset is a valuable asset to the team. It's not just about using gadgets; you're actively involved in understanding and improving our tech infrastructure. Let's keep innovating together."
+      ],
+      [
+        "Your involvement in the tech side of our operations is becoming increasingly valuable. It's clear you're not just here for the ride; you want to contribute to our technological journey. Looking forward to more collaborative breakthroughs."
+      ]
+    ]
+  }, dialogLevelUp: [
+    "You're showing a real knack for technology. There's much we can achieve with your skills.",
+    "Your assistance in the tech lab has not gone unnoticed. I'm impressed by your progress.",
+    "We're starting to make a great team. Your tech-savvy approach is making a difference.",
+    "Your dedication to sustainable tech solutions is admirable. I'm learning a lot from you.",
+    "You've become indispensable to our mission and to me personally. Thanks for being here."
+  ]),
   ouvrier(identifier: 3, name: "Ouvrier", levelMax: 5, valueForLevel: [
-    100,
-    200,
-    300,
-    400,
+    5,
+    10,
+    20,
+    25,
     500
   ], dialogForLevel: {
     0: [
@@ -208,13 +316,35 @@ enum PeopleDialog implements Comparable<PeopleDialog> {
         "Life on Poseidon? It's more than just a job; it's a chance to show the world how to treat our planet better. We're not just sailing; we're steering towards a greener tomorrow."
       ],
     ],
-    2: [[]]
-  }),
+    2: [
+      [
+        "You're catching on fast, ::player::. Your knack for repairs is showing. It's not just about fixing things; it's about understanding the heart of the machinery. Keep up the good work."
+      ],
+      [
+        "I've seen you getting your hands dirty in the workshop. Your interest in repairs is clear, and it's making my job a whole lot easier. We're turning into quite the dynamic duo."
+      ],
+      [
+        "Your mechanical skills are shaping up nicely. It's more than just fixing broken parts; it's about understanding the rhythm of the machine. I appreciate your dedication to our ship's well-being."
+      ],
+      [
+        "I've noticed your commitment to sustainable repairs. You're not just patching things up; you're giving our equipment a new lease on life. Your approach aligns perfectly with our mission."
+      ],
+      [
+        "You've become a real asset in the workshop, ::player::. It's not just about maintenance; it's about understanding the soul of the machinery. Looking forward to more collaboration in keeping our ship in top shape."
+      ]
+    ]
+  }, dialogLevelUp: [
+    "I see you're getting the hang of things around here. Your help is making my job easier.",
+    "You've got a good eye for repair and reuse. That's the spirit we need on this ship.",
+    "Your commitment to sustainability is making waves. I'm glad to have you on the team.",
+    "We're not just fixing machines; we're fixing the future. Thanks for your hard work.",
+    "You're more than a crew member to me now. You're a pillar of this ship's heart and soul."
+  ]),
   voyager(identifier: 4, name: "Voyage", levelMax: 5, valueForLevel: [
-    100,
-    200,
-    300,
-    400,
+    5,
+    10,
+    20,
+    25,
     500
   ], dialogForLevel: {
     0: [
@@ -242,8 +372,30 @@ enum PeopleDialog implements Comparable<PeopleDialog> {
         "My mission is more than skin-deep. It's about fostering a community that cherishes and protects our natural wonders. Together, we're not just enhancing our beauty; we're safeguarding the planet's."
       ],
     ],
-    2: [[]]
-  }),
+    2: [
+      [
+        "Your interest in environmental protection is shining through, ::player::. It's more than just a passing concern; you're actively engaged. Keep nurturing that passion; it's contagious."
+      ],
+      [
+        "I've noticed your dedication to eco-friendly practices. Your commitment to making small changes is inspiring. We're creating ripples of change, and you're a vital part of that movement."
+      ],
+      [
+        "Your actions are speaking louder than words when it comes to protecting our environment. It's clear you're not just a spectator; you're an advocate. Let's continue our journey towards a greener world together."
+      ],
+      [
+        "I appreciate your efforts in spreading awareness about environmental issues. You're not just talking the talk; you're walking the walk. Your passion for the planet is a beacon for others to follow."
+      ],
+      [
+        "You've become an integral part of our mission, ::player::. Your dedication to environmental causes is making waves among the crew. Let's keep fostering this commitment to a sustainable future."
+      ]
+    ]
+  }, dialogLevelUp: [
+    "Your interest in environmental protection is commendable. Let's keep learning together.",
+    "Seeing your dedication to our cause is inspiring. You're making a real difference.",
+    "Your actions speak louder than words. You're a true advocate for the environment.",
+    "Your passion for this planet has touched my heart. Together, we can achieve wonders.",
+    "Your commitment has truly moved me. I'm proud to stand with you in this fight."
+  ]),
   /*next(identifier: 4, name: "Second", levelMax: 5, valueForLevel: [
     100,
     200,
@@ -271,13 +423,15 @@ enum PeopleDialog implements Comparable<PeopleDialog> {
       required this.name,
       required this.levelMax,
       required this.valueForLevel,
-      required this.dialogForLevel});
+      required this.dialogForLevel,
+      required this.dialogLevelUp});
 
   final int identifier;
   final String name;
   final int levelMax;
   final List<double> valueForLevel;
   final Map<int, List<List<String>>> dialogForLevel;
+  final List<String> dialogLevelUp;
 
   @override
   int compareTo(PeopleDialog other) => identifier - other.identifier;

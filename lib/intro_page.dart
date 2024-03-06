@@ -113,11 +113,6 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -137,7 +132,7 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
             child: AnimatedCrossFade(
               crossFadeState:
                   show1 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
               secondChild: Container(
                 decoration:
                     BoxDecoration(border: Border.all(), color: Colors.grey),
@@ -164,7 +159,7 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
             child: AnimatedCrossFade(
               crossFadeState:
                   show2 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
               secondChild: Container(
                 decoration:
                     BoxDecoration(border: Border.all(), color: Colors.grey),
@@ -174,13 +169,13 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
                     BoxDecoration(border: Border.all(), color: Colors.grey),
                 child: AnimatedRotation(
                   turns: turns,
-                  duration: Duration(seconds: 3),
+                  duration: const Duration(seconds: 3),
                   curve: Curves.decelerate,
                   onEnd: () {
                     debugPrint("Ended rotation OMG !");
                   },
                   child: Image(
-                    image: AssetImage("assets/intro/intro_2_news.jpg"),
+                    image: const AssetImage("assets/intro/intro_2_news.jpg"),
                     fit: BoxFit.fill,
                     height: MediaQuery.of(context).size.height / 2,
                     width: MediaQuery.of(context).size.width / 2,
@@ -199,7 +194,7 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
             child: AnimatedCrossFade(
               crossFadeState:
                   show3 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
               secondChild: Container(
                 decoration:
                     BoxDecoration(border: Border.all(), color: Colors.grey),
@@ -210,14 +205,14 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
                   child: AnimatedCrossFade(
                     duration: const Duration(seconds: 1),
                     firstChild: Image(
-                      image:
-                          AssetImage("assets/intro/intro_3_enveloppe_open.jpg"),
+                      image: const AssetImage(
+                          "assets/intro/intro_3_enveloppe_open.jpg"),
                       fit: BoxFit.fill,
                       height: MediaQuery.of(context).size.height / 2,
                       width: MediaQuery.of(context).size.width / 2,
                     ),
                     secondChild: Image(
-                      image: AssetImage(
+                      image: const AssetImage(
                           "assets/intro/intro_3_enveloppe_closed.jpg"),
                       fit: BoxFit.fill,
                       height: MediaQuery.of(context).size.height / 2,
@@ -241,7 +236,7 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
             child: AnimatedCrossFade(
               crossFadeState:
                   show4 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
               secondChild: Container(
                 decoration:
                     BoxDecoration(border: Border.all(), color: Colors.grey),
@@ -252,14 +247,15 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
                 child: Stack(
                   children: [
                     Image(
-                      image: AssetImage("assets/intro/4_mail_box.jpg"),
+                      image: const AssetImage("assets/intro/4_mail_box.jpg"),
                       height: MediaQuery.of(context).size.height / 2,
                       width: MediaQuery.of(context).size.width / 2,
                       fit: BoxFit.fill,
                     ),
                     AnimatedAlign(
-                      alignment:
-                          selected ? Alignment(-0.1, -0.35) : Alignment(-2, 0),
+                      alignment: selected
+                          ? const Alignment(-0.1, -0.35)
+                          : const Alignment(-2, 0),
                       duration: const Duration(seconds: 1),
                       curve: Curves.fastOutSlowIn,
                       onEnd: () {
@@ -269,7 +265,7 @@ class _WelcomePageState extends State<IntroPage> with TickerProviderStateMixin {
                       child: Stack(
                         children: [
                           if (showLetter4)
-                            Image(
+                            const Image(
                               image: AssetImage(
                                   "assets/intro/intro_3_enveloppe_closed.jpg"),
                               height: 75,

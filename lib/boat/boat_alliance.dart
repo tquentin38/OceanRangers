@@ -208,6 +208,24 @@ class _AlliancePageState extends State<AlliancePage> {
                               textAlign: TextAlign.center,
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                elevation: 0,
+                              ),
+                              onPressed: () async {
+                                await leaveAlliance();
+                                setState(() {});
+                              },
+                              child: const Text(
+                                "Leave team",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     SingleChildScrollView(

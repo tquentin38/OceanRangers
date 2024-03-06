@@ -25,8 +25,14 @@ class Trash extends SpriteComponent
 
   @override
   void onLoad() {
-    random = Vector2(Random().nextInt(100) / 100 * 0.2 + 0.9,
-        Random().nextInt(100) / 100 * 0.2 + 0.9);
+    int randomX = Random().nextInt(100);
+    int randomY = Random().nextInt(100);
+    random = Vector2(randomX / 100 * 0.2 + 0.9, randomY / 100 * 0.2 + 0.9);
+
+    if (random.x < 0.90) {
+      debugPrint(
+          "x<0.9 : rnd ($randomX, $randomY) -> (${random.x},${random.y})");
+    }
     final starImage = game.images.fromCache(trashType.imageFile);
     sprite = Sprite(starImage);
 
@@ -47,15 +53,18 @@ class Trash extends SpriteComponent
   }
 
   void setRandomAngle() {
-    List<double> anglesPossible = [0, 90, 180, 270];
+    /*List<double> anglesPossible = [0, 90, 180, 270];
     angle =
-        anglesPossible[Random().nextInt(anglesPossible.length - 1)] * pi / 180;
+        anglesPossible[Random().nextInt(anglesPossible.length - 1)] * pi / 180;*/
   }
 
   Vector2 screenSize = Vector2(0, 0);
 
   @override
   void onGameResize(Vector2 size) {
+    if (size.x < 500 || size.y < 500) {
+      debugPrint("size.x or y < 500 : (${size.x},${size.y})");
+    }
     if (x > 1920) {
       x = 1920;
     }

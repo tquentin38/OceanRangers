@@ -89,7 +89,7 @@ class _BoatTechState extends State<BoatTech> {
                 showBoatDialog = false;
               } else {
                 boatDialog = BoatDialog(
-                    dialogs: GameFile()
+                    dialogHolder: GameFile()
                         .peopleManager
                         .getDialog(PeopleDialog.techguy));
                 showBoatDialog = true;

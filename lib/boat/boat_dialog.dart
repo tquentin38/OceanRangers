@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:ocean_rangers/core/people/people_manager.dart';
+
+class DialogHolder {
+  final List<String> dialogs;
+  final People? people;
+  final int hearts;
+  DialogHolder(
+      {required this.dialogs, required this.hearts, required this.people});
+}
 
 // ignore: must_be_immutable
 class BoatDialog extends StatefulWidget {
-  final List<String> dialogs;
+  final DialogHolder dialogHolder;
   bool ended = false;
-  BoatDialog({super.key, required this.dialogs});
+  BoatDialog({super.key, required this.dialogHolder});
 
   bool isEnded() {
     return ended;
@@ -24,7 +33,7 @@ class _BoatDialogState extends State<BoatDialog> {
 
   @override
   void initState() {
-    debugPrint("Init state dialog : ${widget.dialogs}");
+    debugPrint("Init state dialog : ${widget.dialogHolder.dialogs}");
     super.initState();
   }
 
@@ -56,7 +65,7 @@ class _BoatDialogState extends State<BoatDialog> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Stack(children: [
-      if (!widget.ended)
+      if (!widget.ended && widget.dialogHolder.people != null)
         Padding(
             padding: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.1,
@@ -75,17 +84,52 @@ class _BoatDialogState extends State<BoatDialog> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
-                      child: AnimatedTextKit(
-                          totalRepeatCount: 1,
-                          pause: const Duration(milliseconds: 2500),
-                          onFinished: () {
-                            widget.ended = true;
-                            setState(() {});
-                          },
-                          animatedTexts: [
-                            for (String dialog in widget.dialogs)
-                              TyperAnimatedText(dialog, textStyle: dialogStyle),
-                          ]),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AnimatedTextKit(
+                              totalRepeatCount: 1,
+                              displayFullTextOnTap: true,
+                              stopPauseOnTap: true,
+                              pause: const Duration(milliseconds: 2500),
+                              onFinished: () {
+                                widget.ended = true;
+                                setState(() {});
+                              },
+                              animatedTexts: [
+                                for (String dialog
+                                    in widget.dialogHolder.dialogs)
+                                  TyperAnimatedText(dialog,
+                                      textStyle: dialogStyle),
+                              ]),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                for (int i = 0;
+                                    i <
+                                        widget
+                                            .dialogHolder.people!.type.levelMax;
+                                    i++)
+                                  if (widget.dialogHolder.people!.heartPoint >=
+                                      widget.dialogHolder.people!.type
+                                          .valueForLevel[i])
+                                    Icon(
+                                      Icons.favorite,
+                                      color: Colors.pink,
+                                    )
+                                  else
+                                    Icon(
+                                      Icons.favorite,
+                                      color: Colors.black,
+                                    )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )),
             )),

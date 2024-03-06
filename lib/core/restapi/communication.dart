@@ -130,6 +130,21 @@ Future<bool> joinAlliance(int allianceId) async {
   return false;
 }
 
+Future<bool> leaveAlliance() async {
+  //force no cache on web
+  int rdm = Random().nextInt(999999);
+  String url =
+      "https://devforever.fr/projectOcean/back/teams.php?leaveTeam=$rdm&UUID=${GameFile().uuid}";
+  debugPrint("url : $url");
+  final response = await http.get(Uri.parse(url));
+  debugPrint("response.statusCode : ${response.statusCode}");
+  if (response.statusCode == 200) {
+    updateWallet();
+    return getCurrentAlliance();
+  }
+  return false;
+}
+
 Future<List<Alliance>> getAllianceWeb() async {
   //force no cache on web
   int rdm = Random().nextInt(999999);
