@@ -77,7 +77,7 @@ enum BuildingCaracteritics implements Comparable<BuildingCaracteritics> {
       identifier: 1,
       name: "Recycler",
       description:
-          "Allow to receive more ressources from trash collected in the ocean. For each level, your boost will be upgraded.\n1:+0% !!1!!\n2:+20% !!2!!\n3:+40% !!3!!\n4:+60% !!4!!\n5:+100% !!5!!\n6:+200% !!6!!",
+          "Allow to receive more resources from trash collected in the ocean. For each level, your boost will be upgraded.\n1:+0% !!1!!\n2:+20% !!2!!\n3:+40% !!3!!\n4:+60% !!4!!\n5:+100% !!5!!\n6:+200% !!6!!",
       levelMax: 6,
       valueForLevel: [
         1,

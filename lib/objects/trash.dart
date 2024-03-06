@@ -53,18 +53,18 @@ class Trash extends SpriteComponent
   }
 
   void setRandomAngle() {
-    /*List<double> anglesPossible = [0, 90, 180, 270];
-    angle =
-        anglesPossible[Random().nextInt(anglesPossible.length - 1)] * pi / 180;*/
+    angle = (Random().nextInt(359) + 1) * pi / 180;
   }
 
   Vector2 screenSize = Vector2(0, 0);
 
   @override
   void onGameResize(Vector2 size) {
-    if (size.x < 500 || size.y < 500) {
+    /* if (size.x < 500 || size.y < 500) {
       debugPrint("size.x or y < 500 : (${size.x},${size.y})");
-    }
+    }*/
+    x = size.x;
+    y = size.y;
     if (x > 1920) {
       x = 1920;
     }
@@ -81,6 +81,8 @@ class Trash extends SpriteComponent
         Vector2(size.x / 1920 * trashType.size, size.y / 1080 * trashType.size);
     screenSize = size;
     super.onGameResize(size);
+    //debugPrint(
+    //  "Trash onGameResize (${size.x},${size.y}) scale : (${scale.x.toStringAsFixed(3)}, ${scale.y.toStringAsFixed(3)})");
   }
 
   @override
@@ -224,7 +226,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 800,
       deepMax: 1500,
-      size: 3,
+      size: 1.5,
       sizeInInventory: 2,
       pointNumber: 6,
       imageFile: "ancre.png",

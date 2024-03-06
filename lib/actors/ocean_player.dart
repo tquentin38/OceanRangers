@@ -149,8 +149,8 @@ class OceanPlayer extends SpriteAnimationComponent
                           screenSize.x / 4 -
                           MouseInfos().position.x) /
                       (screenSize.x / 4)));
-          debugPrint(
-              "$horizontalDirection (${screenSize.x / 2 + screenSize.x / 4 - MouseInfos().position.x}/${screenSize.x / 4})");
+          //debugPrint(
+          //    "$horizontalDirection (${screenSize.x / 2 + screenSize.x / 4 - MouseInfos().position.x}/${screenSize.x / 4})");
         }
       } else if (MouseInfos().position.x <
           screenSize.x / 2 - screenSize.x * 0.03) {

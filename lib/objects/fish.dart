@@ -343,8 +343,8 @@ enum FishType implements Comparable<FishType> {
   blueWhale(
       identifier: 17,
       name: "Blue_Whale",
-      sizex: 5,
-      sizey: 5,
+      sizex: 10,
+      sizey: 2,
       deepMin: 100,
       deepPeak: 350,
       deepMax: 1200,

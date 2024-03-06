@@ -112,7 +112,7 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 1,
       name: "Speed",
       description:
-          "Are you not fast enough ? well, it's something for you ! Upgrade your max speed.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +100% !!5!!\n6: +150% !!6!!",
+          "Are you not fast enough? well, it's something for you! Upgrade your max speed.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +100% !!5!!\n6: +150% !!6!!",
       levelMax: 6,
       valueForLevel: [
         1,
@@ -148,7 +148,7 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 2,
       name: "Acceleration",
       description:
-          "Add some agility with upgraded acceleration ! Upgrade your acceleration.\n1: +0% !!1!!\n2: +10% !!2!!\n3: +20% !!3!!\n4: +30% !!4!!\n5: +40% !!5!!\n6: +50% !!6!!",
+          "Add some agility with upgraded acceleration! Upgrade your acceleration.\n1: +0% !!1!!\n2: +10% !!2!!\n3: +20% !!3!!\n4: +30% !!4!!\n5: +40% !!5!!\n6: +50% !!6!!",
       levelMax: 6,
       valueForLevel: [
         1,
@@ -184,7 +184,7 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 3,
       name: "Battery Pack",
       description:
-          "More stored electricity ! Upgrade your battery to have more time in mission.\n1: +0% !!1!!\n2: +10% !!2!!\n3: +20% !!3!!\n4: +30% !!4!!\n5: +40% !!5!!\n6: +50% !!6!!\n7: +60% !!7!!\n8: +70% !!8!!\n9: +80% !!9!!\n10: +100% !!10!!",
+          "More stored electricity! Upgrade your battery to have more time in the mission.\n1: +0% !!1!!\n2: +10% !!2!!\n3: +20% !!3!!\n4: +30% !!4!!\n5: +40% !!5!!\n6: +50% !!6!!\n7: +60% !!7!!\n8: +70% !!8!!\n9: +80% !!9!!\n10: +100% !!10!!",
       levelMax: 10,
       valueForLevel: [
         1,
@@ -240,7 +240,7 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 4,
       name: "Best motor (electrical save)",
       description:
-          "a better rendment is allways a good thing ! Mouvement consume less electricity.\n1: -0% !!1!!\n2: -10% !!2!!\n3: -20% !!3!!\n4: -40% !!4!!\n5: -50% !!5!!\n6: -60% !!6!!",
+          "Better efficiency is always a good thing! Mouvement consumes less electricity.\n1: -0% !!1!!\n2: -10% !!2!!\n3: -20% !!3!!\n4: -40% !!4!!\n5: -50% !!5!!\n6: -60% !!6!!",
       levelMax: 6,
       valueForLevel: [
         1,
@@ -276,7 +276,7 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 5,
       name: "Stockage size",
       description:
-          "Miniaturize all the composent on board to free sapce ! Your robot have more space.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!",
+          "Miniaturize all the components on board to free space! Your robot has more space.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!",
       levelMax: 6,
       valueForLevel: [
         1,
@@ -312,7 +312,7 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 6,
       name: "Counter the gravity !",
       description:
-          "With some autonomous algrorithm, we can stop the gravity ! Stabilize the robot and reduce gravity factor.\n1: -0% !!1!!\n2: -20% !!2!!\n3: -40% !!3!!\n4: -60% !!4!!\n5: -80% !!5!!\n6: -100% !!6!!",
+          "With some autonomous algorithm, we can stop gravity! Stabilize the robot and reduce the gravity factor.\n1: -0% !!1!!\n2: -20% !!2!!\n3: -40% !!3!!\n4: -60% !!4!!\n5: -80% !!5!!\n6: -100% !!6!!",
       levelMax: 6,
       valueForLevel: [
         1,
@@ -348,7 +348,7 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 7,
       name: "Stockage resistance",
       description:
-          "With better material, our shield will protect more our ressources ! You get more ressource if the robot fainth.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!",
+          "With better material, our shield will protect our resources! You get more resources if the robot fainth.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!",
       levelMax: 6,
       valueForLevel: [
         1,

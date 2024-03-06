@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ocean_rangers/core/building/building_caracteristic.dart';
 import 'package:ocean_rangers/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -175,17 +176,23 @@ class _BoatHUDState extends State<BoatHUD> {
                     ),
                   ),
                 Expanded(
-                  child: FittedBox(child: Text("Ressources", style: textStyle)),
-                ),
-                for (Ressource ressource
-                    in GameFile().ressourcesManager.ressources)
-                  Expanded(
-                      child: FittedBox(
-                    child: Text(
-                      "${ressource.getName()}:${ressource.value}",
-                      style: textStyle,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        for (Ressource ressource
+                            in GameFile().ressourcesManager.ressources)
+                          Expanded(
+                              child: FittedBox(
+                            child: Text(
+                              "${ressource.getName()}:${ressource.value}/${GameFile().boatContainerSize}",
+                              style: textStyle,
+                            ),
+                          ))
+                      ],
                     ),
-                  ))
+                  ),
+                ),
               ],
             ),
           ),

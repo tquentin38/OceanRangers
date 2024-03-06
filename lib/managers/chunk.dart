@@ -122,6 +122,7 @@ class Chunk {
                               (TrashType.values.length - 1))
                           .round()]);
               game.add(trash);
+              // trash.onGameResize(worldManager.screenSize);
               loadedBlocks.add(trash);
               //debugPrint("added Trash ${preLoadedGameObject.futurPosition}");
               toRemove.add(preLoadedGameObject);
@@ -134,7 +135,7 @@ class Chunk {
               debugPrint(
                   "fishType == null depth:${chunkPosition.y * 20} ${preLoadedGameObject.futurPosition}");
             } else {
-              Fish plateforme = Fish(
+              Fish fish = Fish(
                   gridPosition: delta + preLoadedGameObject.futurPosition,
                   preLoadedGameObject: preLoadedGameObject,
                   fishType: FishType.values[(preLoadedGameObject.randomDouble /
@@ -143,8 +144,9 @@ class Chunk {
                       .round()]);
               //debugPrint(
               //    "added  PlatformBlock ${preLoadedGameObject.futurPosition}");
-              game.add(plateforme);
-              loadedBlocks.add(plateforme);
+              game.add(fish);
+              //fish.onGameResize(worldManager.screenSize);
+              loadedBlocks.add(fish);
               toRemove.add(preLoadedGameObject);
             }
             break;
@@ -155,14 +157,15 @@ class Chunk {
               debugPrint(
                   "waterEnemyType == null depth:${chunkPosition.y * 20} ${preLoadedGameObject.futurPosition}");
             } else {
-              WaterEnemy plateforme = WaterEnemy(
+              WaterEnemy waterEnemy = WaterEnemy(
                   gridPosition: delta + preLoadedGameObject.futurPosition,
                   preLoadedGameObject: preLoadedGameObject,
                   waterEnemyType: waterEnemyType);
               //debugPrint(
               //    "added  WaterEnemy ${preLoadedGameObject.futurPosition}");
-              game.add(plateforme);
-              loadedBlocks.add(plateforme);
+              game.add(waterEnemy);
+              //waterEnemy.onGameResize(worldManager.screenSize);
+              loadedBlocks.add(waterEnemy);
               toRemove.add(preLoadedGameObject);
             }
 

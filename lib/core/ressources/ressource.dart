@@ -108,20 +108,21 @@ class RessourceHolder {
 enum RessourcesTypes implements Comparable<RessourcesTypes> {
   wood(
     identifier: 1,
-    name: "Bois",
+    name: "Wood",
   ),
   platic(
     identifier: 2,
-    name: "Plastique",
+    name: "Plastic",
   ),
   iron(
     identifier: 3,
-    name: "Fer",
+    name: "Iron",
   ),
-  gold(
+  /*gold(
     identifier: 4,
     name: "Or",
-  );
+  )*/
+  ;
 
   const RessourcesTypes({required this.identifier, required this.name});
 
