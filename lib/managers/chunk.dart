@@ -363,41 +363,4 @@ class Chunk {
     }
     return list;
   }
-
-  /*@Deprecated("Now use pregenerate and load on the fly")
-  void generateChunk() {
-    //generate number for the process
-    int bancRand = randomSuite[0];
-
-    //generate number of fish banc type 1 - moy 10 in level 0m, 0 in level 100m
-    if (chunkPosition.y < 5) {
-      generateBanc(
-          5 + (bancRand / 100 * (10 * (5 - chunkPosition.y) / 5)).round());
-    }
-
-    generateTrash(5 + (randomSuite[1] / 100 * 5).round());
-    //randomSuite.clear();
-  }
-
-  void generateTrash(int nb) {
-    for (int i = 0; i < nb; i++) {
-      Vector2 position = worldManager.translate(
-          chunkPosition,
-          Vector2(randomSuite[600 + 2 * i] / 100,
-              randomSuite[600 + 2 * i + 1] / 100));
-      //debugPrint("generateTrash($i) in $position");
-      game.add(Star(gridPosition: position, xOffset: 0));
-    }
-  }
-
-  void generateBanc(int nb) {
-    for (int i = 0; i < nb; i++) {
-      Vector2 position = worldManager.translate(
-          chunkPosition,
-          Vector2(randomSuite[500 + 2 * i] / 100,
-              randomSuite[500 + 2 * i + 1] / 100));
-      //debugPrint("generateBanc($i) in $position");
-      game.add(PlatformBlock(gridPosition: position, xOffset: 0));
-    }
-  }*/
 }

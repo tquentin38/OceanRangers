@@ -77,78 +77,76 @@ class _BoatRobotPageState extends State<BoatRobotPage> {
                   primary: false,
                   padding: const EdgeInsets.all(10),
                   crossAxisSpacing: 1,
-                  mainAxisSpacing: 5,
+                  mainAxisSpacing: 1,
                   crossAxisCount: 3,
-                  shrinkWrap: true,
+                  shrinkWrap: false,
                   children: <Widget>[
                     for (RobotCaracteritic rc
                         in GameFile().robot.robotCaracteristics)
-                      SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(), color: Colors.grey),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      rc.getName(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(), color: Colors.grey),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    rc.getName(),
+                                    style: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.normal,
+                                        color: Colors.black,
+                                        decoration: TextDecoration.none),
+                                  ),
+                                  Text(
+                                    "${rc.getLevel()}/${rc.getLevelMax()} upgrade",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.normal,
+                                        decoration: TextDecoration.none),
+                                  ),
+                                  Text(rc.getDescription(),
                                       style: const TextStyle(
-                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                          decoration: TextDecoration.none)),
+                                  Text(rc.getNeededForUpgrade(),
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontStyle: FontStyle.normal,
-                                          color: Colors.black,
-                                          decoration: TextDecoration.none),
+                                          decoration: TextDecoration.none)),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: rc.isUpgradable()
+                                          ? Colors.green
+                                          : Colors.red,
+                                      elevation: 0,
                                     ),
-                                    Text(
-                                      "${rc.getLevel()}/${rc.getLevelMax()} upgrade",
-                                      style: const TextStyle(
+                                    onPressed: () {
+                                      rc.upgrade();
+                                      setState(() {});
+                                    },
+                                    child: const Text(
+                                      "Purchase upgrade",
+                                      style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontStyle: FontStyle.normal,
                                           decoration: TextDecoration.none),
                                     ),
-                                    Text(rc.getDescription(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            decoration: TextDecoration.none)),
-                                    Text(rc.getNeededForUpgrade(),
-                                        style: const TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle: FontStyle.normal,
-                                            decoration: TextDecoration.none)),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: rc.isUpgradable()
-                                            ? Colors.green
-                                            : Colors.red,
-                                        elevation: 0,
-                                      ),
-                                      onPressed: () {
-                                        rc.upgrade();
-                                        setState(() {});
-                                      },
-                                      child: const Text(
-                                        "Purchase upgrade",
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle: FontStyle.normal,
-                                            decoration: TextDecoration.none),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                        ),
+                                  ),
+                                ],
+                              ),
+                            )),
                       ),
                   ],
                 ),

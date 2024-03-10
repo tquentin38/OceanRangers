@@ -310,14 +310,6 @@ enum FishType implements Comparable<FishType> {
       imageFile: "fish_14.png",
       srcSizeX: 655,
       srcSizeY: 185),
-  /*fish_15(
-      identifier: 14,
-      name: "fish_15",
-      sizex: 1,
-      sizey: 1,
-      deepMin: 0,
-      deepMax: 150,
-      imageFile: "fish_15.png"),*/
   fish_16(
       identifier: 15,
       name: "fish_16",

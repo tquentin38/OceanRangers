@@ -65,11 +65,11 @@ class _BoatDialogState extends State<BoatDialog> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Stack(children: [
-      if (!widget.ended && widget.dialogHolder.people != null)
+      if (!widget.ended)
         Padding(
             padding: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.1,
-                top: MediaQuery.of(context).size.height - 300),
+                top: MediaQuery.of(context).size.height - 220),
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               height: 200,
@@ -102,32 +102,34 @@ class _BoatDialogState extends State<BoatDialog> {
                                   TyperAnimatedText(dialog,
                                       textStyle: dialogStyle),
                               ]),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                for (int i = 0;
-                                    i <
-                                        widget
-                                            .dialogHolder.people!.type.levelMax;
-                                    i++)
-                                  if (widget.dialogHolder.people!.heartPoint >=
-                                      widget.dialogHolder.people!.type
-                                          .valueForLevel[i])
-                                    Icon(
-                                      Icons.favorite,
-                                      color: Colors.pink,
-                                    )
-                                  else
-                                    Icon(
-                                      Icons.favorite,
-                                      color: Colors.black,
-                                    )
-                              ],
-                            ),
-                          )
+                          if (widget.dialogHolder.people != null)
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  for (int i = 0;
+                                      i <
+                                          widget.dialogHolder.people!.type
+                                              .levelMax;
+                                      i++)
+                                    if (widget
+                                            .dialogHolder.people!.heartPoint >=
+                                        widget.dialogHolder.people!.type
+                                            .valueForLevel[i])
+                                      Icon(
+                                        Icons.favorite,
+                                        color: Colors.pink,
+                                      )
+                                    else
+                                      Icon(
+                                        Icons.favorite,
+                                        color: Colors.black,
+                                      )
+                                ],
+                              ),
+                            )
                         ],
                       ),
                     ),

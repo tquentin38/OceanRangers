@@ -24,6 +24,7 @@ class _BoatOverviewState extends State<BoatOverview> {
   @override
   void initState() {
     super.initState();
+    GameFile().getAudioPlayer().stop();
   }
 
   @override
@@ -122,6 +123,37 @@ class _BoatOverviewState extends State<BoatOverview> {
             size: 100,
             color: Color.fromARGB(255, 185, 0, 0),
             weight: 150,
+          )),
+      Positioned(
+          bottom: 0 + 50,
+          right: 0 + 50,
+          height: MediaQuery.of(context).size.width * 0.15,
+          width: MediaQuery.of(context).size.width * 0.15 * 200 / 178,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                CupertinoPageRoute(builder: (context) => GameOceanWidget()),
+              );
+            },
+            child: MouseRegion(
+              hitTestBehavior: HitTestBehavior.opaque,
+              cursor: SystemMouseCursors.click,
+              onEnter: (event) {
+                isHover = true;
+                hoverValue = "Go to the Ocean";
+                setState(() {});
+              },
+              onExit: (event) {
+                isHover = false;
+                setState(() {});
+              },
+              onHover: _updatelocation,
+              child: const Image(
+                image: AssetImage("assets/images/sous_marin.png"),
+                fit: BoxFit.fill,
+              ),
+            ),
           )),
       if (isHover)
         Positioned(

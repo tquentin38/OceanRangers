@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class Hud extends PositionComponent with HasGameReference<OceanGame> {
   final WorldManager worldManager;
-  bool debugInfos = false;
+  bool debugInfos = true;
   Hud({
     required this.worldManager,
     super.position,

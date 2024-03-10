@@ -28,11 +28,11 @@ class OceanGame extends FlameGame
   int spaceUsed = 0;
   int maxSpace = 40;
   int health = 10;
-  int maxHealth = 10;
+  int maxHealth = 1000; //10
   double energie = 100;
   double maxDeep = 0;
   double currentDeep = 0;
-  double electricalPower = 100;
+  double electricalPower = 10000; //100
   double maxElectricalPower = 100;
   List<int> trashCollected = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   bool terminatedComputed = false;
@@ -57,13 +57,10 @@ class OceanGame extends FlameGame
       'heart_half.png',
       'heart.png',
       'star.png',*/
-      'light_fishs.png',
-      'player_fishs.png',
       'fish_1s.png',
       'dead_fish2s.png',
       'dead_fishs.png',
       'conserves.png',
-      'submarines.png',
       'banc_s.png',
       'ship_s.png',
       'ship_m.png',

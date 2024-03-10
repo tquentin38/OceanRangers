@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:ocean_rangers/core/building/building.dart';
 import 'package:ocean_rangers/core/people/people_manager.dart';
 import 'package:ocean_rangers/core/quests/quests_manager.dart';
@@ -34,11 +35,18 @@ class GameFile {
   bool isIntroPassed = false;
   int profileId = 0;
 
+  AudioPlayer? introAudioPlayer;
+
   // using a factory is important
   // because it promises to return _an_ object of this type
   // but it doesn't promise to make a new one.
   factory GameFile() {
     return _instance;
+  }
+
+  AudioPlayer getAudioPlayer() {
+    introAudioPlayer ??= AudioPlayer();
+    return introAudioPlayer!;
   }
 
   // This named constructor is the "real" constructor

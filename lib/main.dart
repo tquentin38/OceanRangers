@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/semantics.dart';
 import 'package:ocean_rangers/boat/boat_alliance.dart';
 import 'package:ocean_rangers/boat/boat_batiment.dart';
@@ -15,6 +16,7 @@ import 'package:ocean_rangers/boat/boat_wheel_houses.dart';
 import 'package:ocean_rangers/config_page.dart';
 import 'package:ocean_rangers/core/game_file.dart';
 import 'package:ocean_rangers/intro_page.dart';
+import 'package:ocean_rangers/intro_page3.dart';
 import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:ocean_rangers/overlays/infos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'intro_page2.dart';
 import 'overlays/game_over.dart';
 import 'overlays/go_back.dart';
 
@@ -150,6 +153,14 @@ class MyApp extends StatelessWidget {
           return CupertinoPageRoute(
               builder: (context) => const IntroPage(), settings: settings);
         }
+        if (settings.name == "/intro2") {
+          return CupertinoPageRoute(
+              builder: (context) => const IntroPage2(), settings: settings);
+        }
+        if (settings.name == "/intro3") {
+          return CupertinoPageRoute(
+              builder: (context) => const IntroPage3(), settings: settings);
+        }
         if (settings.name == "/config") {
           return CupertinoPageRoute(
               builder: (context) => const ConfigPage(), settings: settings);
@@ -204,6 +215,20 @@ class _WelcomePageState extends State<WelcomePage> {
           t.cancel();
         }
       });
+      Timer.periodic(const Duration(seconds: 3), (Timer t) {
+        if (mounted) {
+          try {
+            /*GameFile().getAudioPlayer().play(
+                AssetSource('audio/big-bubbles-2-169078.mp3'),
+                volume: 0.4);*/
+            t.cancel();
+          } catch (error) {
+            debugPrint(error.toString());
+          }
+        } else {
+          t.cancel();
+        }
+      });
     }
   }
 
@@ -228,47 +253,32 @@ class _WelcomePageState extends State<WelcomePage> {
           width: MediaQuery.of(context).size.width,
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Expanded(
-              flex: 1,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 79, 224),
-                              elevation: 0,
-                            ),
-                            onPressed: () {
-                              /*Navigator.pushReplacement(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => BoatPage()),
-                                  );*/
-                              Navigator.pushReplacementNamed(context, "/boat");
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.only(bottom: 8.0),
-                              child: Text(
-                                "Start",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30),
-                              ),
-                            ),
-                          ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 0, 79, 224),
+                        elevation: 0,
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, "/intro");
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          "Start",
+                          style: TextStyle(color: Colors.white, fontSize: 30),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            const Text("V0.2.1-beta"),
+            const Text("V0.2.3-beta"),
             if (GameFile().uuid != null)
               Text("${GameFile().pseudo} (${GameFile().uuid})"),
             GestureDetector(

@@ -90,41 +90,6 @@ class _AlliancePageState extends State<AlliancePage> {
               fit: BoxFit.fill,
             ),
           )),
-      Positioned(
-          top: MediaQuery.of(context).size.height / 20 +
-              MediaQuery.of(context).size.height / 20 -
-              25,
-          left: 0 + MediaQuery.of(context).size.width / 20 - 25,
-          child: const Icon(
-            Icons.arrow_back,
-            size: 50,
-            color: Color.fromARGB(255, 185, 0, 0),
-            weight: 150,
-          )),
-      Positioned(
-          height: MediaQuery.of(context).size.height / 10,
-          width: MediaQuery.of(context).size.width / 10,
-          top: MediaQuery.of(context).size.height / 20,
-          left: 0,
-          child: GestureDetector(
-            onTap: () =>
-                {Navigator.pushReplacementNamed(context, "/boat/marina")},
-            child: MouseRegion(
-              //child: Container(decoration: BoxDecoration(color: Colors.black)),
-              hitTestBehavior: HitTestBehavior.opaque,
-              cursor: SystemMouseCursors.click,
-              onEnter: (event) {
-                isHover = true;
-                hoverValue = "Go back";
-                setState(() {});
-              },
-              onExit: (event) {
-                isHover = false;
-                setState(() {});
-              },
-              onHover: _updatelocation,
-            ),
-          )),
       SizedBox(
         height: MediaQuery.of(context).size.height * 0.8,
         width: MediaQuery.of(context).size.width * 0.965,
@@ -387,6 +352,41 @@ class _AlliancePageState extends State<AlliancePage> {
           ),
         ),
       ),
+      Positioned(
+          top: MediaQuery.of(context).size.height / 20 +
+              MediaQuery.of(context).size.height / 20 -
+              25,
+          left: 0 + MediaQuery.of(context).size.width / 20 - 25,
+          child: const Icon(
+            Icons.arrow_back,
+            size: 50,
+            color: Color.fromARGB(255, 185, 0, 0),
+            weight: 150,
+          )),
+      Positioned(
+          height: MediaQuery.of(context).size.height / 10,
+          width: MediaQuery.of(context).size.width / 10,
+          top: MediaQuery.of(context).size.height / 20,
+          left: 0,
+          child: GestureDetector(
+            onTap: () =>
+                {Navigator.pushReplacementNamed(context, "/boat/marina")},
+            child: MouseRegion(
+              //child: Container(decoration: BoxDecoration(color: Colors.black)),
+              hitTestBehavior: HitTestBehavior.opaque,
+              cursor: SystemMouseCursors.click,
+              onEnter: (event) {
+                isHover = true;
+                hoverValue = "Go back";
+                setState(() {});
+              },
+              onExit: (event) {
+                isHover = false;
+                setState(() {});
+              },
+              onHover: _updatelocation,
+            ),
+          )),
       const BoatHUD(),
       if (isHover)
         Positioned(

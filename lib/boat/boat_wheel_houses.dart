@@ -256,7 +256,7 @@ class _WheelHousesState extends State<WheelHouses> {
   Widget showStats(BuildContext context) {
     return AlertDialog(
       content: SizedBox(
-        height: MediaQuery.of(context).size.height / 1.5,
+        height: MediaQuery.of(context).size.height / 3,
         child: Column(
           children: [
             Expanded(

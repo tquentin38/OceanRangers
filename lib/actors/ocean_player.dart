@@ -13,8 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../core/game_file.dart';
 import '../core/robot/robot_caracterisitc.dart';
-import '../objects/ground_block.dart';
-import '../objects/platform_block.dart';
 import '../objects/trash.dart';
 import '../text/text_box.dart';
 
@@ -22,7 +20,7 @@ class OceanPlayer extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks, HasGameReference<OceanGame> {
   double horizontalDirection = 0;
   final Vector2 velocity = Vector2.zero();
-  double moveSpeed = 150;
+  double moveSpeed = 150; //150
   final Vector2 fromAbove = Vector2(0, -1);
   bool isOnGround = false;
   double gravity = 1.5;
@@ -81,7 +79,7 @@ class OceanPlayer extends SpriteAnimationComponent
     textManager.setBoxPosition(Vector2(size.x / 2 - 400, 100));
     if (screenSize.x == 0) {
       textManager.addTextToDisplay(
-          "Radio: Un deux, un deux ! Est-ce que tu m'entends depuis ton poste de contrôle ? Le robot a été déployé, vas-y, c'est a toi ! ",
+          "Radio: One two, one two! Can you hear me from your control station? The robot has been deployed, go ahead, it's your turn!",
           15,
           true);
     }
@@ -108,7 +106,7 @@ class OceanPlayer extends SpriteAnimationComponent
     if (keysPressed.contains(LogicalKeyboardKey.keyK)) {
       game.health = 0;
       textManager.addTextToDisplay(
-          "Radio: Oh, tu as activé l'auto-destruction ?!? Bon ... bah on vas voir ce qu'on pourra récupérer ... ",
+          "Radio: Oh, you activated the self-destruct?!? Well... let's see what we can salvage...",
           15,
           true);
     }
@@ -346,108 +344,24 @@ class OceanPlayer extends SpriteAnimationComponent
     if (!halfEnergyWarning &&
         game.electricalPower < game.maxElectricalPower / 2) {
       textManager.addTextToDisplay(
-          "Radio: Attention ! Tu as déjà utilisé la moitié de ton énergie !",
+          "Radio: Attention! You have already used half of your energy!",
           10,
           true);
       halfEnergyWarning = true;
     } else if (!twentyFivePercentEnergyWarning &&
         game.electricalPower < game.maxElectricalPower / 4) {
       textManager.addTextToDisplay(
-          "Radio: Plus qu'un quart d'énergie, tu ferais mieux de commencer a remonter !",
+          "Radio: Less than a quarter of energy left, you'd better start heading back up!",
           10,
           true);
       twentyFivePercentEnergyWarning = true;
     } else if (!tenPercentEnergyWarning &&
         game.electricalPower < game.maxElectricalPower / 10) {
       textManager.addTextToDisplay(
-          "Radio: Ton énergie est critique ! Remonte !", 10, true);
+          "Radio: Your energy is critical! Get back up!", 10, true);
       tenPercentEnergyWarning = true;
     }
-    //velocity.x = 0;
-    //velocity.y = 0;
-    /*
-    // Prevent ember from going backwards at screen edge.
-    if (position.x - 30 <= 0 && horizontalDirection < 0) {
-      velocity.x = 0;
-      position.x = 30;
-    }
 
-bool halfEnergyWarning = false;
-  bool twentyFivePercentEnergyWarning = false;
-  bool tenPercentEnergyWarning = false;
-
-    if (position.x + 64 > game.size.x * (1 - percentStartMove)) {
-      // Prevent ember from going beyond half screen.
-      if (position.x + 64 >= game.size.x * (1 - percentMaxMove)) {
-        velocity.x = -moveSpeed;
-        game.objectSpeed.x = -moveSpeed;
-      } else {
-        double customMoveSpeed = moveSpeed *
-            (position.x + 64) /
-            (game.size.x * (1 - percentMaxMove));
-        velocity.x = -customMoveSpeed;
-        game.objectSpeed.x = -customMoveSpeed;
-      }
-    }
-
-    //going left
-    if (position.x - 64 < game.size.x * percentStartMove) {
-      // Prevent ember from going beyond half screen.
-      if (position.x - 64 <= game.size.x * percentMaxMove) {
-        velocity.x = moveSpeed;
-        game.objectSpeed.x = moveSpeed;
-      } else {
-        double customMoveSpeed = 0.1 +
-            moveSpeed *
-                (1 -
-                    ((position.x - 64 - game.size.x * percentMaxMove) /
-                        (game.size.x * (percentStartMove - percentMaxMove))));
-        //debugPrint(
-        //     "customMoveSpeed : $customMoveSpeed (${(position.x - 64 - game.size.x * percentMaxMove).toStringAsFixed(2)} / ${(game.size.x * (percentStartMove - percentMaxMove)).toStringAsFixed(2)})");
-        velocity.x = customMoveSpeed;
-        game.objectSpeed.x = customMoveSpeed;
-      }
-    }
-
-    //going down
-    if (position.y + 64 > game.size.y * (1 - percentStartMove)) {
-      // Prevent ember from going beyond half screen.
-      if (position.y + 64 >= game.size.y * (1 - percentMaxMove)) {
-        velocity.y = -moveSpeed;
-        game.objectSpeed.y = -moveSpeed;
-      } else {
-        double customMoveSpeed = moveSpeed *
-            (position.y + 64) /
-            (game.size.y * (1 - percentMaxMove));
-        velocity.y = -customMoveSpeed;
-        game.objectSpeed.y = -customMoveSpeed;
-      }
-    }
-
-    //going up
-    if (position.y - 64 < game.size.y * percentStartMove) {
-      // Prevent ember from going beyond half screen.
-      if (position.y - 64 <= game.size.y * percentMaxMove) {
-        //velocity.y = moveSpeed;
-        game.objectSpeed.y = moveSpeed;
-      } else {
-        double customMoveSpeed = 0.1 +
-            moveSpeed *
-                (1 -
-                    ((position.y - 64 - game.size.y * percentMaxMove) /
-                        (game.size.y * (percentStartMove - percentMaxMove))));
-        //debugPrint(
-        //     "customMoveSpeed : $customMoveSpeed (${(position.x - 64 - game.size.x * percentMaxMove).toStringAsFixed(2)} / ${(game.size.x * (percentStartMove - percentMaxMove)).toStringAsFixed(2)})");
-        //velocity.y = customMoveSpeed;
-        game.objectSpeed.y = customMoveSpeed;
-      }
-    }
-
-    // Prevent going to up !
-    if (position.y - 30 <= 0) {
-      position.y = 30;
-    }
-*/
     // If ember fell in pit, then game over.
     if (position.y > game.size.y + size.y) {
       game.health = 0;
@@ -467,55 +381,6 @@ bool halfEnergyWarning = false;
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is GroundBlock || other is PlatformBlock) {
-      if (intersectionPoints.length == 2) {
-        // Calculate the collision normal and separation distance.
-        final mid = (intersectionPoints.elementAt(0) +
-                intersectionPoints.elementAt(1)) /
-            2;
-
-        final collisionNormal = absoluteCenter - mid;
-        final separationDistance = (size.x / 2) - collisionNormal.length;
-        collisionNormal.normalize();
-
-        // If collision normal is almost upwards,
-        // ember must be on ground.
-        if (fromAbove.dot(collisionNormal) > 0.5) {
-          //isOnGround = true;
-        }
-
-        /*Vector2 otherMin = other.position - other.size;
-        Vector2 otherMax = other.position + other.size;
-        Vector2 myMin = position - size;
-        Vector2 myMax = position + size;
-        String colisionSide = "idk";
-
-        if (myMin.y < otherMin.y) {
-          colisionSide = "+y";
-        }
-        if (myMax.y > otherMax.y) {
-          colisionSide = "-y";
-        }
-
-        if (myMin.x < otherMin.x) {
-          colisionSide = "+x";
-        }
-        if (myMax.x > otherMax.x) {
-          colisionSide = "-x";
-        }*/
-
-        // debugPrint(
-        //   "otherMin $otherMin otherMax $otherMax --- myMin ${myMin} myMax ${myMax} - ColizionSide : $colisionSide");
-
-        // Resolve collision by moving ember along
-        // collision normal by separation distance.
-        game.objectSpeed = game.objectSpeed * 0.25;
-        game.objectSpeed -= collisionNormal.scaled(separationDistance);
-        if (velocity.y < 0) {
-          velocity.y = 0;
-        }
-      }
-    }
     if (other is Trash && (game.health > 0 && game.electricalPower > 0)) {
       if (game.spaceUsed + other.trashType.sizeInInventory <= game.maxSpace) {
         other.removeFromParent();
@@ -525,7 +390,7 @@ bool halfEnergyWarning = false;
         game.numberOfPoint += other.trashType.pointNumber;
         if (!sendedFirstTrashMessage) {
           textManager.addTextToDisplay(
-              "Radio: Hé ! Ici Sam, j'ai vu que tu as récupérer un déchêt bien joué ! ",
+              "Radio: Hey! This is Sam. I saw that you picked up some debris, well done!",
               5,
               false);
           sendedFirstTrashMessage = true;
@@ -534,7 +399,7 @@ bool halfEnergyWarning = false;
         if (!sendedFullMessage) {
           sendedFullMessage = true;
           textManager.addTextToDisplay(
-              "Radio: Le robot est plein, tu devrais remonter ! ", 10, true);
+              "Radio: The robot is full, you should head back up!", 10, true);
         }
       }
     }
@@ -553,24 +418,22 @@ bool halfEnergyWarning = false;
       game.health--;
       if (game.health > 2) {
         textManager.addTextToDisplay(
-            "Radio: Fais gaffe ! Ces poissons t'attaquent si tu passes trop prêt ! ",
+            "Radio: Watch out! These fish will attack if you get too close! ",
             5,
             true);
       } else {
         if (game.health > 1) {
           textManager.addTextToDisplay(
-              "Radio: Attention !!! Le robot est déjà très endommagé ! ",
-              5,
-              true);
+              "Radio: Attention! The robot is already very damaged!", 5, true);
         } else {
           if (game.health > 0) {
             textManager.addTextToDisplay(
-                "Radio: Le robot est vraiment en danger ! Tu ferais mieux de remonté a la surface !!! ",
+                "Radio: The robot is really in danger! You better head back up to the surface!!!",
                 10,
                 true);
           } else {
             textManager.addTextToDisplay(
-                "Radio: Je t'avais dit de faire attention ! Bon, on vas récupérer ce qu'il reste du robot ",
+                "Radio: I told you to be careful! Well, we're going to retrieve whatever is left of the robot.",
                 10,
                 true);
           }

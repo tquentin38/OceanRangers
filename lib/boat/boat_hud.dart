@@ -289,7 +289,7 @@ class _BoatHUDState extends State<BoatHUD> {
                         applicationName: "Ocean Rangers",
                         applicationVersion: "1.0",
                         applicationLegalese:
-                            "© www.freepik.com assets\n©Juliette Chappaz & Thibaut Quentin",
+                            "© www.freepik.com assets\nIntro Music by Aleksey Chistilin from Pixabay\n©Juliette Chappaz & Thibaut Quentin",
                       ),
                     ));
                   },
