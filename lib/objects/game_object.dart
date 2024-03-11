@@ -17,7 +17,12 @@ class PreLoadedGameObject {
   Vector2 futurPosition;
   GameObjectType type;
   double randomDouble;
+
   PreLoadedGameObject(this.futurPosition, this.type, this.randomDouble);
+
+  updateFuturPosition(double ratioX, double ratioY) {
+    futurPosition = Vector2(futurPosition.x * ratioX, futurPosition.y * ratioY);
+  }
 }
 
 enum GameObjectType implements Comparable<GameObjectType> {

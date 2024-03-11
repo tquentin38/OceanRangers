@@ -153,7 +153,7 @@ class OceanGame extends FlameGame
   }
 
   void loadAudio() async {
-    await FlameAudio.audioCache.load('dead.mp3');
+    //await FlameAudio.audioCache.load('dead.mp3');
   }
 
   void terminateGame(double percentOfTrash, bool givePlayer) {
@@ -207,7 +207,7 @@ class OceanGame extends FlameGame
     if (givePlayer) {
       GameFile()
           .statsManager
-          .add(StatsTypes.trashCollected, numberOfPoint as double);
+          .add(StatsTypes.trashCollected, numberOfPoint + 0.0);
       GameFile()
           .statsManager
           .add(StatsTypes.powerConsumed, maxElectricalPower - electricalPower);

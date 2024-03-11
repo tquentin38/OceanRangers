@@ -67,7 +67,7 @@ class WorldManager {
       init();
       isInit = true;
     } else {
-      updateAllChunck();
+      updateAllChunck(Vector2(screenSize.x / size.x, screenSize.y / size.y));
     }
   }
 
@@ -121,8 +121,9 @@ class WorldManager {
     return (hasStarted && getDeep() < 0.5);
   }
 
-  void updateAllChunck() {
+  void updateAllChunck(Vector2 ratio) {
     for (Chunk chunk in loadedChunk) {
+      chunk.resize(ratio);
       chunk.update(Vector2(0, 0));
     }
   }

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
+import 'package:ocean_rangers/core/input/keyboard.dart';
 import 'package:ocean_rangers/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +20,14 @@ class BoatHUD extends StatefulWidget {
 }
 
 class _BoatHUDState extends State<BoatHUD> {
+  String lastKey = "";
   bool seenIntro = GameFile().seenIntro;
   TextStyle titleSize = const TextStyle(fontSize: 25);
   TextStyle normalSize = const TextStyle(fontSize: 15);
   @override
   void initState() {
     super.initState();
+
     if (GameFile().nextRobotAvaiable.isAfter(DateTime.now())) {
       Timer.periodic(const Duration(milliseconds: 150), (Timer t) {
         if (GameFile().nextRobotAvaiable.isAfter(DateTime.now())) {
@@ -94,6 +98,15 @@ class _BoatHUDState extends State<BoatHUD> {
                       }
                     },
                     child: const Icon(Icons.home),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(context: context, builder: showSetting);
+                    },
+                    child: const Icon(Icons.settings),
                   ),
                 ),
                 Padding(
@@ -182,6 +195,115 @@ class _BoatHUDState extends State<BoatHUD> {
         )
       ]),
     );
+  }
+
+  int nextUpdate = 0;
+  Widget showSetting(BuildContext context) {
+    return StatefulBuilder(builder:
+        (BuildContext context, void Function(void Function()) mySetState) {
+      bool onKey(KeyEvent event) {
+        final key = event.logicalKey.keyLabel;
+        lastKey = key;
+        if (event is KeyUpEvent) {
+          return false;
+        } else if (event is KeyRepeatEvent) {
+          return false;
+        }
+        if (nextUpdate != 0) {
+          for (KeyCaracteritics keyCaracteritics in KeyCaracteritics.values) {
+            if (nextUpdate == keyCaracteritics.identifier) {
+              KeyCaracteritic? keyCaracteritic = GameFile()
+                  .keyboardManager
+                  .getCaracteristicFromEnum(keyCaracteritics);
+              if (keyCaracteritic != null) {
+                keyCaracteritic.setValue(key);
+              }
+            }
+          }
+          nextUpdate = 0;
+        }
+        if (context.mounted) {
+          mySetState(() {});
+        } else {
+          ServicesBinding.instance.keyboard.removeHandler(onKey);
+        }
+        return false;
+      }
+
+      ServicesBinding.instance.keyboard.addHandler(onKey);
+
+      return AlertDialog(
+        content: SizedBox(
+          height: MediaQuery.of(context).size.height / 1.6,
+          width: MediaQuery.of(context).size.width / 3,
+          child: Column(
+            children: [
+              Expanded(
+                child: Text(
+                  "Settings",
+                  style: titleSize,
+                ),
+              ),
+              Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: [
+                      for (KeyCaracteritic key
+                          in GameFile().keyboardManager.keyCaracteristics)
+                        Row(
+                          children: [
+                            Text("${key.getDescription()} ${key.value}"),
+                            if (nextUpdate != key.type.identifier)
+                              GestureDetector(
+                                onTap: () {
+                                  nextUpdate = key.type.identifier;
+                                  mySetState(() {});
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.edit),
+                                ),
+                              )
+                            else
+                              GestureDetector(
+                                onTap: () {
+                                  nextUpdate = 0;
+
+                                  mySetState(() {});
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.cancel),
+                                ),
+                              )
+                          ],
+                        ),
+                    ],
+                  )),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      elevation: 0,
+                    ),
+                    onPressed: () {
+                      ServicesBinding.instance.keyboard.removeHandler(onKey);
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      "Close profile",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   Widget showQuickHelp(BuildContext context) {

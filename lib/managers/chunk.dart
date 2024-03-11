@@ -57,6 +57,24 @@ class Chunk {
     }
   }
 
+  void resize(Vector2 ratio) {
+    for (PreLoadedGameObject preLoadedGameObject in preLoadedGameObjects) {
+      preLoadedGameObject.updateFuturPosition(ratio.x, ratio.y);
+    }
+    List<GameObject> toRemove = [];
+    for (GameObject gameObject in loadedBlocks) {
+      gameObject.preLoadedGameObject.updateFuturPosition(ratio.x, ratio.y);
+
+      gameObject.removeObject();
+      preLoadedGameObjects.add(gameObject.getPreLoadedGameObject());
+      toRemove.add(gameObject);
+    }
+
+    for (GameObject removable in toRemove) {
+      loadedBlocks.remove(removable);
+    }
+  }
+
   void update(Vector2 objectSpeed) {
     chunkPositionToZero.x = chunkPosition.x * worldManager.screenSize.x;
     chunkPositionToZero.y = chunkPosition.y * worldManager.screenSize.y;

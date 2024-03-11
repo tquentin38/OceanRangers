@@ -125,6 +125,7 @@ class _IntroPage3State extends State<IntroPage3> {
                 color: const Color.fromARGB(143, 158, 158, 158)),
             child: GestureDetector(
               onTap: () {
+                GameFile().setIntroPassed();
                 Navigator.pushReplacementNamed(context, "/boat");
               },
               child: const Text(
@@ -151,6 +152,7 @@ class _IntroPage3State extends State<IntroPage3> {
           secondChild: Container(),
           firstChild: GestureDetector(
             onTap: () {
+              GameFile().setIntroPassed();
               Navigator.pushReplacementNamed(context, "/boat");
             },
             child: const Icon(

@@ -1,5 +1,6 @@
 import 'package:flame_audio/flame_audio.dart';
 import 'package:ocean_rangers/core/building/building.dart';
+import 'package:ocean_rangers/core/input/keyboard.dart';
 import 'package:ocean_rangers/core/people/people_manager.dart';
 import 'package:ocean_rangers/core/quests/quests_manager.dart';
 import 'package:ocean_rangers/core/ressources/ressource.dart';
@@ -21,6 +22,7 @@ class GameFile {
 
   Robot robot = Robot();
   Building building = Building();
+  KeyboardManager keyboardManager = KeyboardManager();
   RessourcesManager ressourcesManager = RessourcesManager();
   PeopleManager peopleManager = PeopleManager();
   QuestsManager questsManager = QuestsManager();
@@ -34,6 +36,7 @@ class GameFile {
   String allianceJoinedDate = "";
   bool isIntroPassed = false;
   int profileId = 0;
+  String goUp = "Z";
 
   AudioPlayer? introAudioPlayer;
 
@@ -79,6 +82,7 @@ class GameFile {
     await statsManager.loadSave();
     await robot.loadSave();
     await building.loadSave();
+    await keyboardManager.loadSave();
   }
 
   void synchronize() {
@@ -114,12 +118,12 @@ class GameFile {
       allianceName = alliName;
     }
     if (isIntro != null) {
-      isIntroPassed = true;
+      isIntroPassed = isIntro;
     } else {
       isIntroPassed = false;
     }
     if (isIntroOcean != null) {
-      seenIntroOcean = true;
+      seenIntroOcean = isIntroOcean;
     }
     if (nextRobot != null) {
       nextRobotAvaiable = DateTime.parse(nextRobot);

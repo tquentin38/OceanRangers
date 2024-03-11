@@ -263,7 +263,13 @@ class _WelcomePageState extends State<WelcomePage> {
                         elevation: 0,
                       ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, "/intro");
+                        debugPrint(
+                            "IS INTRO PASSED : ${GameFile().isIntroPassed}");
+                        if (!GameFile().isIntroPassed) {
+                          Navigator.pushReplacementNamed(context, "/intro");
+                        } else {
+                          Navigator.pushReplacementNamed(context, "/boat");
+                        }
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(bottom: 8.0),
@@ -286,7 +292,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   final SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   // Remove data for the 'counter' key.
-                  await prefs.remove('UUID');
+                  await prefs.remove('isIntroPassed');
                 },
                 child: const Text("©Juliette Chappaz & Thibaut Quentin")),
           ])),

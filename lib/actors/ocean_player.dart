@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ocean_rangers/actors/water_enemy.dart';
 import 'package:ocean_rangers/core/building/building_caracteristic.dart';
+import 'package:ocean_rangers/core/input/keyboard.dart';
 import 'package:ocean_rangers/main.dart';
 import 'package:ocean_rangers/managers/world_manager.dart';
 import 'package:ocean_rangers/ocean_game.dart';
@@ -39,6 +40,12 @@ class OceanPlayer extends SpriteAnimationComponent
   bool sendedFullMessage = false;
   bool sendedFirstTrashMessage = false;
 
+  LogicalKeyboardKey? openInfoKey;
+  LogicalKeyboardKey? goUpKey;
+  LogicalKeyboardKey? goDownKey;
+  LogicalKeyboardKey? goRightKey;
+  LogicalKeyboardKey? goLeftKey;
+
   TextManager textManager = TextManager();
   OceanPlayer({required super.position, required this.worldManager})
       : super(size: Vector2(154, 154), anchor: Anchor.center, priority: 1);
@@ -60,6 +67,34 @@ class OceanPlayer extends SpriteAnimationComponent
       ),
     );
     add(RectangleHitbox());
+    for (LogicalKeyboardKey logicalKeyboardKey
+        in LogicalKeyboardKey.knownLogicalKeys) {
+      if (logicalKeyboardKey.keyLabel ==
+          GameFile().keyboardManager.getValue(KeyCaracteritics.info)) {
+        openInfoKey = logicalKeyboardKey;
+      }
+      if (logicalKeyboardKey.keyLabel ==
+          GameFile().keyboardManager.getValue(KeyCaracteritics.goUp)) {
+        goUpKey = logicalKeyboardKey;
+      }
+      if (logicalKeyboardKey.keyLabel ==
+          GameFile().keyboardManager.getValue(KeyCaracteritics.goDown)) {
+        goDownKey = logicalKeyboardKey;
+      }
+      if (logicalKeyboardKey.keyLabel ==
+          GameFile().keyboardManager.getValue(KeyCaracteritics.goRight)) {
+        goRightKey = logicalKeyboardKey;
+      }
+      if (logicalKeyboardKey.keyLabel ==
+          GameFile().keyboardManager.getValue(KeyCaracteritics.goLeft)) {
+        goLeftKey = logicalKeyboardKey;
+      }
+    }
+    openInfoKey ??= LogicalKeyboardKey.keyI;
+    goUpKey ??= LogicalKeyboardKey.keyZ;
+    goDownKey ??= LogicalKeyboardKey.keyS;
+    goRightKey ??= LogicalKeyboardKey.keyD;
+    goLeftKey ??= LogicalKeyboardKey.keyQ;
   }
 
   Vector2 screenSize = Vector2(0, 0);
@@ -91,31 +126,31 @@ class OceanPlayer extends SpriteAnimationComponent
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     horizontalDirection = 0;
-    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyQ) ||
+    horizontalDirection += (keysPressed.contains(goLeftKey) ||
             keysPressed.contains(LogicalKeyboardKey.arrowLeft))
         ? -1
         : 0;
-    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyD) ||
+    horizontalDirection += (keysPressed.contains(goRightKey) ||
             keysPressed.contains(LogicalKeyboardKey.arrowRight))
         ? 1
         : 0;
     goUp = keysPressed.contains(LogicalKeyboardKey.arrowUp) ||
-        keysPressed.contains(LogicalKeyboardKey.keyZ);
+        keysPressed.contains(goUpKey);
     goDown = keysPressed.contains(LogicalKeyboardKey.arrowDown) ||
-        keysPressed.contains(LogicalKeyboardKey.keyS);
-    if (keysPressed.contains(LogicalKeyboardKey.keyK)) {
+        keysPressed.contains(goDownKey);
+    /* if (keysPressed.contains(LogicalKeyboardKey.keyK)) {
       game.health = 0;
       textManager.addTextToDisplay(
           "Radio: Oh, you activated the self-destruct?!? Well... let's see what we can salvage...",
           15,
           true);
-    }
+    }*/
     if (keysPressed.contains(LogicalKeyboardKey.escape)) {
       game.onPause = true;
       game.isOnBoat = false;
       game.overlays.add('GoBack');
     }
-    if (keysPressed.contains(LogicalKeyboardKey.keyI)) {
+    if (keysPressed.contains(openInfoKey)) {
       game.onPause = true;
       game.isOnBoat = false;
       game.overlays.add('Infos');
@@ -190,16 +225,6 @@ class OceanPlayer extends SpriteAnimationComponent
 
   double lastHorizontalDirection = 1;
   void generateParticules() {
-    // Composition.
-    //
-    // Defining a particle effect as a set of nested behaviors from top to bottom,
-    // one within another:
-    //
-    // ParticleSystemComponent
-    //   > ComposedParticle
-    //     > AcceleratedParticle
-    //       > CircleParticle
-
     if (rnd.nextInt(7) < 6) {
       return;
     }
