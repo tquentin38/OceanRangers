@@ -198,9 +198,11 @@ class _BoatHUDState extends State<BoatHUD> {
   }
 
   int nextUpdate = 0;
+  double audioValue = 0;
   Widget showSetting(BuildContext context) {
     return StatefulBuilder(builder:
         (BuildContext context, void Function(void Function()) mySetState) {
+      audioValue = GameFile().audioVolume;
       bool onKey(KeyEvent event) {
         final key = event.logicalKey.keyLabel;
         lastKey = key;
@@ -278,6 +280,18 @@ class _BoatHUDState extends State<BoatHUD> {
                               )
                           ],
                         ),
+                      Text("Audio ${audioValue.toInt()}%"),
+                      Slider(
+                          value: audioValue,
+                          min: 0,
+                          max: 100,
+                          divisions: 100,
+                          onChanged: (newValue) {
+                            //debugPrint("newval : $newValue");
+                            audioValue = newValue;
+                            GameFile().setAudioVolume(newValue);
+                            mySetState(() {});
+                          })
                     ],
                   )),
               Expanded(

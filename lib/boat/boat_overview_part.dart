@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ocean_rangers/boat/boat_hud.dart';
 import 'package:ocean_rangers/main.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +22,7 @@ class _BoatOverviewState extends State<BoatOverview> {
   TextStyle titleSize = const TextStyle(fontSize: 25);
   TextStyle normalSize = const TextStyle(fontSize: 15);
   String hoverValue = "Error: no hover !";
+  bool isHoverOcean = false;
 
   @override
   void initState() {
@@ -130,23 +133,76 @@ class _BoatOverviewState extends State<BoatOverview> {
                 CupertinoPageRoute(builder: (context) => GameOceanWidget()),
               );
             },
-            child: MouseRegion(
-              hitTestBehavior: HitTestBehavior.opaque,
-              cursor: SystemMouseCursors.click,
-              onEnter: (event) {
-                isHover = true;
-                hoverValue = "Go to the Ocean";
-                setState(() {});
-              },
-              onExit: (event) {
-                isHover = false;
-                setState(() {});
-              },
-              onHover: _updatelocation,
-              child: const Image(
-                image: AssetImage("assets/images/sous_marin.png"),
-                fit: BoxFit.fill,
-              ),
+            child: Column(
+              children: [
+                if (GameFile().nextRobotAvaiable.isBefore(DateTime.now()))
+                  MouseRegion(
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go to the Ocean";
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                    child: const Image(
+                      image: AssetImage("assets/images/sous_marin.png"),
+                      fit: BoxFit.fill,
+                    ),
+                  )
+                else
+                  MouseRegion(
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      isHoverOcean = true;
+                      hoverValue =
+                          "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)";
+                      setState(() {});
+
+                      Timer.periodic(const Duration(seconds: 1), (timer) {
+                        if (isHoverOcean) {
+                          hoverValue =
+                              "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)";
+                        }
+                        if (mounted) {
+                          setState(() {});
+                        } else {
+                          timer.cancel();
+                        }
+                        if (GameFile()
+                                .nextRobotAvaiable
+                                .difference(DateTime.now())
+                                .inSeconds <=
+                            0) {
+                          if (isHoverOcean) {
+                            hoverValue = "Go to the Ocean";
+                          }
+                          if (GameFile()
+                                  .nextRobotAvaiable
+                                  .difference(DateTime.now())
+                                  .inSeconds <=
+                              -5) timer.cancel();
+                        }
+                      });
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      isHoverOcean = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                    child: const Image(
+                      image: AssetImage("assets/images/sous_marin.png"),
+                      fit: BoxFit.fill,
+                      color: Color.fromARGB(186, 156, 156, 156),
+                    ),
+                  ),
+              ],
             ),
           )),
       if (isHover)

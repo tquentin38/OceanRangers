@@ -37,7 +37,7 @@ class GameFile {
   bool isIntroPassed = false;
   int profileId = 0;
   String goUp = "Z";
-
+  double audioVolume = 100;
   AudioPlayer? introAudioPlayer;
 
   // using a factory is important
@@ -89,6 +89,12 @@ class GameFile {
     syncStatsWithWeb();
   }
 
+  void setAudioVolume(double newVolume) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setDouble("audioVolume", newVolume);
+    audioVolume = newVolume;
+  }
+
   void setIntroPassed() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("isIntroPassed", true);
@@ -111,6 +117,10 @@ class GameFile {
     int? idAlli = prefs.getInt("idAlliance");
     String? alliName = prefs.getString("allianceName");
     String? nextRobot = prefs.getString("nextRobotAvaiable");
+    double? audioVolumeSave = prefs.getDouble("audioVolume");
+    if (audioVolumeSave != null) {
+      audioVolume = audioVolumeSave;
+    }
     if (idAlli != null) {
       idAlliance = idAlli;
     }
