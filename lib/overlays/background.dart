@@ -58,19 +58,8 @@ class BackgroundComponent extends PositionComponent
               lastScreenSize.y / 2 * (10 - lastDeep) / 10),
           const PaletteEntry(Color.fromARGB(255, 204, 228, 247)).paint());
       if (game.objectSpeed.x < 0 || game.objectSpeed.x == 0 && last == -1) {
-        /*canvas.drawImage(
-            game.images.fromCache('bateau_r.png'),
-            Offset(lastScreenSize.x / 2 - 250,
-                lastScreenSize.y / 2 * (10 - lastDeep) / 10 - 240),
-            Paint());*/
         last = -1;
       } else {
-        /*canvas.drawImage(
-            game.images.fromCache('bateau_l.png'),
-            Offset(lastScreenSize.x / 2 - 250,
-                lastScreenSize.y / 2 * (10 - lastDeep) / 10 - 240),
-            Paint());*/
-
         last = 1;
       }
       paintImage(

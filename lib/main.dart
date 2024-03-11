@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/semantics.dart';
 import 'package:ocean_rangers/boat/boat_alliance.dart';
 import 'package:ocean_rangers/boat/boat_batiment.dart';

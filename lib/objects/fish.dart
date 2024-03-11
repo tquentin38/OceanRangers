@@ -110,19 +110,6 @@ class Fish extends SpriteComponent
         //flipHorizontallyAroundCenter();
       }
     }
-    /*velocity.x = game.objectSpeed.x;
-    velocity.y = game.objectSpeed.y;
-    position += velocity * dt;
-
-    if (position.x < -size.x) removeFromParent();
-    if (position.x > screenSize.x + size.x) removeFromParent();
-
-    if (position.y < -size.y) removeFromParent();
-    if (position.y > screenSize.y + size.y) removeFromParent();
-
-    if (position.x < -size.x || game.health <= 0) {
-      removeFromParent();
-    }*/
 
     super.update(dt);
   }

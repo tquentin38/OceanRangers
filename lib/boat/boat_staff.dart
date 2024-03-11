@@ -43,12 +43,6 @@ class _BoatStaffState extends State<BoatStaff> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Stack(children: [
       SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -135,53 +129,6 @@ class _BoatStaffState extends State<BoatStaff> {
             ),
           )),
       const BoatHUD(),
-      /*Positioned(
-          height: MediaQuery.of(context).size.height / 2,
-          width: MediaQuery.of(context).size.width / 3.5,
-          left: MediaQuery.of(context).size.height / 20,
-          bottom: MediaQuery.of(context).size.width / 20,
-          child: GestureDetector(
-            onTap: () {
-              if (showBoatDialog) {
-                boatDialog = null;
-                showBoatDialog = false;
-              } else {
-                boatDialog = BoatDialog(dialogs: const [
-                  "Oh bonjour, non non, je ne suis pas un robot ! "
-                ]);
-                showBoatDialog = true;
-                Timer.periodic(const Duration(milliseconds: 100), (Timer t) {
-                  if (boatDialog == null) {
-                    t.cancel();
-                  } else {
-                    if (boatDialog!.isEnded()) {
-                      t.cancel();
-                      boatDialog = null;
-                      showBoatDialog = false;
-                    }
-                  }
-                });
-              }
-              setState(() {});
-            },
-            child: MouseRegion(
-                hitTestBehavior: HitTestBehavior.opaque,
-                cursor: SystemMouseCursors.click,
-                onEnter: (event) {
-                  isHover = true;
-                  hoverValue = "Talk";
-                  setState(() {});
-                },
-                onExit: (event) {
-                  isHover = false;
-                  setState(() {});
-                },
-                onHover: _updatelocation,
-                child: const Image(
-                  image: AssetImage("assets/images/woman_sitted.png"),
-                  fit: BoxFit.fill,
-                )),
-          )),*/
       if (isHover)
         Positioned(
           top: mouseY + 10,

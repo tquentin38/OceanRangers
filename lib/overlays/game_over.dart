@@ -51,10 +51,6 @@ class GameOver extends StatelessWidget {
                   height: 75,
                   child: ElevatedButton(
                     onPressed: () {
-                      /*Navigator.pushReplacement(
-                        context,
-                        CupertinoPageRoute(builder: (context) => BoatPage()),
-                      );*/
                       Navigator.pushReplacementNamed(context, "/boat");
                     },
                     style: ElevatedButton.styleFrom(

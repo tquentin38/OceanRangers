@@ -106,11 +106,6 @@ class GoBack extends StatelessWidget {
                           if (game.isOnBoat || isRepechable) {
                             game.terminateGame(100, true);
 
-                            /*Navigator.pushReplacement(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => BoatPage()),
-                          );*/
                             Navigator.pushReplacementNamed(context, "/boat");
                           } else {
                             game.health = 0;

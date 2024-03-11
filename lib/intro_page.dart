@@ -7,15 +7,6 @@ import 'package:ocean_rangers/core/game_file.dart';
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   @override
   State<IntroPage> createState() => _WelcomePageState();
 }
@@ -118,12 +109,6 @@ class _WelcomePageState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
         body: Stack(children: [
       Positioned(
@@ -315,37 +300,6 @@ class _WelcomePageState extends State<IntroPage> {
           ),
         ),
       ),
-      /*Positioned(
-        height: MediaQuery.of(context).size.height / 2,
-        width: MediaQuery.of(context).size.width / 2,
-        right: 0,
-        bottom: 0,
-        child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration:
-                  BoxDecoration(border: Border.all(), color: Colors.grey),
-              child: ,
-            )),
-      ),*/
-
-      /*Container(
-        child: AnimatedBuilder(
-          animation: _controller,
-          child: Container(
-            color: Colors.green,
-            child: const Center(
-              child: Text('Whee!'),
-            ),
-          ),
-          builder: (BuildContext context, Widget? child) {
-            return Transform.rotate(
-              angle: _controller.value * 2.0 * 3.14,
-              child: child,
-            );
-          },
-        ),
-      ),*/
     ]));
   }
 }

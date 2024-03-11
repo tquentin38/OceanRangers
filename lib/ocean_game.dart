@@ -115,29 +115,6 @@ class OceanGame extends FlameGame
     super.onGameResize(size);
   }
 
-  /*//Targeted 1920 x 1080
-  @override
-  void render(Canvas c) {
-    c.save();
-
-    double resizeX = 0;
-    double resizeY = 0;
-    if (size.x > 1920) {
-      resizeX = (size.x - 1920) / 2;
-    }
-    if (size.y > 1080) {
-      resizeY = (size.y - 1080) / 2;
-    }
-    // the variables resizeOffset and scale I set according to the screen size
-    c.translate(resizeX, resizeY);
-    c.scale(size.x / 1920, size.y / 1080);
-
-    renderGame(c);
-
-    c.restore();
-
-  }*/
-
   void initializeGame(bool loadHud) {
     maxSpace = GameFile().getContainerSize();
     electricalPower = electricalPower *
@@ -152,13 +129,6 @@ class OceanGame extends FlameGame
             .round();
     _worldManager = WorldManager(world, this);
     _worldManager.setupStart();
-    // Assume that size.x < 3200
-    /*final segmentsToLoad = (size.x / 640).ceil();
-    segmentsToLoad.clamp(0, segments.length);
-
-    for (var i = 0; i <= segmentsToLoad; i++) {
-      loadGameSegments(i, (640 * i).toDouble());
-    }*/
 
     _ember = OceanPlayer(
       position: Vector2(size.x / 2, size.y / 2),

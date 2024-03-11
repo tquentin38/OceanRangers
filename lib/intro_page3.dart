@@ -1,24 +1,13 @@
 import 'dart:async';
 
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ocean_rangers/core/people/people_manager.dart';
 
 import 'boat/boat_dialog.dart';
 import 'core/game_file.dart';
 
 class IntroPage3 extends StatefulWidget {
   const IntroPage3({super.key});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   @override
   State<IntroPage3> createState() => _IntroPage3State();
