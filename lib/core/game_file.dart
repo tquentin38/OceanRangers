@@ -120,6 +120,7 @@ class GameFile {
     double? audioVolumeSave = prefs.getDouble("audioVolume");
     if (audioVolumeSave != null) {
       audioVolume = audioVolumeSave;
+      getAudioPlayer().setVolume(audioVolume / 100);
     }
     if (idAlli != null) {
       idAlliance = idAlli;

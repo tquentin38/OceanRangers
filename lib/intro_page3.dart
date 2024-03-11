@@ -91,7 +91,7 @@ class _IntroPage3State extends State<IntroPage3> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: const Image(
-            image: AssetImage("assets/intro/meeting.png"),
+            image: AssetImage("assets/intro/meeting.jpg"),
             fit: BoxFit.fill,
           )),
       Positioned(

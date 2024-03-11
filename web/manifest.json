@@ -1,11 +1,11 @@
 {
-    "name": "challenge2024",
-    "short_name": "challenge2024",
+    "name": "Ocean Rangers",
+    "short_name": "Ocean Rangers",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Join the TRASP and help clean the ocean. Start the game now !",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

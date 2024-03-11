@@ -68,7 +68,7 @@ class _QuestPageState extends State<QuestPage> {
           child: Padding(
             padding: EdgeInsets.only(top: getMaxHeight()),
             child: const Image(
-              image: AssetImage("assets/images/world_map.png"),
+              image: AssetImage("assets/images/world_map.jpg"),
               fit: BoxFit.fill,
             ),
           )),

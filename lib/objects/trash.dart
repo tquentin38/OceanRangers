@@ -134,7 +134,7 @@ enum TrashType implements Comparable<TrashType> {
       sizeInInventory: 1,
       pointNumber: 3,
       imageFile: "bouteille_s.png",
-      grant: [RessourceHolder(RessourcesTypes.platic, 3)]),
+      grant: [RessourceHolder(RessourcesTypes.platic, 4)]),
   couvert(
       identifier: 1,
       name: "Couvert",
@@ -145,7 +145,7 @@ enum TrashType implements Comparable<TrashType> {
       sizeInInventory: 1,
       pointNumber: 1,
       imageFile: "couvert_s.png",
-      grant: [RessourceHolder(RessourcesTypes.platic, 3)]),
+      grant: [RessourceHolder(RessourcesTypes.platic, 5)]),
   canette(
       identifier: 2,
       name: "Canette",
@@ -167,7 +167,7 @@ enum TrashType implements Comparable<TrashType> {
       sizeInInventory: 1,
       pointNumber: 2,
       imageFile: "gobelet_s.png",
-      grant: [RessourceHolder(RessourcesTypes.platic, 3)]),
+      grant: [RessourceHolder(RessourcesTypes.platic, 5)]),
   gourde(
       identifier: 4,
       name: "Gourde",
@@ -178,7 +178,7 @@ enum TrashType implements Comparable<TrashType> {
       sizeInInventory: 1,
       pointNumber: 4,
       imageFile: "gourde_s.png",
-      grant: [RessourceHolder(RessourcesTypes.platic, 3)]),
+      grant: [RessourceHolder(RessourcesTypes.platic, 4)]),
   plasticBag(
       identifier: 5,
       name: "Plastic bag",
@@ -186,10 +186,10 @@ enum TrashType implements Comparable<TrashType> {
       deepPeak: 1000,
       deepMax: 5000,
       size: 1,
-      sizeInInventory: 2,
+      sizeInInventory: 1,
       pointNumber: 6,
       imageFile: "sac_plastique_s.png",
-      grant: [RessourceHolder(RessourcesTypes.platic, 6)]),
+      grant: [RessourceHolder(RessourcesTypes.platic, 5)]),
   robot(
       identifier: 6,
       name: "Robot",
@@ -200,7 +200,10 @@ enum TrashType implements Comparable<TrashType> {
       sizeInInventory: 2,
       pointNumber: 6,
       imageFile: "robot.png",
-      grant: [RessourceHolder(RessourcesTypes.platic, 6)]),
+      grant: [
+        RessourceHolder(RessourcesTypes.platic, 6),
+        RessourceHolder(RessourcesTypes.iron, 3)
+      ]),
   ancre(
       identifier: 7,
       name: "Ancre",
@@ -211,7 +214,7 @@ enum TrashType implements Comparable<TrashType> {
       sizeInInventory: 2,
       pointNumber: 6,
       imageFile: "ancre.png",
-      grant: [RessourceHolder(RessourcesTypes.platic, 6)]),
+      grant: [RessourceHolder(RessourcesTypes.iron, 9)]),
   wood(
       identifier: 8,
       name: "Wood",
@@ -222,7 +225,7 @@ enum TrashType implements Comparable<TrashType> {
       sizeInInventory: 2,
       pointNumber: 6,
       imageFile: "wood.png",
-      grant: [RessourceHolder(RessourcesTypes.wood, 10)]),
+      grant: [RessourceHolder(RessourcesTypes.wood, 9)]),
   ;
 
   const TrashType({

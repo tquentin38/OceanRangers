@@ -6,7 +6,6 @@ import 'package:ocean_rangers/boat/boat_batiment.dart';
 import 'package:ocean_rangers/boat/boat_machines.dart';
 import 'package:ocean_rangers/boat/boat_overview_part.dart';
 import 'package:ocean_rangers/boat/boat_port.dart';
-import 'package:ocean_rangers/boat/boat_port_overview.dart';
 import 'package:ocean_rangers/boat/boat_quest.dart';
 import 'package:ocean_rangers/boat/boat_robot.dart';
 import 'package:ocean_rangers/boat/boat_staff.dart';
@@ -90,6 +89,8 @@ class GameOceanWidget extends StatelessWidget {
   }
 }
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -140,10 +141,6 @@ class MyApp extends StatelessWidget {
           return CupertinoPageRoute(
               builder: (context) => const BoatRobotPage(), settings: settings);
         }
-        if (settings.name == "/boat/port") {
-          return CupertinoPageRoute(
-              builder: (context) => const PortOverview(), settings: settings);
-        }
         if (settings.name == "/boat/marina") {
           return CupertinoPageRoute(
               builder: (context) => const Port(), settings: settings);
@@ -166,6 +163,7 @@ class MyApp extends StatelessWidget {
         }
         return null;
       },
+      navigatorObservers: [routeObserver],
       //home: MyWidget()
       home: const WelcomePage(),
     );
@@ -283,7 +281,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),
-            const Text("V0.2.3-beta"),
+            const Text("V0.3.0-pre"),
             if (GameFile().uuid != null)
               Text("${GameFile().pseudo} (${GameFile().uuid})"),
             GestureDetector(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame_audio/flame_audio.dart';
 import 'package:ocean_rangers/boat/boat_hud.dart';
 import 'package:ocean_rangers/main.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,8 +27,14 @@ class _BoatOverviewState extends State<BoatOverview> {
 
   @override
   void initState() {
-    super.initState();
     GameFile().getAudioPlayer().stop();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      GameFile().getAudioPlayer().play(
+          AssetSource('audio/seagulls_short-6004.mp3'),
+          volume: GameFile().audioVolume / 100);
+      setState(() {});
+    });
+    super.initState();
   }
 
   @override

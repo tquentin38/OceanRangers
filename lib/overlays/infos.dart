@@ -1,5 +1,6 @@
 import 'package:ocean_rangers/core/building/building_caracteristic.dart';
 import 'package:ocean_rangers/core/game_file.dart';
+import 'package:ocean_rangers/core/input/keyboard.dart';
 import 'package:ocean_rangers/core/robot/robot_caracterisitc.dart';
 import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flutter/material.dart';
@@ -55,11 +56,11 @@ class Infos extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'You control the robot with the keyboard arrow, ZQSD, or mouse. Your objective is to go to the deepest point.\nBut you need to have enough power to come back with the robot still functioning!',
-                    style: TextStyle(
+                    'You control the robot with the keyboard arrow, ${GameFile().keyboardManager.getValue(KeyCaracteritics.goUp)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goLeft)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goDown)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goRight)}, or mouse. Your objective is to go to the deepest point.\nBut you need to have enough power to come back with the robot still functioning!',
+                    style: const TextStyle(
                       color: whiteTextColor,
                       fontSize: 15,
                     ),

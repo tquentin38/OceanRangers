@@ -4,7 +4,7 @@ class RessourcesManager {
   List<Ressource> ressources = [];
   RessourcesManager() {
     for (RessourcesTypes rt in RessourcesTypes.values) {
-      ressources.add(Ressource(rt, value: 1500));
+      ressources.add(Ressource(rt, value: 200));
     }
   }
 

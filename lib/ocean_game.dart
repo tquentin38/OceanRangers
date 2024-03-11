@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ocean_rangers/actors/ocean_player.dart';
 import 'package:ocean_rangers/core/building/building_caracteristic.dart';
 import 'package:ocean_rangers/core/game_file.dart';
@@ -28,11 +30,11 @@ class OceanGame extends FlameGame
   int spaceUsed = 0;
   int maxSpace = 40;
   int health = 10;
-  int maxHealth = 1000; //10
+  int maxHealth = 10; //10
   double energie = 100;
   double maxDeep = 0;
   double currentDeep = 0;
-  double electricalPower = 10000; //100
+  double electricalPower = 100; //100
   double maxElectricalPower = 100;
   List<int> trashCollected = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   bool terminatedComputed = false;
@@ -42,6 +44,7 @@ class OceanGame extends FlameGame
   bool isOnBoat = false;
   bool onPause = false;
   bool hasPlayedDeadSound = false;
+  bool isGameDispose = false;
 
   @override
   Color backgroundColor() {
@@ -110,6 +113,14 @@ class OceanGame extends FlameGame
   }
 
   @override
+  void onDispose() async {
+    // TODO: implement onDispose
+    isGameDispose = true;
+    await GameFile().getAudioPlayer().stop();
+    super.onDispose();
+  }
+
+  @override
   void onGameResize(Vector2 size) {
     if (isInit) _worldManager.onGameResize(size);
     super.onGameResize(size);
@@ -150,6 +161,31 @@ class OceanGame extends FlameGame
       overlays.add('Infos');
       GameFile().setIntroOceanPassed();
     }
+    GameFile().getAudioPlayer().play(
+        AssetSource('audio/big-bubbles-2-169078.mp3'),
+        volume: GameFile().audioVolume / 100 * 0.5);
+
+    GameFile().getAudioPlayer().onPlayerComplete.listen((event) {
+      if (!isGameDispose) {
+        switch (Random().nextInt(3)) {
+          case 0:
+            GameFile().getAudioPlayer().play(
+                AssetSource('audio/underwater_ambiance_1.mp3'),
+                volume: 0.5);
+            break;
+          case 1:
+            GameFile().getAudioPlayer().play(
+                AssetSource('audio/underwater_ambiance_2.mp3'),
+                volume: 0.5);
+            break;
+          case 2:
+            GameFile().getAudioPlayer().play(
+                AssetSource('audio/underwater_ambiance_3.mp3'),
+                volume: 0.5);
+            break;
+        }
+      }
+    });
   }
 
   void loadAudio() async {
@@ -165,7 +201,7 @@ class OceanGame extends FlameGame
       if (nb != 0) {
         for (RessourceHolder ressourceHolder in trashType.grant) {
           ressourcesCollected[ressourceHolder.type.identifier] +=
-              ressourceHolder.value;
+              ressourceHolder.value * nb;
         }
       }
     }

@@ -62,10 +62,11 @@ class _BoatRobotPageState extends State<BoatRobotPage> {
               const BoxDecoration(color: Color.fromARGB(175, 211, 211, 211)),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text("Robot upgrade",
-                    style: TextStyle(
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                    "Robot upgrades (${GameFile().robot.robotCaracteristics.length} available)",
+                    style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.normal,
@@ -73,82 +74,86 @@ class _BoatRobotPageState extends State<BoatRobotPage> {
                         decoration: TextDecoration.none)),
               ),
               Expanded(
-                child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(10),
-                  crossAxisSpacing: 1,
-                  mainAxisSpacing: 1,
-                  crossAxisCount: 3,
-                  shrinkWrap: false,
-                  children: <Widget>[
-                    for (RobotCaracteritic rc
-                        in GameFile().robot.robotCaracteristics)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(), color: Colors.grey),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    rc.getName(),
-                                    style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.black,
-                                        decoration: TextDecoration.none),
-                                  ),
-                                  Text(
-                                    "${rc.getLevel()}/${rc.getLevelMax()} upgrade",
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.normal,
-                                        decoration: TextDecoration.none),
-                                  ),
-                                  Text(rc.getDescription(),
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  trackVisibility: true,
+                  child: GridView.count(
+                    primary: false,
+                    padding: const EdgeInsets.all(10),
+                    crossAxisSpacing: 1,
+                    mainAxisSpacing: 1,
+                    crossAxisCount: 3,
+                    children: <Widget>[
+                      for (RobotCaracteritic rc
+                          in GameFile().robot.robotCaracteristics)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(), color: Colors.grey),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      rc.getName(),
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                          decoration: TextDecoration.none)),
-                                  Text(rc.getNeededForUpgrade(),
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
+                                          fontSize: 25,
                                           fontWeight: FontWeight.bold,
                                           fontStyle: FontStyle.normal,
-                                          decoration: TextDecoration.none)),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: rc.isUpgradable()
-                                          ? Colors.green
-                                          : Colors.red,
-                                      elevation: 0,
+                                          color: Colors.black,
+                                          decoration: TextDecoration.none),
                                     ),
-                                    onPressed: () {
-                                      rc.upgrade();
-                                      setState(() {});
-                                    },
-                                    child: const Text(
-                                      "Purchase upgrade",
-                                      style: TextStyle(
+                                    Text(
+                                      "${rc.getLevel()}/${rc.getLevelMax()} upgrade",
+                                      style: const TextStyle(
                                           fontSize: 15,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontStyle: FontStyle.normal,
                                           decoration: TextDecoration.none),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ),
-                  ],
+                                    Text(rc.getDescription(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            decoration: TextDecoration.none)),
+                                    Text(rc.getNeededForUpgrade(),
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: FontStyle.normal,
+                                            decoration: TextDecoration.none)),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: rc.isUpgradable()
+                                            ? Colors.green
+                                            : Colors.red,
+                                        elevation: 0,
+                                      ),
+                                      onPressed: () {
+                                        rc.upgrade();
+                                        setState(() {});
+                                      },
+                                      child: const Text(
+                                        "Purchase upgrade",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: FontStyle.normal,
+                                            decoration: TextDecoration.none),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ],

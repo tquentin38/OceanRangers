@@ -29,9 +29,8 @@ class _WelcomePageState extends State<IntroPage> {
     super.initState();
 
     GameFile().getAudioPlayer().stop();
-    GameFile()
-        .getAudioPlayer()
-        .play(AssetSource('audio/intro_music.mp3'), volume: 0.5);
+    GameFile().getAudioPlayer().play(AssetSource('audio/intro_music.mp3'),
+        volume: GameFile().audioVolume / 100 * 0.5);
 
     GameFile().getAudioPlayer().onPlayerComplete.listen((event) {
       if (mounted) {

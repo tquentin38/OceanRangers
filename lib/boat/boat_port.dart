@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame_audio/flame_audio.dart';
 import 'package:ocean_rangers/boat/boat_dialog.dart';
 import 'package:ocean_rangers/boat/boat_hud.dart';
 import 'package:ocean_rangers/core/people/people_manager.dart';
@@ -26,10 +27,14 @@ class _PortState extends State<Port> {
   @override
   void initState() {
     super.initState();
+
+    GameFile().getAudioPlayer().play(AssetSource('audio/sound_people_ext.mp3'),
+        volume: GameFile().audioVolume / 100 * 0.4);
   }
 
   @override
   void dispose() {
+    GameFile().getAudioPlayer().stop();
     super.dispose();
   }
 

@@ -76,108 +76,154 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       identifier: 0,
       name: "Life",
       description:
-          "Make the robot more robust, it will have more life.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +100% !!5!!\n6: +150% !!6!!",
-      levelMax: 6,
+          "Make the robot more robust, it will have more life.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +100% !!5!!\n6: +150% !!6!!\n7: +200% !!7!!\n8: +250% !!8!!\n9: +300% !!9!!",
+      levelMax: 9,
       valueForLevel: [
         1,
         1.2,
         1.4,
         1.6,
         2,
-        2.5
+        2.5,
+        3,
+        3.5,
+        4
       ],
       cost: [
         [
           RessourceHolder(RessourcesTypes.platic, 100),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 50)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 150),
+          RessourceHolder(RessourcesTypes.iron, 75)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
-        ],
-        [
-          RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 100)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 200)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 250)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 700),
+          RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 350)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1000),
+          RessourceHolder(RessourcesTypes.wood, 300),
+          RessourceHolder(RessourcesTypes.iron, 500)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1500),
+          RessourceHolder(RessourcesTypes.wood, 500),
+          RessourceHolder(RessourcesTypes.iron, 750)
         ],
       ]),
   speed(
       identifier: 1,
       name: "Speed",
       description:
-          "Are you not fast enough? well, it's something for you! Upgrade your max speed.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +100% !!5!!\n6: +150% !!6!!",
-      levelMax: 6,
+          "Are you not fast enough? well, it's something for you! Upgrade your max speed.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +100% !!5!!\n6: +150% !!6!!\n7: +200% !!7!!",
+      levelMax: 7,
       valueForLevel: [
         1,
         1.2,
         1.4,
         1.6,
         2,
-        2.5
+        2.5,
+        3
       ],
       cost: [
         [
           RessourceHolder(RessourcesTypes.platic, 100),
-          RessourceHolder(RessourcesTypes.wood, 100)
-        ],
-        [
-          RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 100)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
-        ],
-        [
-          RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 300),
+          RessourceHolder(RessourcesTypes.iron, 300)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 500),
+          RessourceHolder(RessourcesTypes.iron, 50)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 800),
+          RessourceHolder(RessourcesTypes.wood, 800),
+          RessourceHolder(RessourcesTypes.iron, 800)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1200),
+          RessourceHolder(RessourcesTypes.wood, 1200),
+          RessourceHolder(RessourcesTypes.iron, 1200)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1500),
+          RessourceHolder(RessourcesTypes.wood, 1500),
+          RessourceHolder(RessourcesTypes.iron, 1550)
         ],
       ]),
   acceleration(
       identifier: 2,
       name: "Acceleration",
       description:
-          "Add some agility with upgraded acceleration! Upgrade your acceleration.\n1: +0% !!1!!\n2: +10% !!2!!\n3: +20% !!3!!\n4: +30% !!4!!\n5: +40% !!5!!\n6: +50% !!6!!",
-      levelMax: 6,
+          "Add some agility with upgraded acceleration! Upgrade your acceleration.\n1: +0% !!1!!\n2: +10% !!2!!\n3: +20% !!3!!\n4: +30% !!4!!\n5: +40% !!5!!\n6: +50% !!6!!\n7: +75% !!7!!\n8: +100% !!8!!",
+      levelMax: 8,
       valueForLevel: [
         1,
         1.1,
         1.2,
         1.3,
         1.4,
-        1.5
+        1.5,
+        1.75,
+        2
       ],
       cost: [
         [
           RessourceHolder(RessourcesTypes.platic, 100),
           RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 100)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 110),
+          RessourceHolder(RessourcesTypes.iron, 200)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 125),
+          RessourceHolder(RessourcesTypes.iron, 300)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 150),
+          RessourceHolder(RessourcesTypes.iron, 400)
         ],
         [
-          RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.platic, 750),
+          RessourceHolder(RessourcesTypes.wood, 250),
+          RessourceHolder(RessourcesTypes.iron, 750)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1200),
+          RessourceHolder(RessourcesTypes.wood, 500),
+          RessourceHolder(RessourcesTypes.iron, 1200)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1500),
+          RessourceHolder(RessourcesTypes.wood, 750),
+          RessourceHolder(RessourcesTypes.iron, 1500)
         ],
       ]),
   batteryPack(
@@ -201,44 +247,44 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       cost: [
         [
           RessourceHolder(RessourcesTypes.platic, 100),
-          RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 100)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 150),
+          RessourceHolder(RessourcesTypes.iron, 250)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 400)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 250),
+          RessourceHolder(RessourcesTypes.iron, 500)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 750)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 1000)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 1200)
         ],
         [
-          RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.platic, 600),
+          RessourceHolder(RessourcesTypes.iron, 1500)
         ],
         [
-          RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
-        ],
-        [
-          RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
-        ],
-        [
-          RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.platic, 700),
+          RessourceHolder(RessourcesTypes.iron, 2000)
         ],
       ]),
   motorEfficiency(
       identifier: 4,
-      name: "Best motor (electrical save)",
+      name: "Best motor (electrical save) [Recommanded]",
       description:
           "Better efficiency is always a good thing! Mouvement consumes less electricity.\n1: -0% !!1!!\n2: -10% !!2!!\n3: -20% !!3!!\n4: -40% !!4!!\n5: -50% !!5!!\n6: -60% !!6!!",
       levelMax: 6,
@@ -254,58 +300,92 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
         [
           RessourceHolder(RessourcesTypes.platic, 100),
           RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 100)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
-        ],
-        [
-          RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 300)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 300),
+          RessourceHolder(RessourcesTypes.iron, 400)
         ],
         [
-          RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.platic, 750),
+          RessourceHolder(RessourcesTypes.wood, 500),
+          RessourceHolder(RessourcesTypes.iron, 750)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1200),
+          RessourceHolder(RessourcesTypes.wood, 1000),
+          RessourceHolder(RessourcesTypes.iron, 1200)
         ],
       ]),
   stockageSize(
       identifier: 5,
       name: "Stockage size",
       description:
-          "Miniaturize all the components on board to free space! Your robot has more space.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!",
-      levelMax: 6,
+          "Miniaturize all the components on board to free space! Your robot has more space.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!\n7: +150% !!7!!\n8: +200% !!8!!\n9: +300% !!9!!\n10: +400% !!10!!",
+      levelMax: 10,
       valueForLevel: [
         1,
         1.2,
         1.4,
         1.6,
         1.8,
-        2
+        2,
+        2.5,
+        3,
+        4,
+        5
       ],
       cost: [
         [
           RessourceHolder(RessourcesTypes.platic, 100),
           RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 100)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 150),
+          RessourceHolder(RessourcesTypes.iron, 200)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 200),
+          RessourceHolder(RessourcesTypes.iron, 300)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 250),
+          RessourceHolder(RessourcesTypes.iron, 400)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 300),
+          RessourceHolder(RessourcesTypes.iron, 500)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 750),
+          RessourceHolder(RessourcesTypes.wood, 350),
+          RessourceHolder(RessourcesTypes.iron, 750)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1000),
+          RessourceHolder(RessourcesTypes.wood, 400),
+          RessourceHolder(RessourcesTypes.iron, 1000)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1500),
+          RessourceHolder(RessourcesTypes.wood, 450),
+          RessourceHolder(RessourcesTypes.iron, 150)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 2000),
+          RessourceHolder(RessourcesTypes.wood, 500),
+          RessourceHolder(RessourcesTypes.iron, 2000)
         ],
       ]),
   stabilisator(
@@ -325,59 +405,76 @@ enum RobotCaracteritics implements Comparable<RobotCaracteritics> {
       cost: [
         [
           RessourceHolder(RessourcesTypes.platic, 100),
-          RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 100)
         ],
         [
-          RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.platic, 150),
+          RessourceHolder(RessourcesTypes.iron, 200)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 500)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 600)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.iron, 750)
         ],
       ]),
   stockageResistance(
       identifier: 7,
       name: "Stockage resistance",
       description:
-          "With better material, our shield will protect our resources! You get more resources if the robot fainth.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!",
-      levelMax: 6,
+          "With better material, our shield will protect our resources! You get more resources if the robot fainth.\n1: +0% !!1!!\n2: +20% !!2!!\n3: +40% !!3!!\n4: +60% !!4!!\n5: +80% !!5!!\n6: +100% !!6!!\n7: +150% !!7!!\n8: +200% !!8!!",
+      levelMax: 8,
       valueForLevel: [
         1,
         1.2,
         1.4,
         1.6,
         1.8,
-        2
+        2,
+        2.5,
+        3
       ],
       cost: [
         [
           RessourceHolder(RessourcesTypes.platic, 100),
           RessourceHolder(RessourcesTypes.wood, 100),
+          RessourceHolder(RessourcesTypes.iron, 100)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 200),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 200),
+          RessourceHolder(RessourcesTypes.iron, 200)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 300),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 300),
+          RessourceHolder(RessourcesTypes.iron, 300)
         ],
         [
           RessourceHolder(RessourcesTypes.platic, 400),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.wood, 400),
+          RessourceHolder(RessourcesTypes.iron, 400)
         ],
         [
-          RessourceHolder(RessourcesTypes.platic, 500),
-          RessourceHolder(RessourcesTypes.wood, 100)
+          RessourceHolder(RessourcesTypes.platic, 600),
+          RessourceHolder(RessourcesTypes.wood, 600),
+          RessourceHolder(RessourcesTypes.iron, 600)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 800),
+          RessourceHolder(RessourcesTypes.wood, 800),
+          RessourceHolder(RessourcesTypes.iron, 800)
+        ],
+        [
+          RessourceHolder(RessourcesTypes.platic, 1200),
+          RessourceHolder(RessourcesTypes.wood, 1200),
+          RessourceHolder(RessourcesTypes.iron, 1200)
         ],
       ]);
 

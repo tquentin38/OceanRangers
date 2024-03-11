@@ -63,10 +63,11 @@ class _BoatBatimentPageState extends State<BoatBatimentPage> {
               const BoxDecoration(color: Color.fromARGB(175, 211, 211, 211)),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text("Boat upgrade",
-                    style: TextStyle(
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                    "Boat upgrade  (${GameFile().building.buildingCaracteristics.length} available)",
+                    style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.normal,
@@ -74,76 +75,82 @@ class _BoatBatimentPageState extends State<BoatBatimentPage> {
                         decoration: TextDecoration.none)),
               ),
               Expanded(
-                child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(10),
-                  crossAxisSpacing: 1,
-                  mainAxisSpacing: 5,
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    for (BuildingCaracteritic bc
-                        in GameFile().building.buildingCaracteristics)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(), color: Colors.grey),
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      bc.getName(),
-                                      style: const TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                          decoration: TextDecoration.none),
-                                    ),
-                                    Text(
-                                        "${bc.getLevel()}/${bc.getLevelMax()} upgrade",
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  trackVisibility: true,
+                  child: GridView.count(
+                    primary: false,
+                    padding: const EdgeInsets.all(10),
+                    crossAxisSpacing: 1,
+                    mainAxisSpacing: 5,
+                    crossAxisCount: 3,
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      for (BuildingCaracteritic bc
+                          in GameFile().building.buildingCaracteristics)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(), color: Colors.grey),
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        bc.getName(),
                                         style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                            color: Colors.black,
-                                            decoration: TextDecoration.none)),
-                                    Text(bc.getDescription(),
-                                        style: const TextStyle(
+                                            fontSize: 25,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
-                                            fontSize: 15,
-                                            decoration: TextDecoration.none)),
-                                    Text(bc.getNeededForUpgrade(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            decoration: TextDecoration.none)),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: bc.isUpgradable()
-                                            ? Colors.green
-                                            : Colors.red,
-                                        elevation: 0,
+                                            decoration: TextDecoration.none),
                                       ),
-                                      onPressed: () {
-                                        bc.upgrade();
-                                        setState(() {});
-                                      },
-                                      child: const Text("Purchase upgrade",
-                                          style: TextStyle(
+                                      Text(
+                                          "${bc.getLevel()}/${bc.getLevelMax()} upgrade",
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold,
+                                              fontSize: 15,
                                               color: Colors.black,
                                               decoration: TextDecoration.none)),
-                                    ),
-                                  ],
+                                      Text(bc.getDescription(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              decoration: TextDecoration.none)),
+                                      Text(bc.getNeededForUpgrade(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              decoration: TextDecoration.none)),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: bc.isUpgradable()
+                                              ? Colors.green
+                                              : Colors.red,
+                                          elevation: 0,
+                                        ),
+                                        onPressed: () {
+                                          bc.upgrade();
+                                          setState(() {});
+                                        },
+                                        child: const Text("Purchase upgrade",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                                decoration:
+                                                    TextDecoration.none)),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )),
-                      ),
-                  ],
+                              )),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ],
