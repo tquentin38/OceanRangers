@@ -419,7 +419,6 @@ class _AlliancePageState extends State<AlliancePage> {
   }
 
   Widget showStats(BuildContext context) {
-    double width = getMaxedSize(context).x;
     double height = getMaxedSize(context).y;
     return AlertDialog(
       content: SizedBox(
