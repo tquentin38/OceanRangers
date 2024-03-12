@@ -59,7 +59,7 @@ class Infos extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'You control the robot with the keyboard arrow, ${GameFile().keyboardManager.getValue(KeyCaracteritics.goUp)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goLeft)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goDown)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goRight)}, or mouse. Your objective is to go to the deepest point.\nBut you need to have enough power to come back with the robot still functioning!',
+                    'You control the robot with the keyboard arrow, ${GameFile().keyboardManager.getValue(KeyCaracteritics.goUp)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goLeft)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goDown)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goRight)} (can be changed in the option menu on boat view), or mouse. Your objective is to go to the deepest point.\nBut you need to have enough power to come back with the robot still functioning!',
                     style: const TextStyle(
                       color: whiteTextColor,
                       fontSize: 15,

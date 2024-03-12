@@ -106,10 +106,24 @@ class OceanPlayer extends SpriteAnimationComponent
       position.x = screenSize.x / 2;
       position.y = screenSize.y / 2;
     }
+    Vector2 scaleImg = Vector2(size.x, size.y);
+    if (scaleImg.x > 1920) {
+      scaleImg.x = 1920;
+    }
+    if (scaleImg.y > 1080) {
+      scaleImg.y = 1080;
+    }
+
+    if (scaleImg.x < scaleImg.y) {
+      scaleImg.y = scaleImg.x * 1080 / 1920;
+    } else {
+      scaleImg.x = scaleImg.y * 1920 / 1080;
+    }
+
     //clear velocity
     horizontalDirection = 0;
     velocity.y = 0;
-    scale = Vector2(size.x / 1920 / 1.4, size.y / 1080 / 1.4);
+    scale = Vector2(scaleImg.x / 1920 / 1.4, scaleImg.y / 1080 / 1.4);
     worldManager.onGameResize(size);
     textManager.setBoxPosition(Vector2(size.x / 2 - 400, 100));
     if (screenSize.x == 0) {
@@ -146,6 +160,11 @@ class OceanPlayer extends SpriteAnimationComponent
           true);
     }*/
     if (keysPressed.contains(LogicalKeyboardKey.escape)) {
+      game.onPause = true;
+      game.isOnBoat = false;
+      game.overlays.add('GoBack');
+    }
+    if (keysPressed.contains(LogicalKeyboardKey.keyP)) {
       game.onPause = true;
       game.isOnBoat = false;
       game.overlays.add('GoBack');

@@ -40,6 +40,16 @@ class WaterEnemy extends SpriteAnimationComponent
       position.y = position.y / screenSize.y * size.y * waterEnemyType.size;
       screenSize = size;
     }
+
+    double x = size.x;
+    double y = size.y;
+    if (x > 1920) {
+      x = 1920;
+    }
+    if (y > 1080) {
+      y = 1080;
+    }
+    size = Vector2(x, y);
     scale = Vector2(size.x / 1920 * 0.8, size.y / 1080 * 0.8);
     super.onGameResize(size);
   }

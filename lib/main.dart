@@ -281,7 +281,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),
-            const Text("V0.3.0-pre"),
+            const Text("V1.0.0"),
             if (GameFile().uuid != null)
               Text("${GameFile().pseudo} (${GameFile().uuid})"),
             GestureDetector(

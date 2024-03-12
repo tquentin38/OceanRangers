@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:ocean_rangers/boat/boat_utils.dart';
 import 'package:ocean_rangers/core/people/people_manager.dart';
 
 class DialogHolder {
@@ -48,24 +49,16 @@ class _BoatDialogState extends State<BoatDialog> {
       fontSize: 15,
       decoration: TextDecoration.none);
 
-  double getMaxHeight() {
-    double h = MediaQuery.of(context).size.height / 15;
-    if (h > 40) {
-      h = 40;
-    }
-    return h;
-  }
-
   @override
   Widget build(BuildContext context) {
+    double width = getMaxedSize(context).x;
+    double height = getMaxedSize(context).y;
     return Stack(children: [
       if (!widget.ended)
         Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.1,
-                top: MediaQuery.of(context).size.height - 220),
+            padding: EdgeInsets.only(left: width * 0.1, top: height - 220),
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: width * 0.8,
               height: 200,
               child: Container(
                   decoration: BoxDecoration(
