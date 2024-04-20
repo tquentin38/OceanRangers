@@ -3,11 +3,15 @@
 You join the organization Trash Reduction And Sea Protection - TRASP - whose goal is to send teams of volunteers on scientific boats to explore the ocean floor. However, due to a lack of funds and a surge in volunteers for missions, you find yourself on a rather modest boat with a quite damaged exploration robot. With your team, you embark on the challenge of renovating your ship and exploration robot using materials collected from the ocean during your marine exploration missions. Will you be able to reach the depths of the ocean?
 
 This is a submission for the Global Gamers Challenge, find out more on https://flutter.dev/global-gamers
+Mutiplatform video https://www.youtube.com/watch?v=aymEFIw8M7U
+Project link https://devpost.com/software/projectocean
 
 ## Features
 
 -Control your robot to explore the deep ocean
 -Get resources by collecting and recycle trash during your journey 
+-You can exchange resources at the market
+-Get more information on what you can do on the non-governmental organization board
 -Discover the beauty of the fishes livelihood
 -But pay attention to the enemy fish that can attack you 
 -As you go deeper, the ocean will change according to the 4 zones that are implemented
