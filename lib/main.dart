@@ -104,64 +104,54 @@ class MyApp extends StatelessWidget {
       ),
 
       onGenerateRoute: (settings) {
-        if (settings.name == "/boat") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatOverview(), settings: settings);
+        switch (settings.name) {
+          case "/boat":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatOverview(), settings: settings);
+          case "/boat/wheel":
+            return CupertinoPageRoute(
+                builder: (context) => const WheelHouses(), settings: settings);
+          case "/boat/ong":
+            return CupertinoPageRoute(
+                builder: (context) => const AlliancePage(), settings: settings);
+          case "/boat/quest":
+            return CupertinoPageRoute(
+                builder: (context) => const QuestPage(), settings: settings);
+          case "/boat/staff":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatStaff(), settings: settings);
+          case "/boat/machine":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatMachines(), settings: settings);
+          case "/boat/machine/batiment":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatBatimentPage(),
+                settings: settings);
+          case "/boat/elec":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatTech(), settings: settings);
+          case "/boat/elec/robot":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatRobotPage(),
+                settings: settings);
+          case "/boat/marina":
+            return CupertinoPageRoute(
+                builder: (context) => const Port(), settings: settings);
+          case "/intro":
+            return CupertinoPageRoute(
+                builder: (context) => const IntroPage(), settings: settings);
+          case "/intro2":
+            return CupertinoPageRoute(
+                builder: (context) => const IntroPage2(), settings: settings);
+          case "/intro3":
+            return CupertinoPageRoute(
+                builder: (context) => const IntroPage3(), settings: settings);
+          case "/config":
+            return CupertinoPageRoute(
+                builder: (context) => const ConfigPage(), settings: settings);
+          default:
+            return null;
         }
-        if (settings.name == "/boat/wheel") {
-          return CupertinoPageRoute(
-              builder: (context) => const WheelHouses(), settings: settings);
-        }
-        if (settings.name == "/boat/ong") {
-          return CupertinoPageRoute(
-              builder: (context) => const AlliancePage(), settings: settings);
-        }
-        if (settings.name == "/boat/quest") {
-          return CupertinoPageRoute(
-              builder: (context) => const QuestPage(), settings: settings);
-        }
-        if (settings.name == "/boat/staff") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatStaff(), settings: settings);
-        }
-        if (settings.name == "/boat/machine") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatMachines(), settings: settings);
-        }
-        if (settings.name == "/boat/machine/batiment") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatBatimentPage(),
-              settings: settings);
-        }
-        if (settings.name == "/boat/elec") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatTech(), settings: settings);
-        }
-        if (settings.name == "/boat/elec/robot") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatRobotPage(), settings: settings);
-        }
-        if (settings.name == "/boat/marina") {
-          return CupertinoPageRoute(
-              builder: (context) => const Port(), settings: settings);
-        }
-        if (settings.name == "/intro") {
-          return CupertinoPageRoute(
-              builder: (context) => const IntroPage(), settings: settings);
-        }
-        if (settings.name == "/intro2") {
-          return CupertinoPageRoute(
-              builder: (context) => const IntroPage2(), settings: settings);
-        }
-        if (settings.name == "/intro3") {
-          return CupertinoPageRoute(
-              builder: (context) => const IntroPage3(), settings: settings);
-        }
-        if (settings.name == "/config") {
-          return CupertinoPageRoute(
-              builder: (context) => const ConfigPage(), settings: settings);
-        }
-        return null;
       },
       navigatorObservers: [routeObserver],
       //home: MyWidget()
