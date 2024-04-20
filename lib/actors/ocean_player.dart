@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:ocean_rangers/actors/water_enemy.dart';
 import 'package:ocean_rangers/core/building/building_caracteristic.dart';
@@ -372,8 +373,13 @@ class OceanPlayer extends SpriteAnimationComponent
       game.objectSpeed.y = 0 - worldManager.getPosition().y;
     }
 
-    worldManager.update(game.objectSpeed * dt);
-    super.update(dt);
+    if (!game.fastMode) {
+      worldManager.update(game.objectSpeed * dt);
+      super.update(dt);
+    } else {
+      worldManager.update(game.objectSpeed * dt / 2);
+      super.update(dt / 2);
+    }
 
     if (worldManager.isPlayerWantToGoBack() &&
         game.health > 0 &&
@@ -423,11 +429,124 @@ class OceanPlayer extends SpriteAnimationComponent
     //super.update(dt);
   }
 
+  Vector2 newRandomTrashVector() {
+    double vectorX = (rnd.nextInt(100) - 50);
+    double vectorY = (rnd.nextInt(100) - 50);
+
+    Vector2 randVect = Vector2(vectorX, vectorY);
+
+    return randVect;
+  }
+
+  Vector2 randomVector2() => (Vector2.random(rnd) - Vector2.random(rnd)) * 0.5;
+  void generateTrashsParticules() {
+    Vector2 posPart = position.clone();
+
+    //Vector2 direction =
+    //debugPrint("Added trash collect effect : $direction  | pos $posPart");
+
+    /* game.add(ParticleSystemComponent(
+        particle: Particle.generate(
+            count: 25,
+            generator: (i) {
+              Vector2 position = posPart;
+              Vector2 speed = Vector2.zero();
+              final acceleration = randomVector2();
+              final paint = Paint()..color = Colors.green;
+
+              return ComputedParticle(renderer: (canvas, _) {
+                speed += acceleration;
+                position += speed;
+                //canvas.drawArc(Rect.fromLTWH(0, top, width, height), 0, 2 * pi, true, paint);
+                canvas.drawCircle(Offset(position.x, position.y), 4, paint);
+              });
+            })));*/
+
+    game.add(ParticleSystemComponent(
+        particle: Particle.generate(
+            count: 1,
+            generator: (i) {
+              Vector2 position = posPart;
+              double scale = 50;
+              double acceleration = 1.5;
+              return ComputedParticle(renderer: (canvas, _) {
+                scale -= acceleration;
+                //canvas.drawPicture(game.images.fromCache('bateau.png'));
+                paintImage(
+                    canvas: canvas,
+                    rect: Rect.fromLTWH(position.x - scale / 2,
+                        position.y - 50 - scale / 2, scale, scale),
+                    image: game.images.fromCache('plus_one.png'),
+                    fit: BoxFit.fill,
+                    repeat: ImageRepeat.noRepeat,
+                    scale: 2.0,
+                    alignment: Alignment.center,
+                    filterQuality: FilterQuality.high);
+                //canvas.drawCircle(Offset(position.x, position.y), 4, paint);
+              });
+            })));
+
+    game.add(ParticleSystemComponent(
+        particle: Particle.generate(
+            count: 1,
+            generator: (i) {
+              Vector2 position = posPart;
+              double scale = 2;
+              double acceleration = 0.05;
+              int alpha = 150;
+              final paint = Paint()
+                ..color = Color.fromARGB(alpha, 29, 130, 113);
+              return ComputedParticle(renderer: (canvas, _) {
+                scale -= acceleration;
+                if (alpha > 0) alpha -= 5;
+
+                paint.color = Color.fromARGB(alpha, 29, 130, 113);
+                canvas.drawArc(
+                    Rect.fromLTWH(position.x - 50.0 * scale,
+                        position.y - 50 * scale, 100.0 * scale, 100.0 * scale),
+                    0,
+                    2 * pi,
+                    false,
+                    paint);
+                //canvas.drawCircle(Offset(position.x, position.y), 4, paint);
+              });
+            })));
+  }
+
+  void generateColisionParticules() {
+    Vector2 posPart = position.clone();
+    game.add(ParticleSystemComponent(
+        particle: Particle.generate(
+            count: 1,
+            generator: (i) {
+              Vector2 position = posPart;
+              double scale = 0.1;
+              double acceleration = 0.07;
+              int alpha = 130;
+              final paint = Paint()..color = Color.fromARGB(alpha, 196, 82, 71);
+              return ComputedParticle(renderer: (canvas, _) {
+                scale += acceleration;
+                if (alpha > 0) alpha -= 5;
+
+                paint.color = Color.fromARGB(alpha, 196, 82, 71);
+                canvas.drawArc(
+                    Rect.fromLTWH(position.x - 50.0 * scale,
+                        position.y - 50 * scale, 100.0 * scale, 100.0 * scale),
+                    0,
+                    2 * pi,
+                    false,
+                    paint);
+                //canvas.drawCircle(Offset(position.x, position.y), 4, paint);
+              });
+            })));
+  }
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Trash && (game.health > 0 && game.electricalPower > 0)) {
       if (game.spaceUsed + other.trashType.sizeInInventory <= game.maxSpace) {
         other.removeFromParent();
+        generateTrashsParticules();
         other.activated = false;
         game.spaceUsed += other.trashType.sizeInInventory;
         game.trashCollected[other.trashType.identifier]++;
@@ -450,6 +569,7 @@ class OceanPlayer extends SpriteAnimationComponent
 
     if (other is WaterEnemy) {
       hit();
+      generateColisionParticules();
     }
     super.onCollision(intersectionPoints, other);
   }

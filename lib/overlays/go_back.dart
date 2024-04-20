@@ -44,52 +44,81 @@ class GoBack extends StatelessWidget {
                 Radius.circular(20),
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Terminate the mission ?',
-                  style: TextStyle(
-                    color: whiteTextColor,
-                    fontSize: 24,
-                  ),
-                ),
-                if (!game.isOnBoat && !isRepechable)
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   const Text(
-                    'The self destruc will be triggered !',
+                    'Terminate the mission ?',
                     style: TextStyle(
                       color: whiteTextColor,
-                      fontSize: 15,
+                      fontSize: 24,
                     ),
                   ),
-                if (!game.isOnBoat && isRepechable)
-                  const Text(
-                    'The robotic arm can get you here !',
-                    style: TextStyle(
-                      color: whiteTextColor,
-                      fontSize: 15,
+                  if (!game.isOnBoat && !isRepechable)
+                    const Text(
+                      'The self destruc will be triggered !',
+                      style: TextStyle(
+                        color: whiteTextColor,
+                        fontSize: 15,
+                      ),
                     ),
-                  ),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      child: SizedBox(
+                  if (!game.isOnBoat && isRepechable)
+                    const Text(
+                      'The robotic arm can get you here !',
+                      style: TextStyle(
+                        color: whiteTextColor,
+                        fontSize: 15,
+                      ),
+                    ),
+                  const SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: SizedBox(
+                          width: 200,
+                          height: 75,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              //game.resumeEngine();
+                              game.onPause = false;
+                              game.overlays.remove('GoBack');
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: whiteTextColor,
+                            ),
+                            child: const Text(
+                              'Continue',
+                              style: TextStyle(
+                                fontSize: 25.0,
+                                color: blackTextColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
                         width: 200,
                         height: 75,
                         child: ElevatedButton(
                           onPressed: () {
-                            //game.resumeEngine();
-                            game.onPause = false;
-                            game.overlays.remove('GoBack');
+                            if (game.isOnBoat || isRepechable) {
+                              game.terminateGame(100, true);
+
+                              Navigator.pushReplacementNamed(context, "/boat");
+                            } else {
+                              game.health = 0;
+                              game.onPause = false;
+                              game.overlays.remove('GoBack');
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: whiteTextColor,
                           ),
                           child: const Text(
-                            'Continue',
+                            'Go to ship',
                             style: TextStyle(
                               fontSize: 25.0,
                               color: blackTextColor,
@@ -97,45 +126,18 @@ class GoBack extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 200,
-                      height: 75,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (game.isOnBoat || isRepechable) {
-                            game.terminateGame(100, true);
-
-                            Navigator.pushReplacementNamed(context, "/boat");
-                          } else {
-                            game.health = 0;
-                            game.onPause = false;
-                            game.overlays.remove('GoBack');
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: whiteTextColor,
-                        ),
-                        child: const Text(
-                          'Go to ship',
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            color: blackTextColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  game.ressourceMessage,
-                  style: const TextStyle(
-                    color: whiteTextColor,
-                    fontSize: 20,
+                    ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  Text(
+                    game.ressourceMessage,
+                    style: const TextStyle(
+                      color: whiteTextColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -126,10 +126,12 @@ class Chunk {
         switch (preLoadedGameObject.type) {
           case GameObjectType.trash:
             TrashType? trashType = getTrashType(
-                chunkPosition.y * 20, preLoadedGameObject.randomDouble);
+                chunkPosition.y * 20,
+                preLoadedGameObject.randomDouble,
+                preLoadedGameObject.secondRandomDouble);
             if (trashType == null) {
-              debugPrint(
-                  "trashType == null depth:${chunkPosition.y * 20} ${preLoadedGameObject.futurPosition}");
+              //debugPrint(
+              //    "trashType == null depth:${chunkPosition.y * 20} ${preLoadedGameObject.futurPosition}");
             } else {
               Trash trash = Trash(
                   gridPosition: delta + preLoadedGameObject.futurPosition,
@@ -223,7 +225,10 @@ class Chunk {
       //debugPrint("generateTrash($i) in $position");
       //debugPrint("preLoadedGameObjects trash $position");
       preLoadedGameObjects.add(PreLoadedGameObject(
-          position, GameObjectType.trash, randomSuite[600 + 2 * i]));
+          position,
+          GameObjectType.trash,
+          randomSuite[700 + 2 * i],
+          randomSuite[800 + 2 * i]));
     }
   }
 
@@ -236,7 +241,10 @@ class Chunk {
       //debugPrint("generateTrash($i) in $position");
       //debugPrint("preLoadedGameObjects ENEMY $position");
       preLoadedGameObjects.add(PreLoadedGameObject(
-          position, GameObjectType.enemy, randomSuite[600 + 2 * i]));
+          position,
+          GameObjectType.enemy,
+          randomSuite[500 + 2 * i],
+          randomSuite[600 + 2 * i]));
     }
   }
 
@@ -248,7 +256,10 @@ class Chunk {
               randomSuite[500 + 2 * i + 1] / 100));
       //debugPrint("preLoadedGameObjects fish $position");
       preLoadedGameObjects.add(PreLoadedGameObject(
-          position, GameObjectType.fish, randomSuite[500 + 2 * i]));
+          position,
+          GameObjectType.fish,
+          randomSuite[300 + 2 * i],
+          randomSuite[400 + 2 * i]));
     }
   }
 
@@ -294,7 +305,7 @@ class Chunk {
     return list;
   }
 
-  TrashType? getTrashType(double depth, double random) {
+  TrashType? getTrashType(double depth, double random, double secondRandom) {
     List<TrashTypeHolder> list = getTrashTypes(depth);
     double current = 0;
     //get all percentage
@@ -308,7 +319,12 @@ class Chunk {
     for (TrashTypeHolder et in list) {
       current += et.percent;
       if (current > value) {
-        return et.trashType;
+        //apply rarity factor
+        if (secondRandom / 100 < et.trashType.rarityFactor) {
+          return et.trashType;
+        } else {
+          return null;
+        }
       }
     }
     //if nothing return null

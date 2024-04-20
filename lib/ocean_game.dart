@@ -45,6 +45,7 @@ class OceanGame extends FlameGame
   bool onPause = false;
   bool hasPlayedDeadSound = false;
   bool isGameDispose = false;
+  bool fastMode = false;
 
   @override
   Color backgroundColor() {
@@ -104,17 +105,21 @@ class OceanGame extends FlameGame
       'piranha.png',
       'tortue.png',
       'wood.png',
+      'dash.png',
+      'plus_one.png',
     ]);
     camera.viewfinder.anchor = Anchor.topLeft;
     //init gamefile
     GameFile();
 
     initializeGame(true);
+    var display =
+        WidgetsBinding.instance.platformDispatcher.views.first.display;
+    debugPrint('${display.refreshRate} fps'); // 120 fps
   }
 
   @override
   void onDispose() async {
-    // TODO: implement onDispose
     isGameDispose = true;
     await GameFile().getAudioPlayer().stop();
     super.onDispose();
@@ -158,6 +163,7 @@ class OceanGame extends FlameGame
     if (!GameFile().seenIntroOcean) {
       onPause = true;
       isOnBoat = false;
+      debugPrint("FIRST OCEAN - OVERLAY INFOS");
       overlays.add('Infos');
       GameFile().setIntroOceanPassed();
     }
@@ -264,6 +270,7 @@ class OceanGame extends FlameGame
 
   @override
   void update(double dt) {
+    if (1 / dt > 70) fastMode = true;
     if (_worldManager.getDeep().abs() > maxDeep) {
       maxDeep = _worldManager.getDeep().abs();
     }

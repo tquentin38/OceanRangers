@@ -61,300 +61,305 @@ class _BoatOverviewState extends State<BoatOverview> {
     return SizedBox(
       height: MediaQuery.of(context).size.width,
       width: MediaQuery.of(context).size.height,
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: getPaddingSide(context),
-            right: getPaddingSide(context),
-            top: getPaddingVertical(context),
-            bottom: getPaddingVertical(context)),
-        child: Stack(children: [
-          SizedBox(
+      child: Container(
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 230, 230, 230)),
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: getPaddingSide(context),
+              right: getPaddingSide(context),
+              top: getPaddingVertical(context),
+              bottom: getPaddingVertical(context)),
+          child: Stack(children: [
+            SizedBox(
+                height: height,
+                width: width,
+                child: const Image(
+                  image: AssetImage("assets/images/external_ship_2.jpg"),
+                  fit: BoxFit.fill,
+                )),
+            SizedBox(
               height: height,
               width: width,
-              child: const Image(
-                image: AssetImage("assets/images/external_ship_2.jpg"),
-                fit: BoxFit.fill,
-              )),
-          SizedBox(
-            height: height,
-            width: width,
-          ),
-          Positioned(
-              top: height / 3 + height / 12 - 50,
-              left: width - (width / 2.5 + width / 12 + 50),
-              child: const Icon(
-                Icons.crisis_alert,
-                size: 100,
-                color: Color.fromARGB(255, 185, 0, 0),
-                weight: 150,
-              )),
-          Positioned(
-              top: height / 9 + height / 8 - 50,
-              left: width - (width / 6 + width / 8 + 50),
-              child: const Icon(
-                Icons.crisis_alert,
-                size: 100,
-                color: Color.fromARGB(255, 185, 0, 0),
-                weight: 150,
-              )),
-          Positioned(
-              top: height - (height / 3.25 + height / 12 + 50),
-              left: width / 4.5 + width / 12 - 50,
-              child: const Icon(
-                Icons.crisis_alert,
-                size: 100,
-                color: Color.fromARGB(255, 185, 0, 0),
-                weight: 150,
-              )),
-          Positioned(
-              top: height - (height / 6 + height / 12 + 50),
-              left: width / 10 + width / 12 - 50,
-              child: const Icon(
-                Icons.crisis_alert,
-                size: 100,
-                color: Color.fromARGB(255, 185, 0, 0),
-                weight: 150,
-              )),
-          Positioned(
-              top: 0 + height / 5 - 50,
-              left: 0 + width / 8 - 50,
-              child: const Icon(
-                Icons.crisis_alert,
-                size: 100,
-                color: Color.fromARGB(255, 185, 0, 0),
-                weight: 150,
-              )),
-          Positioned(
-              top: height - (50 + width * 0.15),
-              left: width - (50 + width * 0.15 * 200 / 178),
-              height: width * 0.15,
-              width: width * 0.15 * 200 / 178,
-              child: GestureDetector(
-                onTap: () {
-                  if (GameFile()
-                          .nextRobotAvaiable
-                          .difference(DateTime.now())
-                          .inSeconds <=
-                      0) {
-                    Navigator.pushReplacement(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => GameOceanWidget()),
-                    );
-                  }
-                },
-                child: Column(
-                  children: [
-                    if (GameFile().nextRobotAvaiable.isBefore(DateTime.now()))
-                      MouseRegion(
-                        hitTestBehavior: HitTestBehavior.opaque,
-                        cursor: SystemMouseCursors.click,
-                        onEnter: (event) {
-                          isHover = true;
-                          hoverValue = "Go to the Ocean";
-                        },
-                        onExit: (event) {
-                          isHover = false;
-                          setState(() {});
-                        },
-                        onHover: _updatelocation,
-                        child: const Image(
-                          image: AssetImage("assets/images/sous_marin.png"),
-                          fit: BoxFit.fill,
-                        ),
-                      )
-                    else
-                      MouseRegion(
-                        hitTestBehavior: HitTestBehavior.opaque,
-                        cursor: SystemMouseCursors.click,
-                        onEnter: (event) {
-                          isHover = true;
-                          isHoverOcean = true;
-                          hoverValue =
-                              "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)";
-                          setState(() {});
+            ),
+            Positioned(
+                top: height / 3 + height / 12 - 50,
+                left: width - (width / 2.5 + width / 12 + 50),
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                top: height / 9 + height / 8 - 50,
+                left: width - (width / 6 + width / 8 + 50),
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                top: height - (height / 3.25 + height / 12 + 50),
+                left: width / 4.5 + width / 12 - 50,
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                top: height - (height / 6 + height / 12 + 50),
+                left: width / 10 + width / 12 - 50,
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                top: 0 + height / 5 - 50,
+                left: 0 + width / 8 - 50,
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                top: height - (50 + width * 0.15),
+                left: width - (50 + width * 0.15 * 200 / 178),
+                height: width * 0.15,
+                width: width * 0.15 * 200 / 178,
+                child: GestureDetector(
+                  onTap: () {
+                    if (GameFile()
+                            .nextRobotAvaiable
+                            .difference(DateTime.now())
+                            .inSeconds <=
+                        0) {
+                      Navigator.pushReplacement(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => GameOceanWidget()),
+                      );
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      if (GameFile().nextRobotAvaiable.isBefore(DateTime.now()))
+                        MouseRegion(
+                          hitTestBehavior: HitTestBehavior.opaque,
+                          cursor: SystemMouseCursors.click,
+                          onEnter: (event) {
+                            isHover = true;
+                            hoverValue = "Go to the Ocean";
+                          },
+                          onExit: (event) {
+                            isHover = false;
+                            setState(() {});
+                          },
+                          onHover: _updatelocation,
+                          child: const Image(
+                            image: AssetImage("assets/images/sous_marin.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        )
+                      else
+                        MouseRegion(
+                          hitTestBehavior: HitTestBehavior.opaque,
+                          cursor: SystemMouseCursors.click,
+                          onEnter: (event) {
+                            isHover = true;
+                            isHoverOcean = true;
+                            hoverValue =
+                                "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)";
+                            setState(() {});
 
-                          Timer.periodic(const Duration(seconds: 1), (timer) {
-                            if (isHoverOcean) {
-                              hoverValue =
-                                  "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)";
-                            }
-                            if (mounted) {
-                              setState(() {});
-                            } else {
-                              timer.cancel();
-                            }
-                            if (GameFile()
-                                    .nextRobotAvaiable
-                                    .difference(DateTime.now())
-                                    .inSeconds <=
-                                0) {
+                            Timer.periodic(const Duration(seconds: 1), (timer) {
                               if (isHoverOcean) {
-                                hoverValue = "Go to the Ocean";
+                                hoverValue =
+                                    "Repairing (${GameFile().nextRobotAvaiable.difference(DateTime.now()).inSeconds}s)";
+                              }
+                              if (mounted) {
+                                setState(() {});
+                              } else {
+                                timer.cancel();
                               }
                               if (GameFile()
                                       .nextRobotAvaiable
                                       .difference(DateTime.now())
                                       .inSeconds <=
-                                  -5) timer.cancel();
-                            }
-                          });
-                        },
-                        onExit: (event) {
-                          isHover = false;
-                          isHoverOcean = false;
-                          setState(() {});
-                        },
-                        onHover: _updatelocation,
-                        child: const Image(
-                          image: AssetImage("assets/images/sous_marin.png"),
-                          fit: BoxFit.fill,
-                          color: Color.fromARGB(186, 156, 156, 156),
+                                  0) {
+                                if (isHoverOcean) {
+                                  hoverValue = "Go to the Ocean";
+                                }
+                                if (GameFile()
+                                        .nextRobotAvaiable
+                                        .difference(DateTime.now())
+                                        .inSeconds <=
+                                    -5) timer.cancel();
+                              }
+                            });
+                          },
+                          onExit: (event) {
+                            isHover = false;
+                            isHoverOcean = false;
+                            setState(() {});
+                          },
+                          onHover: _updatelocation,
+                          child: const Image(
+                            image: AssetImage("assets/images/sous_marin.png"),
+                            fit: BoxFit.fill,
+                            color: Color.fromARGB(186, 156, 156, 156),
+                          ),
                         ),
-                      ),
-                  ],
-                ),
-              )),
-          if (isHover)
-            Positioned(
-              top: mouseY + 10 - getPaddingVertical(context),
-              left: mouseX + 10 - getPaddingSide(context),
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    hoverValue,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15,
-                        decoration: TextDecoration.none),
+                    ],
+                  ),
+                )),
+            if (isHover)
+              Positioned(
+                top: mouseY + 10 - getPaddingVertical(context),
+                left: mouseX + 10 - getPaddingSide(context),
+                child: Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      hoverValue,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15,
+                          decoration: TextDecoration.none),
+                    ),
                   ),
                 ),
               ),
-            ),
-          Positioned(
-              height: height / 4,
-              width: width / 4,
-              top: height / 9,
-              left: width - (width / 6 + width / 4),
-              child: GestureDetector(
-                onTap: () =>
-                    {Navigator.pushReplacementNamed(context, "/boat/wheel")},
-                child: MouseRegion(
-                  hitTestBehavior: HitTestBehavior.opaque,
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (event) {
-                    isHover = true;
-                    hoverValue = "Go to the Wheelhouses";
-                    setState(() {});
+            Positioned(
+                height: height / 4,
+                width: width / 4,
+                top: height / 9,
+                left: width - (width / 6 + width / 4),
+                child: GestureDetector(
+                  onTap: () =>
+                      {Navigator.pushReplacementNamed(context, "/boat/wheel")},
+                  child: MouseRegion(
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go to the Wheelhouses";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            Positioned(
+                height: height / 6,
+                width: width / 6,
+                top: height / 3,
+                left: width - (width / 2.5 + width / 6),
+                child: GestureDetector(
+                  onTap: () =>
+                      {Navigator.pushReplacementNamed(context, "/boat/staff")},
+                  child: MouseRegion(
+                    //child: Container(decoration: BoxDecoration(color: Colors.black)),
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go to the Staff house";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            Positioned(
+                height: height / 6,
+                width: width / 6,
+                top: height - height / 3.25 - height / 6,
+                left: width / 4.5,
+                child: GestureDetector(
+                  onTap: () =>
+                      {Navigator.pushReplacementNamed(context, "/boat/elec")},
+                  child: MouseRegion(
+                    //child: Container(decoration: BoxDecoration(color: Colors.black)),
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go to the electronic room";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            Positioned(
+                height: height / 6,
+                width: width / 6,
+                top: height - height / 3,
+                left: width / 10,
+                child: GestureDetector(
+                  onTap: () => {
+                    Navigator.pushReplacementNamed(context, "/boat/machine")
                   },
-                  onExit: (event) {
-                    isHover = false;
-                    setState(() {});
-                  },
-                  onHover: _updatelocation,
-                ),
-              )),
-          Positioned(
-              height: height / 6,
-              width: width / 6,
-              top: height / 3,
-              left: width - (width / 2.5 + width / 6),
-              child: GestureDetector(
-                onTap: () =>
-                    {Navigator.pushReplacementNamed(context, "/boat/staff")},
-                child: MouseRegion(
-                  //child: Container(decoration: BoxDecoration(color: Colors.black)),
-                  hitTestBehavior: HitTestBehavior.opaque,
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (event) {
-                    isHover = true;
-                    hoverValue = "Go to the Staff house";
-                    setState(() {});
-                  },
-                  onExit: (event) {
-                    isHover = false;
-                    setState(() {});
-                  },
-                  onHover: _updatelocation,
-                ),
-              )),
-          Positioned(
-              height: height / 6,
-              width: width / 6,
-              top: height - height / 3.25 - height / 6,
-              left: width / 4.5,
-              child: GestureDetector(
-                onTap: () =>
-                    {Navigator.pushReplacementNamed(context, "/boat/elec")},
-                child: MouseRegion(
-                  //child: Container(decoration: BoxDecoration(color: Colors.black)),
-                  hitTestBehavior: HitTestBehavior.opaque,
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (event) {
-                    isHover = true;
-                    hoverValue = "Go to the electronic room";
-                    setState(() {});
-                  },
-                  onExit: (event) {
-                    isHover = false;
-                    setState(() {});
-                  },
-                  onHover: _updatelocation,
-                ),
-              )),
-          Positioned(
-              height: height / 6,
-              width: width / 6,
-              top: height - height / 3,
-              left: width / 10,
-              child: GestureDetector(
-                onTap: () =>
-                    {Navigator.pushReplacementNamed(context, "/boat/machine")},
-                child: MouseRegion(
-                  //child: Container(decoration: BoxDecoration(color: Colors.black)),
-                  hitTestBehavior: HitTestBehavior.opaque,
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (event) {
-                    isHover = true;
-                    hoverValue = "Go to the machine room";
-                    setState(() {});
-                  },
-                  onExit: (event) {
-                    isHover = false;
-                    setState(() {});
-                  },
-                  onHover: _updatelocation,
-                ),
-              )),
-          Positioned(
-              height: height / 2.5,
-              width: width / 4,
-              top: 0,
-              left: 0,
-              child: GestureDetector(
-                onTap: () =>
-                    {Navigator.pushReplacementNamed(context, "/boat/marina")},
-                child: MouseRegion(
-                  //child: Container(decoration: BoxDecoration(color: Colors.black)),
-                  hitTestBehavior: HitTestBehavior.opaque,
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (event) {
-                    isHover = true;
-                    hoverValue = "Go to the marina";
-                    setState(() {});
-                  },
-                  onExit: (event) {
-                    isHover = false;
-                    setState(() {});
-                  },
-                  onHover: _updatelocation,
-                ),
-              )),
-          const BoatHUD(),
-        ]),
+                  child: MouseRegion(
+                    //child: Container(decoration: BoxDecoration(color: Colors.black)),
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go to the machine room";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            Positioned(
+                height: height / 2.5,
+                width: width / 4,
+                top: 0,
+                left: 0,
+                child: GestureDetector(
+                  onTap: () =>
+                      {Navigator.pushReplacementNamed(context, "/boat/marina")},
+                  child: MouseRegion(
+                    //child: Container(decoration: BoxDecoration(color: Colors.black)),
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go to the marina";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            const BoatHUD(),
+          ]),
+        ),
       ),
     );
   }

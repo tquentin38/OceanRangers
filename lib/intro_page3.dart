@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_rangers/boat/boat_utils.dart';
 
 import 'boat/boat_dialog.dart';
 import 'core/game_file.dart';
@@ -86,85 +87,101 @@ class _IntroPage3State extends State<IntroPage3> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Stack(children: [
-      SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: const Image(
-            image: AssetImage("assets/intro/meeting.jpg"),
-            fit: BoxFit.fill,
-          )),
-      Positioned(
-          height: MediaQuery.of(context).size.height / 2,
-          width: MediaQuery.of(context).size.width / 3,
-          left: MediaQuery.of(context).size.height / 10,
-          bottom: 0,
-          child: const Image(
-            image: AssetImage("assets/images/commandante.png"),
-            fit: BoxFit.fill,
-          )),
-      Positioned(
-          height: MediaQuery.of(context).size.height / 1.8,
-          width: MediaQuery.of(context).size.width / 3,
-          left: MediaQuery.of(context).size.width / 10 * 6,
-          bottom: 0,
-          child: const Image(
-            image: AssetImage("assets/images/seconde.png"),
-            fit: BoxFit.fill,
-          )),
-      if (!showNext)
-        Positioned(
-          height: 35,
-          width: 90,
-          right: 20,
-          bottom: 20,
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                border: Border.all(),
-                color: const Color.fromARGB(143, 158, 158, 158)),
-            child: GestureDetector(
-              onTap: () {
-                GameFile().setIntroPassed();
-                Navigator.pushReplacementNamed(context, "/boat");
-              },
-              child: const Text(
-                "SKIP",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 25,
-                    decoration: TextDecoration.none),
-              ),
-            ),
-          ),
-        ),
-      Positioned(
-        height: 100,
-        width: 100,
-        right: 10,
-        bottom: 10,
-        child: AnimatedCrossFade(
-          crossFadeState:
-              showNext ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-          duration: const Duration(seconds: 2),
-          secondChild: Container(),
-          firstChild: GestureDetector(
-            onTap: () {
-              GameFile().setIntroPassed();
-              Navigator.pushReplacementNamed(context, "/boat");
-            },
-            child: const Icon(
-              Icons.arrow_right_alt,
-              size: 100,
-              color: Color.fromARGB(255, 0, 0, 0),
-              weight: 150,
-            ),
-          ),
-        ),
-      ),
-      if (showBoatDialog) boatDialog!,
-    ]);
+    double width = getMaxedSize(context).x;
+    double height = getMaxedSize(context).y;
+    return SizedBox(
+        height: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.height,
+        child: Container(
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 230, 230, 230)),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: getPaddingSide(context),
+                  right: getPaddingSide(context),
+                  top: getPaddingVertical(context),
+                  bottom: getPaddingVertical(context)),
+              child: Stack(children: [
+                SizedBox(
+                    height: height,
+                    width: width,
+                    child: const Image(
+                      image: AssetImage("assets/intro/meeting.jpg"),
+                      fit: BoxFit.fill,
+                    )),
+                Positioned(
+                    height: height / 2,
+                    width: width / 3,
+                    left: height / 10,
+                    bottom: 0,
+                    child: const Image(
+                      image: AssetImage("assets/images/commandante.png"),
+                      fit: BoxFit.fill,
+                    )),
+                Positioned(
+                    height: height / 1.8,
+                    width: width / 3,
+                    left: width / 10 * 6,
+                    bottom: 0,
+                    child: const Image(
+                      image: AssetImage("assets/images/seconde.png"),
+                      fit: BoxFit.fill,
+                    )),
+                if (showBoatDialog) boatDialog!,
+                if (!showNext)
+                  Positioned(
+                    height: 35,
+                    width: 90,
+                    right: 20,
+                    bottom: 20,
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          color: const Color.fromARGB(143, 158, 158, 158)),
+                      child: GestureDetector(
+                        onTap: () {
+                          GameFile().setIntroPassed();
+                          Navigator.pushReplacementNamed(context, "/boat");
+                        },
+                        child: const Text(
+                          "SKIP",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 25,
+                              decoration: TextDecoration.none),
+                        ),
+                      ),
+                    ),
+                  ),
+                Positioned(
+                  height: 100,
+                  width: 100,
+                  right: 10,
+                  bottom: 10,
+                  child: AnimatedCrossFade(
+                    crossFadeState: showNext
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: const Duration(seconds: 2),
+                    secondChild: Container(),
+                    firstChild: GestureDetector(
+                      onTap: () {
+                        GameFile().setIntroPassed();
+                        Navigator.pushReplacementNamed(context, "/boat");
+                      },
+                      child: const Icon(
+                        Icons.arrow_right_alt,
+                        size: 100,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        weight: 150,
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
+            )));
   }
 }

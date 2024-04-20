@@ -37,6 +37,8 @@ Future<String?> updateWallet() async {
   try {
     final response = await http.get(Uri.parse(url));
     debugPrint("response : ${response.statusCode}");
+    var responseData = json.decode(response.body);
+    GameFile().token = responseData["token"];
   } catch (error) {
     debugPrint(error.toString());
   }

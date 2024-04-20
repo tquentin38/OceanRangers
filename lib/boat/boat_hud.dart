@@ -22,8 +22,8 @@ class BoatHUD extends StatefulWidget {
 class _BoatHUDState extends State<BoatHUD> {
   String lastKey = "";
   bool seenIntro = GameFile().seenIntro;
-  TextStyle titleSize = const TextStyle(fontSize: 25);
-  TextStyle normalSize = const TextStyle(fontSize: 15);
+  TextStyle titleSize = const TextStyle(fontSize: 20);
+  TextStyle normalSize = const TextStyle(fontSize: 10);
   @override
   void initState() {
     super.initState();
@@ -60,13 +60,14 @@ class _BoatHUDState extends State<BoatHUD> {
   TextStyle textStyle = const TextStyle(
       color: Colors.black,
       fontStyle: FontStyle.normal,
-      fontSize: 15,
       decoration: TextDecoration.none);
 
   double getMaxHeight() {
     double h = MediaQuery.of(context).size.height / 15;
     if (h > 40) {
       h = 40;
+    } else if (h < 30) {
+      h = 30;
     }
     return h;
   }
@@ -89,7 +90,7 @@ class _BoatHUDState extends State<BoatHUD> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
                     onTap: () {
                       debugPrint(ModalRoute.of(context)?.settings.name);
@@ -101,7 +102,7 @@ class _BoatHUDState extends State<BoatHUD> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
                     onTap: () {
                       showDialog(context: context, builder: showSetting);
@@ -110,7 +111,7 @@ class _BoatHUDState extends State<BoatHUD> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
                     onTap: () {
                       showDialog(context: context, builder: showUserInfos);
@@ -119,7 +120,7 @@ class _BoatHUDState extends State<BoatHUD> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
                     onTap: () {
                       showDialog(context: context, builder: showQuickPage);
@@ -128,7 +129,7 @@ class _BoatHUDState extends State<BoatHUD> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
                     onTap: () {
                       showDialog(context: context, builder: showQuickHelp);
@@ -138,7 +139,7 @@ class _BoatHUDState extends State<BoatHUD> {
                 ),
                 if (GameFile().nextRobotAvaiable.isBefore(DateTime.now()))
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
@@ -248,51 +249,55 @@ class _BoatHUDState extends State<BoatHUD> {
               ),
               Expanded(
                   flex: 4,
-                  child: Column(
-                    children: [
-                      for (KeyCaracteritic key
-                          in GameFile().keyboardManager.keyCaracteristics)
-                        Row(
-                          children: [
-                            Text("${key.getDescription()} ${key.value}"),
-                            if (nextUpdate != key.type.identifier)
-                              GestureDetector(
-                                onTap: () {
-                                  nextUpdate = key.type.identifier;
-                                  mySetState(() {});
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.edit),
-                                ),
-                              )
-                            else
-                              GestureDetector(
-                                onTap: () {
-                                  nextUpdate = 0;
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text("Audio ${audioValue.toInt()}%"),
+                        Slider(
+                            value: audioValue,
+                            min: 0,
+                            max: 100,
+                            divisions: 100,
+                            onChanged: (newValue) {
+                              //debugPrint("newval : $newValue");
+                              audioValue = newValue;
+                              GameFile().setAudioVolume(newValue);
+                              mySetState(() {});
+                            }),
+                        const Text("Keys"),
+                        for (KeyCaracteritic key
+                            in GameFile().keyboardManager.keyCaracteristics)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("${key.getDescription()} ${key.value}"),
+                              if (nextUpdate != key.type.identifier)
+                                GestureDetector(
+                                  onTap: () {
+                                    nextUpdate = key.type.identifier;
+                                    mySetState(() {});
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.edit),
+                                  ),
+                                )
+                              else
+                                GestureDetector(
+                                  onTap: () {
+                                    nextUpdate = 0;
 
-                                  mySetState(() {});
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.cancel),
-                                ),
-                              )
-                          ],
-                        ),
-                      Text("Audio ${audioValue.toInt()}%"),
-                      Slider(
-                          value: audioValue,
-                          min: 0,
-                          max: 100,
-                          divisions: 100,
-                          onChanged: (newValue) {
-                            //debugPrint("newval : $newValue");
-                            audioValue = newValue;
-                            GameFile().setAudioVolume(newValue);
-                            mySetState(() {});
-                          })
-                    ],
+                                    mySetState(() {});
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.cancel),
+                                  ),
+                                )
+                            ],
+                          ),
+                      ],
+                    ),
                   )),
               Expanded(
                 child: Padding(
@@ -374,8 +379,10 @@ class _BoatHUDState extends State<BoatHUD> {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                    "Remember, the deepest you go, the more resources you will get.\n Also, the upgrade will help you, so don't hesitate to use your resources!",
-                    textAlign: TextAlign.justify),
+                  "Remember, the deepest you go, the more resources you will get.\n Also, the upgrades will help you, so don't hesitate to use your resources!",
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -428,7 +435,7 @@ class _BoatHUDState extends State<BoatHUD> {
   Widget showQuickPage(BuildContext context) {
     return AlertDialog(
       content: SizedBox(
-        height: MediaQuery.of(context).size.height / 2,
+        height: MediaQuery.of(context).size.height / 2.2,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -438,7 +445,7 @@ class _BoatHUDState extends State<BoatHUD> {
                 style: titleSize,
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -449,12 +456,12 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Robot Upgrade",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -466,12 +473,12 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Boat Upgrade",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -482,12 +489,12 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Teams",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -498,12 +505,12 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Electronic room",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -514,12 +521,12 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Machine room",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -530,12 +537,12 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Staff room",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -546,12 +553,28 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Marina",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "/boat/market");
+                  },
+                  child: const Text(
+                    "Market",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -562,12 +585,12 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Wheel houses",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
@@ -578,7 +601,7 @@ class _BoatHUDState extends State<BoatHUD> {
                   },
                   child: const Text(
                     "Close",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -590,22 +613,31 @@ class _BoatHUDState extends State<BoatHUD> {
   }
 
   Widget showUserInfos(BuildContext context) {
+    double height = MediaQuery.of(context).size.height / 1.2;
+    double width = MediaQuery.of(context).size.width / 3;
+    if (height > 400) {
+      height = 400;
+      if (width > 400) {
+        width = 400;
+      }
+    }
     return StatefulBuilder(builder:
         (BuildContext context, void Function(void Function()) setState) {
       return AlertDialog(
         content: SizedBox(
-          height: MediaQuery.of(context).size.height / 1.6,
-          width: MediaQuery.of(context).size.width / 3,
+          height: height,
+          width: width,
           child: Column(
             children: [
               Expanded(
+                flex: 1,
                 child: Text(
                   "User profile",
                   style: titleSize,
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -630,7 +662,7 @@ class _BoatHUDState extends State<BoatHUD> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: Container(
                           decoration: BoxDecoration(
                               border:
@@ -666,15 +698,14 @@ class _BoatHUDState extends State<BoatHUD> {
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Column(
                   children: [
                     Text(
                       "Username : ${GameFile().pseudo}",
-                      style: titleSize,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
@@ -688,7 +719,7 @@ class _BoatHUDState extends State<BoatHUD> {
                         },
                         child: const Text(
                           "Change",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -700,15 +731,13 @@ class _BoatHUDState extends State<BoatHUD> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
                           onTap: () async {
-                            if (GameFile().token != null) {
-                              updateWallet();
-                              final Uri url = Uri.parse(
-                                  "https://pay.google.com/gp/v/save/${GameFile().token}");
-                              launchUrl(url);
-                            }
+                            await updateWallet();
+                            final Uri url = Uri.parse(
+                                "https://pay.google.com/gp/v/save/${GameFile().token}");
+                            launchUrl(url);
                           },
                           child: const Image(
                               image:
@@ -718,8 +747,9 @@ class _BoatHUDState extends State<BoatHUD> {
                 ),
               ),
               Expanded(
+                flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
@@ -730,7 +760,7 @@ class _BoatHUDState extends State<BoatHUD> {
                     },
                     child: const Text(
                       "Close profile",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -744,9 +774,13 @@ class _BoatHUDState extends State<BoatHUD> {
 
   String newPseudo = "";
   Widget showPseudoChange(BuildContext context) {
+    double height = MediaQuery.of(context).size.height / 1.2;
+    if (height > 250) {
+      height = 250;
+    }
     return AlertDialog(
       content: SizedBox(
-        height: MediaQuery.of(context).size.height / 3,
+        height: height,
         child: Column(
           children: [
             Expanded(

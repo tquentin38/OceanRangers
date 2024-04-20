@@ -28,7 +28,7 @@ class BoatDialog extends StatefulWidget {
 
 class _BoatDialogState extends State<BoatDialog> {
   TextStyle dialogStyle = const TextStyle(
-      fontSize: 25, color: Colors.black, decoration: TextDecoration.none);
+      fontSize: 15, color: Colors.black, decoration: TextDecoration.none);
 
   bool active = false;
 
@@ -56,7 +56,7 @@ class _BoatDialogState extends State<BoatDialog> {
     return Stack(children: [
       if (!widget.ended)
         Padding(
-            padding: EdgeInsets.only(left: width * 0.1, top: height - 220),
+            padding: EdgeInsets.only(left: width * 0.1, top: height * 0.1),
             child: SizedBox(
               width: width * 0.8,
               height: 200,
@@ -87,6 +87,7 @@ class _BoatDialogState extends State<BoatDialog> {
                                 for (String dialog
                                     in widget.dialogHolder.dialogs)
                                   TyperAnimatedText(dialog,
+                                      textAlign: TextAlign.center,
                                       textStyle: dialogStyle),
                               ]),
                           if (widget.dialogHolder.people != null)

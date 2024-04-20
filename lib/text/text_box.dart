@@ -1,6 +1,5 @@
 import 'package:ocean_rangers/ocean_game.dart';
 import 'package:flame/components.dart';
-import 'package:flame/palette.dart';
 import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
 
@@ -61,10 +60,10 @@ class TextManager {
 }
 
 final regular = TextPaint(
-  style: TextStyle(
-    fontSize: 22.0,
-    color: BasicPalette.white.color,
-  ),
+  style: const TextStyle(
+      fontSize: 20.0,
+      color: Color.fromARGB(255, 70, 101, 202),
+      fontWeight: FontWeight.bold),
 );
 
 class MyScrollableText extends ScrollTextBoxComponent {
@@ -84,11 +83,11 @@ class MyTextBox extends TextBoxComponent {
             textRenderer: regular,
             boxConfig: TextBoxConfig(timePerChar: 0.05, maxWidth: 800),
             position: position,
-            size: Vector2(800, 100));
+            size: Vector2(800, 80));
 
-  final bgPaint = Paint()..color = const Color(0xFFFF00FF);
+  final bgPaint = Paint()..color = const Color.fromARGB(255, 0, 0, 0);
   final borderPaint = Paint()
-    ..color = const Color(0xFF000000)
+    ..color = const Color.fromARGB(255, 197, 197, 197)
     ..style = PaintingStyle.fill;
 
   @override

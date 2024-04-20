@@ -93,7 +93,11 @@ class WaterEnemy extends SpriteAnimationComponent
   @override
   void setPosition(Vector2 newPosition) {
     position = newPosition;
-    position.add(Vector2(150 * currentDelta / maxDelta, 0));
+    if (!game.fastMode) {
+      position.add(Vector2(150 * currentDelta / maxDelta, 0));
+    } else {
+      position.add(Vector2(75 * currentDelta / maxDelta, 0));
+    }
   }
 
   @override

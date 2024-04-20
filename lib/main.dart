@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/semantics.dart';
+import 'package:flutter/services.dart';
 import 'package:ocean_rangers/boat/boat_alliance.dart';
 import 'package:ocean_rangers/boat/boat_batiment.dart';
 import 'package:ocean_rangers/boat/boat_machines.dart';
+import 'package:ocean_rangers/boat/boat_market.dart';
+import 'package:ocean_rangers/boat/boat_ong.dart';
 import 'package:ocean_rangers/boat/boat_overview_part.dart';
 import 'package:ocean_rangers/boat/boat_port.dart';
 import 'package:ocean_rangers/boat/boat_quest.dart';
@@ -26,8 +29,14 @@ import 'intro_page2.dart';
 import 'overlays/game_over.dart';
 import 'overlays/go_back.dart';
 
-void main() {
+void main() async {
   //init gamefile
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
   GameFile();
   runApp(const MyApp());
 
@@ -104,64 +113,60 @@ class MyApp extends StatelessWidget {
       ),
 
       onGenerateRoute: (settings) {
-        if (settings.name == "/boat") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatOverview(), settings: settings);
+        switch (settings.name) {
+          case "/boat":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatOverview(), settings: settings);
+          case "/boat/market":
+            return CupertinoPageRoute(
+                builder: (context) => const MarketPage(), settings: settings);
+          case "/boat/ongPage":
+            return CupertinoPageRoute(
+                builder: (context) => const ONGPage(), settings: settings);
+          case "/boat/wheel":
+            return CupertinoPageRoute(
+                builder: (context) => const WheelHouses(), settings: settings);
+          case "/boat/ong":
+            return CupertinoPageRoute(
+                builder: (context) => const AlliancePage(), settings: settings);
+          case "/boat/quest":
+            return CupertinoPageRoute(
+                builder: (context) => const QuestPage(), settings: settings);
+          case "/boat/staff":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatStaff(), settings: settings);
+          case "/boat/machine":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatMachines(), settings: settings);
+          case "/boat/machine/batiment":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatBatimentPage(),
+                settings: settings);
+          case "/boat/elec":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatTech(), settings: settings);
+          case "/boat/elec/robot":
+            return CupertinoPageRoute(
+                builder: (context) => const BoatRobotPage(),
+                settings: settings);
+          case "/boat/marina":
+            return CupertinoPageRoute(
+                builder: (context) => const Port(), settings: settings);
+          case "/intro":
+            return CupertinoPageRoute(
+                builder: (context) => const IntroPage(), settings: settings);
+          case "/intro2":
+            return CupertinoPageRoute(
+                builder: (context) => const IntroPage2(), settings: settings);
+          case "/intro3":
+            return CupertinoPageRoute(
+                builder: (context) => const IntroPage3(), settings: settings);
+          case "/config":
+            return CupertinoPageRoute(
+                builder: (context) => const ConfigPage(), settings: settings);
+          default:
+            return null;
         }
-        if (settings.name == "/boat/wheel") {
-          return CupertinoPageRoute(
-              builder: (context) => const WheelHouses(), settings: settings);
-        }
-        if (settings.name == "/boat/ong") {
-          return CupertinoPageRoute(
-              builder: (context) => const AlliancePage(), settings: settings);
-        }
-        if (settings.name == "/boat/quest") {
-          return CupertinoPageRoute(
-              builder: (context) => const QuestPage(), settings: settings);
-        }
-        if (settings.name == "/boat/staff") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatStaff(), settings: settings);
-        }
-        if (settings.name == "/boat/machine") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatMachines(), settings: settings);
-        }
-        if (settings.name == "/boat/machine/batiment") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatBatimentPage(),
-              settings: settings);
-        }
-        if (settings.name == "/boat/elec") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatTech(), settings: settings);
-        }
-        if (settings.name == "/boat/elec/robot") {
-          return CupertinoPageRoute(
-              builder: (context) => const BoatRobotPage(), settings: settings);
-        }
-        if (settings.name == "/boat/marina") {
-          return CupertinoPageRoute(
-              builder: (context) => const Port(), settings: settings);
-        }
-        if (settings.name == "/intro") {
-          return CupertinoPageRoute(
-              builder: (context) => const IntroPage(), settings: settings);
-        }
-        if (settings.name == "/intro2") {
-          return CupertinoPageRoute(
-              builder: (context) => const IntroPage2(), settings: settings);
-        }
-        if (settings.name == "/intro3") {
-          return CupertinoPageRoute(
-              builder: (context) => const IntroPage3(), settings: settings);
-        }
-        if (settings.name == "/config") {
-          return CupertinoPageRoute(
-              builder: (context) => const ConfigPage(), settings: settings);
-        }
-        return null;
       },
       navigatorObservers: [routeObserver],
       //home: MyWidget()
@@ -281,7 +286,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
             ),
-            const Text("V1.0.0"),
+            const Text("V1.1.0"),
             if (GameFile().uuid != null)
               Text("${GameFile().pseudo} (${GameFile().uuid})"),
             GestureDetector(
@@ -290,7 +295,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   final SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   // Remove data for the 'counter' key.
-                  await prefs.remove('isIntroPassed');
+                  await prefs.clear();
                 },
                 child: const Text("©Juliette Chappaz & Thibaut Quentin")),
           ])),

@@ -49,111 +49,150 @@ class _BoatStaffState extends State<BoatStaff> {
     return SizedBox(
       height: MediaQuery.of(context).size.width,
       width: MediaQuery.of(context).size.height,
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: getPaddingSide(context),
-            right: getPaddingSide(context),
-            top: getPaddingVertical(context),
-            bottom: getPaddingVertical(context)),
-        child: Stack(children: [
-          SizedBox(
+      child: Container(
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 230, 230, 230)),
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: getPaddingSide(context),
+              right: getPaddingSide(context),
+              top: getPaddingVertical(context),
+              bottom: getPaddingVertical(context)),
+          child: Stack(children: [
+            SizedBox(
+                height: height,
+                width: width,
+                child: const Image(
+                  image: AssetImage("assets/images/staff_room.jpg"),
+                  fit: BoxFit.fill,
+                )),
+            SizedBox(
               height: height,
               width: width,
-              child: const Image(
-                image: AssetImage("assets/images/staff_room.jpg"),
-                fit: BoxFit.fill,
-              )),
-          SizedBox(
-            height: height,
-            width: width,
-          ),
-          Positioned(
-              top: height / 4.5 + height / 8 - 50,
-              left: width / 5 + width / 8 - 50,
-              child: const Icon(
-                Icons.crisis_alert,
-                size: 100,
-                color: Color.fromARGB(255, 185, 0, 0),
-                weight: 150,
-              )),
-          Positioned(
-              top: height / 2.25 + height / 8 - 50,
-              left: width - (width / 4.5 + width / 8 + 50),
-              child: const Icon(
-                Icons.crisis_alert,
-                size: 100,
-                color: Color.fromARGB(255, 185, 0, 0),
-                weight: 150,
-              )),
-          Positioned(
-              height: height / 4,
-              width: width / 4,
-              top: height / 4.5,
-              left: width / 5,
-              child: GestureDetector(
-                onTap: () => {Navigator.pushReplacementNamed(context, "/boat")},
-                child: MouseRegion(
-                  //child: Container(decoration: BoxDecoration(color: Colors.black)),
-                  hitTestBehavior: HitTestBehavior.opaque,
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (event) {
-                    isHover = true;
-                    hoverValue = "Go back";
-                    setState(() {});
-                  },
-                  onExit: (event) {
-                    isHover = false;
-                    setState(() {});
-                  },
-                  onHover: _updatelocation,
-                ),
-              )),
-          Positioned(
-              height: height / 4,
-              width: width / 4,
-              top: height / 2.25,
-              left: width - (width / 4.5 + width / 4),
-              child: GestureDetector(
-                onTap: () =>
-                    {Navigator.pushReplacementNamed(context, "/boat/quest")},
-                child: MouseRegion(
-                  //child: Container(decoration: BoxDecoration(color: Colors.black)),
-                  hitTestBehavior: HitTestBehavior.opaque,
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (event) {
-                    isHover = true;
-                    hoverValue = "Go to quest";
-                    setState(() {});
-                  },
-                  onExit: (event) {
-                    isHover = false;
-                    setState(() {});
-                  },
-                  onHover: _updatelocation,
-                ),
-              )),
-          const BoatHUD(),
-          if (isHover)
+            ),
             Positioned(
-              top: mouseY + 10 - getPaddingVertical(context),
-              left: mouseX + 10 - getPaddingSide(context),
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    hoverValue,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 15,
-                        decoration: TextDecoration.none),
+                top: height / 2.25 + height / 8 - 50,
+                left: width - (width / 4.5 + width / 8 + 50),
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                top: height / 4.5 + height / 8 - 50,
+                left: width / 5 + width / 8 - 50,
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                height: height / 4,
+                width: width / 4,
+                top: height / 4.5,
+                left: width / 5,
+                child: GestureDetector(
+                  onTap: () =>
+                      {Navigator.pushReplacementNamed(context, "/boat")},
+                  child: MouseRegion(
+                    //child: Container(decoration: BoxDecoration(color: Colors.black)),
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go back";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            Positioned(
+                top: height / 3 + height / 8 - 50,
+                left: width / 40 + width / 8 - 50,
+                child: const Icon(
+                  Icons.crisis_alert,
+                  size: 100,
+                  color: Color.fromARGB(255, 185, 0, 0),
+                  weight: 150,
+                )),
+            Positioned(
+                height: height / 4,
+                width: width / 4,
+                top: height / 3,
+                left: width / 40,
+                child: GestureDetector(
+                  onTap: () => {
+                    Navigator.pushReplacementNamed(context, "/boat/ongPage")
+                  },
+                  child: MouseRegion(
+                    //child: Container(decoration: BoxDecoration(color: Colors.black)),
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Environemental informations";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            Positioned(
+                height: height / 4,
+                width: width / 4,
+                top: height / 2.25,
+                left: width - (width / 4.5 + width / 4),
+                child: GestureDetector(
+                  onTap: () =>
+                      {Navigator.pushReplacementNamed(context, "/boat/quest")},
+                  child: MouseRegion(
+                    //child: Container(decoration: BoxDecoration(color: Colors.black)),
+                    hitTestBehavior: HitTestBehavior.opaque,
+                    cursor: SystemMouseCursors.click,
+                    onEnter: (event) {
+                      isHover = true;
+                      hoverValue = "Go to quest";
+                      setState(() {});
+                    },
+                    onExit: (event) {
+                      isHover = false;
+                      setState(() {});
+                    },
+                    onHover: _updatelocation,
+                  ),
+                )),
+            const BoatHUD(),
+            if (isHover)
+              Positioned(
+                top: mouseY + 10 - getPaddingVertical(context),
+                left: mouseX + 10 - getPaddingSide(context),
+                child: Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      hoverValue,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 15,
+                          decoration: TextDecoration.none),
+                    ),
                   ),
                 ),
               ),
-            ),
-          if (showBoatDialog) boatDialog!,
-        ]),
+            if (showBoatDialog) boatDialog!,
+          ]),
+        ),
       ),
     );
   }

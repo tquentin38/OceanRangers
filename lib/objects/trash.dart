@@ -119,6 +119,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 300,
       deepMax: 1500,
+      rarityFactor: 1,
       size: 0.75,
       sizeInInventory: 1,
       pointNumber: 2,
@@ -130,6 +131,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 75,
       deepMax: 150,
+      rarityFactor: 1,
       size: 0.4,
       sizeInInventory: 1,
       pointNumber: 3,
@@ -141,6 +143,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 60,
       deepMax: 250,
+      rarityFactor: 0.9,
       size: 0.6,
       sizeInInventory: 1,
       pointNumber: 1,
@@ -152,6 +155,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 600,
       deepMax: 999,
+      rarityFactor: 1,
       size: 0.4,
       sizeInInventory: 1,
       pointNumber: 2,
@@ -163,6 +167,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 300,
       deepMax: 1250,
+      rarityFactor: 1,
       size: 0.5,
       sizeInInventory: 1,
       pointNumber: 2,
@@ -174,6 +179,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 500,
       deepMax: 4000,
+      rarityFactor: 1,
       size: 0.75,
       sizeInInventory: 1,
       pointNumber: 4,
@@ -185,6 +191,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 1000,
       deepMax: 5000,
+      rarityFactor: 1,
       size: 1,
       sizeInInventory: 1,
       pointNumber: 6,
@@ -196,6 +203,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 250,
       deepMax: 1000,
+      rarityFactor: 1,
       size: 1,
       sizeInInventory: 2,
       pointNumber: 6,
@@ -210,6 +218,7 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: 0,
       deepPeak: 800,
       deepMax: 1500,
+      rarityFactor: 0.8,
       size: 1.5,
       sizeInInventory: 2,
       pointNumber: 6,
@@ -221,11 +230,24 @@ enum TrashType implements Comparable<TrashType> {
       deepMin: -50,
       deepPeak: 75,
       deepMax: 150,
+      rarityFactor: 0.8,
       size: 1.2,
       sizeInInventory: 2,
       pointNumber: 6,
       imageFile: "wood.png",
       grant: [RessourceHolder(RessourcesTypes.wood, 9)]),
+  dash(
+      identifier: 8,
+      name: "Dash",
+      deepMin: -2700,
+      deepPeak: -2500,
+      deepMax: 400,
+      rarityFactor: 0.1,
+      size: 1.2,
+      sizeInInventory: 2,
+      pointNumber: 6,
+      imageFile: "dash.png",
+      grant: [RessourceHolder(RessourcesTypes.platic, 9)]),
   ;
 
   const TrashType({
@@ -234,6 +256,7 @@ enum TrashType implements Comparable<TrashType> {
     required this.deepMin,
     required this.deepPeak,
     required this.deepMax,
+    required this.rarityFactor,
     required this.size,
     required this.sizeInInventory,
     required this.pointNumber,
@@ -247,6 +270,7 @@ enum TrashType implements Comparable<TrashType> {
   final int deepPeak;
   final int deepMax;
   final double size;
+  final double rarityFactor;
   final int sizeInInventory;
   final int pointNumber;
   final String imageFile;

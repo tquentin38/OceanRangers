@@ -127,7 +127,11 @@ class Fish extends SpriteComponent
   @override
   void setPosition(Vector2 newPosition) {
     position = newPosition;
-    position.add(Vector2(currentDelta.x, currentDelta.y));
+    if (!game.fastMode) {
+      position.add(Vector2(currentDelta.x, currentDelta.y));
+    } else {
+      position.add(Vector2(currentDelta.x / 2, currentDelta.y / 2));
+    }
   }
 
   @override

@@ -17,8 +17,10 @@ class PreLoadedGameObject {
   Vector2 futurPosition;
   GameObjectType type;
   double randomDouble;
+  double secondRandomDouble;
 
-  PreLoadedGameObject(this.futurPosition, this.type, this.randomDouble);
+  PreLoadedGameObject(this.futurPosition, this.type, this.randomDouble,
+      this.secondRandomDouble);
 
   updateFuturPosition(double ratioX, double ratioY) {
     futurPosition = Vector2(futurPosition.x * ratioX, futurPosition.y * ratioY);

@@ -45,76 +45,89 @@ class Infos extends StatelessWidget {
                 Radius.circular(20),
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Welcome to the ocean !',
-                  style: TextStyle(
-                    color: whiteTextColor,
-                    fontSize: 24,
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'You control the robot with the keyboard arrow, ${GameFile().keyboardManager.getValue(KeyCaracteritics.goUp)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goLeft)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goDown)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goRight)} (can be changed in the option menu on boat view), or mouse. Your objective is to go to the deepest point.\nBut you need to have enough power to come back with the robot still functioning!',
-                    style: const TextStyle(
-                      color: whiteTextColor,
-                      fontSize: 15,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Remember that collecting trash is the only way to earn ressources to upgrade the robot and the ship. These is needed to advance in the game. So do not hesitate to use your ressrouces !',
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Welcome to the ocean !',
                     style: TextStyle(
                       color: whiteTextColor,
-                      fontSize: 15,
+                      fontSize: 24,
                     ),
-                    textAlign: TextAlign.justify,
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Good luck, we are counting on you !',
-                    style: TextStyle(
-                      color: whiteTextColor,
-                      fontSize: 15,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: SizedBox(
-                    width: 150,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        //game.resumeEngine();
-                        game.onPause = false;
-                        game.overlays.remove('Infos');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: whiteTextColor,
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'You control the robot with the keyboard arrow, ${GameFile().keyboardManager.getValue(KeyCaracteritics.goUp)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goLeft)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goDown)},${GameFile().keyboardManager.getValue(KeyCaracteritics.goRight)} (can be changed in the option menu on boat view), or mouse. Your objective is to go to the deepest point',
+                      style: const TextStyle(
+                        color: whiteTextColor,
+                        fontSize: 15,
                       ),
-                      child: const Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          color: blackTextColor,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'But you need to have enough power to come back with the robot still functioning! (Electrical power on the top left)',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Remember that collecting trash is the only way to earn ressources to upgrade the robot and the ship. These is needed to advance in the game. So do not hesitate to use your ressrouces !',
+                      style: TextStyle(
+                        color: whiteTextColor,
+                        fontSize: 15,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Good luck, we are counting on you !',
+                      style: TextStyle(
+                        color: whiteTextColor,
+                        fontSize: 15,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: SizedBox(
+                      width: 150,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //game.resumeEngine();
+                          game.onPause = false;
+                          game.overlays.remove('Infos');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: whiteTextColor,
+                        ),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: blackTextColor,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
